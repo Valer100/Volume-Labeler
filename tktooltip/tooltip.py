@@ -40,7 +40,7 @@ class ToolTip(tk.Toplevel):
     def __init__(
         self,
         widget: tk.Widget,
-        msg: str | list[str] | Callable[[], str | list[str]],
+        msg: str,
         delay: float = 0.0,
         follow: bool = True,
         refresh: float = 1.0,
@@ -54,10 +54,8 @@ class ToolTip(tk.Toplevel):
         ----------
         widget : tk.Widget
             The widget this ToolTip is assigned to
-        msg : `Union[str, Callable]`, optional
-            A string message (can be dynamic) assigned to the ToolTip.
-            Alternatively, it can be set to a function thatreturns a string,
-            by default None
+        msg : `str`, optional
+            A string message assigned to the ToolTip
         delay : `float`, optional
             Delay in seconds before the ToolTip appears, by default 0.0
         follow : `bool`, optional
@@ -81,7 +79,6 @@ class ToolTip(tk.Toplevel):
         self.wm_attributes("-toolwindow", True)
 
         # StringVar instance for msg string|function
-        self.msg_var = tk.StringVar()
         self.msg = msg
         self._update_message()
         self.delay = delay
@@ -93,7 +90,7 @@ class ToolTip(tk.Toplevel):
         self.status = ToolTipStatus.OUTSIDE
         self.last_moved = 0.0
         # use Message widget to host ToolTip
-        self.message_widget = tk.Message(self, textvariable=self.msg_var, aspect=1000)
+        self.message_widget = tk.Message(self, text=self.msg, aspect=1000)
         self.message_widget.grid()
         self.bindigs = self._init_bindings()
 
@@ -166,7 +163,6 @@ class ToolTip(tk.Toplevel):
                 f"ToolTip `msg` must be a string, list of strings, or a "
                 f"callable returning them, not {type(self.msg)}."
             )
-        self.msg_var.set(msg)
 
     def _show(self) -> None:
         """

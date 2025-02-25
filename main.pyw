@@ -215,18 +215,30 @@ def choose_icon_():
 
 
 def change_app_language():
+    def update_strings(widget):
+        for child in widget.winfo_children():
+            if isinstance(child, (custom_ui.App, custom_ui.Toplevel, tk.Frame, ttk.Frame, tktooltip.ToolTip)):
+                update_strings(child)
+            else:
+                for variable in dir(old_language_module):
+                    if isinstance(getattr(old_language_module, variable), str):
+                        if child["text"] == getattr(old_language_module, variable):
+                            child["text"] = getattr(strings.lang, variable)
+                        elif child["text"] in [" " + getattr(old_language_module, variable), "  " + getattr(old_language_module, variable)]:
+                            child["text"] = child["text"].replace(getattr(old_language_module, variable), getattr(strings.lang, variable))
+                            
     old_language = preferences.language
+    old_language_module = strings.lang
 
     change_language.show()
     window.wait_window(change_language.window)
 
-    if old_language != preferences.language: 
-        confirmation = messagebox.askyesno(strings.lang.ui_reload_required, strings.lang.ui_reload_confirmation, icon = "warning", default = "no")
+    if old_language != preferences.language:             
+        strings.load_language(preferences.language)
+        update_strings(window)
         
-        if confirmation:
-            draw_ui()
-            refresh_volumes_list()
-            select_first_accessible_volume()
+        button_width = apply_changes.winfo_reqwidth() if apply_changes.winfo_reqwidth() >= reset_changes.winfo_reqwidth() else reset_changes.winfo_reqwidth()
+        buttons.columnconfigure([0, 1], minsize = button_width)
 
 
 def change_app_theme():
@@ -263,7 +275,7 @@ def add_remove_context_menu_entry():
 
 
 def draw_ui():
-    global choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options, default_icon, choose_icon, icon_from_image
+    global choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options, default_icon, choose_icon, icon_from_image, apply_changes, buttons
     show_additional_options = False
     
     for widget in window.winfo_children(): widget.destroy()
