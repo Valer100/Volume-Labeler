@@ -222,11 +222,14 @@ def change_app_language():
             else:
                 for variable in dir(old_language_module):
                     if isinstance(getattr(old_language_module, variable), str):
-                        if child["text"] == getattr(old_language_module, variable):
-                            child["text"] = getattr(strings.lang, variable)
-                        elif child["text"] in [" " + getattr(old_language_module, variable), "  " + getattr(old_language_module, variable)]:
-                            child["text"] = child["text"].replace(getattr(old_language_module, variable), getattr(strings.lang, variable))
-                            
+                        try:
+                            if child["text"] == getattr(old_language_module, variable):
+                                child["text"] = getattr(strings.lang, variable)
+                            elif child["text"] in [" " + getattr(old_language_module, variable), "  " + getattr(old_language_module, variable)]:
+                                child["text"] = child["text"].replace(getattr(old_language_module, variable), getattr(strings.lang, variable))
+                        except:
+                            pass
+
     old_language = preferences.language
     old_language_module = strings.lang
 
