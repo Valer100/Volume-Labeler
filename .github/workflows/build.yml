@@ -39,7 +39,7 @@ jobs:
       - name: Create `preferences` folder (for portable build)
         run: |
             New-Item -Name "build\volume_labeler\preferences" -ItemType "directory"
-            New-Item -Name "build\volume_labeler\preferences\portable" -ItemType "file"
+            New-Item -Name "build\volume_labeler\preferences\settings.yaml" -ItemType "file"
 
       - name: Upload build
         uses: actions/upload-artifact@v4
