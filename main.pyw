@@ -386,7 +386,7 @@ def draw_ui():
     remove_customizations.pack(pady = (preferences.get_scaled_value(8), 0), fill = "x")
 
     settings = ttk.Frame(window)
-    settings.pack(anchor = "w", pady = (20, preferences.get_scaled_value(2)), fill = "x")
+    settings.pack(anchor = "w", pady = (preferences.get_scaled_value(20), preferences.get_scaled_value(2)), fill = "x")
     settings.pack_propagate(False)
     
     language = custom_ui.Toolbutton(settings, text = "\ue774", link = True, icononly = True, anchor = "n", command = change_app_language, font = ("Segoe UI", 12))
