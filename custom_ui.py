@@ -245,7 +245,7 @@ class Checkbutton(tk.Frame):
         self.command = command
 
         self.checkbox = ttk.Frame(self)
-        self.checkbox.pack(side = "left", padx = (0, preferences.get_scaled_value(2)), pady = (preferences.get_scaled_value(2), 0))
+        self.checkbox.pack(side = "left", pady = (preferences.get_scaled_value(2), 0))
         self.checkbox.pack_propagate(False)
 
         self.checkbox_glyph = tk.Label(self.checkbox, text = "\ue73d" if variable.get() else "\ue739", font = ("Segoe UI", 10), 
@@ -255,7 +255,7 @@ class Checkbutton(tk.Frame):
         self.checkbox_glyph.update()
         self.checkbox.configure(width = self.checkbox_glyph.winfo_reqwidth(), height = self.checkbox_glyph.winfo_reqwidth())
 
-        self.text = ttk.Label(self, text = text)
+        self.text = ttk.Label(self, text = text, padding = (preferences.get_scaled_value(2), 0, 0, 0))
         self.text.pack(side = "left")
 
         self.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = accent_press if self.variable.get() else input_press))
@@ -332,7 +332,7 @@ class Radiobutton(tk.Frame):
         self.command = command
 
         self.radiobutton = ttk.Frame(self)
-        self.radiobutton.pack(side = "left", padx = (0, preferences.get_scaled_value(2)), pady = (preferences.get_scaled_value(2), 0))
+        self.radiobutton.pack(side = "left", pady = (preferences.get_scaled_value(2), 0))
         self.radiobutton.pack_propagate(False)
 
         self.radiobutton_glyph = tk.Label(self.radiobutton, text = "\ueccb" if variable.get() == self.value else "\uecca", font = ("Segoe UI", 10), 
@@ -342,7 +342,7 @@ class Radiobutton(tk.Frame):
         self.radiobutton_glyph.update()
         self.radiobutton.configure(width = self.radiobutton_glyph.winfo_reqwidth(), height = self.radiobutton_glyph.winfo_reqwidth())
 
-        self.text = ttk.Label(self, text = text)
+        self.text = ttk.Label(self, text = text, padding = (preferences.get_scaled_value(2), 0, 0, 0))
         self.text.pack(side = "left")
 
         self.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = accent_press if self.variable.get() == self.value else input_press))
