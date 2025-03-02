@@ -72,8 +72,8 @@ def update_volume_info(vol, forced = False):
         selected_volume.set(vol)
         icon_type.set("default")
 
-        choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.ic_icon, width = 0)
-        icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.ic_image, width = 0)
+        choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.Icons.icon, width = 0)
+        icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.Icons.image, width = 0)
 
         volume_info = volume.get_volume_label_and_icon(vol)
 
@@ -100,7 +100,7 @@ def disable_undo_button():
     reset_changes.unbind("<Enter>")
     reset_changes.configure(command = lambda: None)
     reset_changes.unbind("<Leave>")
-    reset_changes.configure(background = custom_ui.button_bg, activebackground = custom_ui.button_bg)
+    reset_changes.configure(background = custom_ui.Colors.button_bg, activebackground = custom_ui.Colors.button_bg)
     pywinstyles.set_opacity(reset_changes, 0.5)
 
 
@@ -109,9 +109,9 @@ def enable_undo_button():
     reset_button_enabled = True
 
     reset_changes.configure(command = reset_changes_)
-    reset_changes.bind("<Enter>", lambda event: reset_changes.configure(background = custom_ui.button_hover))
-    reset_changes.bind("<Leave>", lambda event: reset_changes.configure(background = custom_ui.button_bg))
-    reset_changes.configure(background = custom_ui.button_bg, activebackground = custom_ui.button_press)
+    reset_changes.bind("<Enter>", lambda event: reset_changes.configure(background = custom_ui.Colors.button_hover))
+    reset_changes.bind("<Leave>", lambda event: reset_changes.configure(background = custom_ui.Colors.button_bg))
+    reset_changes.configure(background = custom_ui.Colors.button_bg, activebackground = custom_ui.Colors.button_press)
     pywinstyles.set_opacity(reset_changes, 1)
 
 
@@ -173,7 +173,7 @@ def process_icon(path, index):
     preview = tk.PhotoImage(file = preferences.temp + "\\preview.png")
 
     choose_icon.configure(image = preview, text = f"  {preferences.limit_string(os.path.basename(path))}, {index}")
-    icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.ic_image)
+    icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.Icons.image)
 
 
 def choose_icon_():
@@ -181,8 +181,8 @@ def choose_icon_():
 
     match icon_type.get():
         case "default":
-            choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.ic_icon)
-            icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.ic_image)
+            choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.Icons.icon)
+            icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.Icons.image)
 
             if not icon_old == icon_type.get() == "default": enable_undo_button()
         case "icon":
@@ -206,7 +206,7 @@ def choose_icon_():
                 preview = tk.PhotoImage(file = preferences.temp + "\\preview.png")
                 
                 icon_from_image.configure(image = preview, text = "  " + preferences.limit_string(os.path.basename(image.name)))
-                choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.ic_icon, width = 0)
+                choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.Icons.icon, width = 0)
                 enable_undo_button()
             else:
                 icon_type.set(icon_old)
@@ -309,30 +309,30 @@ def draw_ui():
         enable_undo_button()
         return True
 
-    label_frame = tk.Frame(window, highlightbackground = custom_ui.entry_bd, highlightcolor = custom_ui.entry_focus,
+    label_frame = tk.Frame(window, highlightbackground = custom_ui.Colors.entry_bd, highlightcolor = custom_ui.Colors.entry_focus,
                           highlightthickness = 1)
     label_frame.pack(anchor = "w", fill = "x")
 
-    label = tk.Entry(label_frame, width = 40, background = custom_ui.entry_bg, 
-                    foreground = custom_ui.fg, border = 0, highlightthickness = preferences.get_scaled_value(2), 
-                    highlightcolor = custom_ui.entry_bg, highlightbackground = custom_ui.entry_bg, 
-                    insertbackground = custom_ui.fg, insertwidth = 1, selectbackground = custom_ui.entry_select,
+    label = tk.Entry(label_frame, width = 40, background = custom_ui.Colors.entry_bg, 
+                    foreground = custom_ui.Colors.fg, border = 0, highlightthickness = preferences.get_scaled_value(2), 
+                    highlightcolor = custom_ui.Colors.entry_bg, highlightbackground = custom_ui.Colors.entry_bg, 
+                    insertbackground = custom_ui.Colors.fg, insertwidth = 1, selectbackground = custom_ui.Colors.entry_select,
                     selectforeground = "#FFFFFF", validate = "key", validatecommand = on_label_change)
     label.pack(fill = "x")
     label.bind("<Button-3>", lambda event: custom_ui.show_entry_context_menu(label))
 
     ttk.Label(window, text = strings.lang.icon).pack(pady = (preferences.get_scaled_value(16), preferences.get_scaled_value(8)), anchor = "w")
 
-    default_icon = custom_ui.Radiobutton2(window, text = "  " + strings.lang.default_icon, variable = icon_type, value = "default", command = choose_icon_, image = custom_ui.ic_volume, compound = "left")
+    default_icon = custom_ui.Radiobutton2(window, text = "  " + strings.lang.default_icon, variable = icon_type, value = "default", command = choose_icon_, image = custom_ui.Icons.volume, compound = "left")
     default_icon.pack(anchor = "w", fill = "x", pady = preferences.get_scaled_value(2))
 
-    choose_icon = custom_ui.Radiobutton2(window, text = "  " + strings.lang.choose_icon, variable = icon_type, value = "icon", command = choose_icon_, image = custom_ui.ic_icon, compound = "left")
+    choose_icon = custom_ui.Radiobutton2(window, text = "  " + strings.lang.choose_icon, variable = icon_type, value = "icon", command = choose_icon_, image = custom_ui.Icons.icon, compound = "left")
     choose_icon.pack(anchor = "w", fill = "x", pady = preferences.get_scaled_value(2))
 
-    icon_from_image = custom_ui.Radiobutton2(window, text = "  " + strings.lang.create_icon_from_image, variable = icon_type, value = "image", image = custom_ui.ic_image, command = choose_icon_, compound = "left")
+    icon_from_image = custom_ui.Radiobutton2(window, text = "  " + strings.lang.create_icon_from_image, variable = icon_type, value = "image", image = custom_ui.Icons.image, command = choose_icon_, compound = "left")
     icon_from_image.pack(anchor = "w", fill = "x", pady = preferences.get_scaled_value(2))
 
-    additional_options = custom_ui.Toolbutton(window, text = " " + strings.lang.additional_options, command = lambda: show_hide_additional_options(), anchor = "w", compound = "left", image = custom_ui.ic_arrow_down)
+    additional_options = custom_ui.Toolbutton(window, text = " " + strings.lang.additional_options, command = lambda: show_hide_additional_options(), anchor = "w", compound = "left", image = custom_ui.Icons.arrow_down)
     additional_options.pack(pady = (preferences.get_scaled_value(14), 0), anchor = "w")
     additional_options.configure(padx = preferences.get_scaled_value(2))
 
@@ -353,10 +353,10 @@ def draw_ui():
 
         if show_additional_options: 
             additional_options_frame.configure(height = -1)
-            additional_options.configure(image = custom_ui.ic_arrow_up)
+            additional_options.configure(image = custom_ui.Icons.arrow_up)
         else: 
             additional_options_frame.configure(height = 1)
-            additional_options.configure(image = custom_ui.ic_arrow_down)
+            additional_options.configure(image = custom_ui.Icons.arrow_down)
 
     def save_additional_preferences(): 
         preferences.additional_prefs = f"{int(hide_autorun.get())}{int(hide_vl_icon.get())}{int(backup_existing_autorun.get())}"
@@ -430,16 +430,16 @@ def draw_ui():
 
 
 def update_icons():
-    if show_additional_options: additional_options.configure(image = custom_ui.ic_arrow_up)
-    else: additional_options.configure(image = custom_ui.ic_arrow_down)
+    if show_additional_options: additional_options.configure(image = custom_ui.Icons.arrow_up)
+    else: additional_options.configure(image = custom_ui.Icons.arrow_down)
 
-    default_icon.configure(image = custom_ui.ic_volume)
+    default_icon.configure(image = custom_ui.Icons.volume)
 
     if choose_icon["text"] == "  " + strings.lang.choose_icon:
-        choose_icon.configure(image = custom_ui.ic_icon)
+        choose_icon.configure(image = custom_ui.Icons.icon)
 
     if icon_from_image["text"] == "  " + strings.lang.create_icon_from_image:
-        icon_from_image.configure(image = custom_ui.ic_image)
+        icon_from_image.configure(image = custom_ui.Icons.image)
 
 
     # A hacky way to force the title bar to redraw on Windows 10

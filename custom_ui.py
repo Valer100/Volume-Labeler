@@ -1,96 +1,94 @@
-import tkinter as tk, pywinstyles, winaccent, winaccent._utils, sys, hPyT, threading, strings
+import tkinter as tk, pywinstyles, winaccent, sys, hPyT, threading, strings
 from tkinter import ttk
 from utils import preferences, icon
 
-def update_colors():
-    global light_theme, bg, bg_hover, bg_press, fg, entry_focus, entry_bd, entry_bg, button_bg, button_hover, button_press, button_bd, button_bd_active, tooltip_bg, tooltip_bd, tooltip_fg, accent, accent_link, selection, selection_bd, entry_select, accent_hover, accent_press, input_unchecked, input_hover, input_press, selection_hover, selection_press
-    light_theme = winaccent.apps_use_light_theme if preferences.theme == "default" else True if preferences.theme == "light" else False
+class Colors(): pass
+class Icons(): pass
 
-    entry_select = winaccent.accent_normal
+
+def update_colors():
+    Colors.light_theme = winaccent.apps_use_light_theme if preferences.theme == "default" else True if preferences.theme == "light" else False
+    Colors.entry_select = winaccent.accent_normal
     
-    if light_theme:
-        bg = "#f0f0f0"
-        bg_hover = "#e0e0e0"
-        bg_press = "#cecece"
-        fg = "#000000"
-        entry_focus = winaccent.accent_dark
-        entry_bd = "#8d8d8d"
-        entry_bg = "#ffffff"
-        button_bg = "#ffffff"
-        button_hover = "#ebebeb"
-        button_press = "#dbdbdb"
-        button_bd = "#d0d0d0"
-        button_bd_active = winaccent.accent_dark
-        tooltip_bg = "#ffffff"
-        tooltip_bd = "#767676"
-        tooltip_fg = "#575757"
-        selection_bd = winaccent._utils.blend_colors(winaccent.accent_dark, bg, 70)
-        selection = winaccent._utils.blend_colors(winaccent.accent_dark, bg, 20)
-        selection_hover = winaccent._utils.blend_colors(winaccent.accent_dark, bg, 30)
-        selection_press = winaccent._utils.blend_colors(winaccent.accent_dark, bg, 40)
-        input_unchecked = "#404040"
-        input_hover = "#808080"
-        input_press = "#afafaf"
-        accent = winaccent.accent_dark
-        accent_hover = winaccent._utils.blend_colors(accent, bg, 90)
-        accent_press = winaccent._utils.blend_colors(accent, bg, 80)
-        accent_link = winaccent.accent_dark_2
+    if Colors.light_theme:
+        Colors.bg = "#f0f0f0"
+        Colors.bg_hover = "#e0e0e0"
+        Colors.bg_press = "#cecece"
+        Colors.fg = "#000000"
+        Colors.entry_focus = winaccent.accent_dark
+        Colors.entry_bd = "#8d8d8d"
+        Colors.entry_bg = "#ffffff"
+        Colors.button_bg = "#ffffff"
+        Colors.button_hover = "#ebebeb"
+        Colors.button_press = "#dbdbdb"
+        Colors.button_bd = "#d0d0d0"
+        Colors.button_bd_active = winaccent.accent_dark
+        Colors.tooltip_bg = "#ffffff"
+        Colors.tooltip_bd = "#767676"
+        Colors.tooltip_fg = "#575757"
+        Colors.selection_bd = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 70)
+        Colors.selection = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 20)
+        Colors.selection_hover = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 30)
+        Colors.selection_press = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 40)
+        Colors.input_unchecked = "#404040"
+        Colors.input_hover = "#808080"
+        Colors.input_press = "#afafaf"
+        Colors.accent = winaccent.accent_dark
+        Colors.accent_hover = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 90)
+        Colors.accent_press = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 80)
+        Colors.accent_link = winaccent.accent_dark_2
     else:
-        bg = "#202020"
-        bg_hover = "#333333"
-        bg_press = "#292929"
-        fg = "#ffffff"
-        entry_focus = winaccent.accent_light_3
-        entry_bd = "#6e6e6e"
-        entry_bg = "#404040"
-        button_bg = "#333333"
-        button_hover = "#454545"
-        button_press = "#676767"
-        button_bd = "#9b9b9b"
-        button_bd_active = winaccent.accent_light_3
-        tooltip_bg = "#2b2b2b"
-        tooltip_bd = "#747474"
-        tooltip_fg = "#ffffff"
-        selection_bd = winaccent._utils.blend_colors(winaccent.accent_light, bg, 40)
-        selection = winaccent._utils.blend_colors(winaccent.accent_light, bg, 10)
-        selection_hover = winaccent._utils.blend_colors(winaccent.accent_light, bg, 15)
-        selection_press = winaccent._utils.blend_colors(winaccent.accent_light, bg, 20)
-        input_unchecked = "#404040"
-        input_hover = "#4f4f4f"
-        input_press = "#5f5f5f"
-        accent = winaccent.accent_light
-        accent_hover = winaccent._utils.blend_colors(accent, bg, 80)
-        accent_press = winaccent._utils.blend_colors(accent, bg, 60)
-        accent_link = winaccent.accent_light_3
+        Colors.bg = "#202020"
+        Colors.bg_hover = "#333333"
+        Colors.bg_press = "#292929"
+        Colors.fg = "#ffffff"
+        Colors.entry_focus = winaccent.accent_light_3
+        Colors.entry_bd = "#6e6e6e"
+        Colors.entry_bg = "#404040"
+        Colors.button_bg = "#333333"
+        Colors.button_hover = "#454545"
+        Colors.button_press = "#676767"
+        Colors.button_bd = "#9b9b9b"
+        Colors.button_bd_active = winaccent.accent_light_3
+        Colors.tooltip_bg = "#2b2b2b"
+        Colors.tooltip_bd = "#747474"
+        Colors.tooltip_fg = "#ffffff"
+        Colors.selection_bd = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 40)
+        Colors.selection = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 10)
+        Colors.selection_hover = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 15)
+        Colors.selection_press = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 20)
+        Colors.input_unchecked = "#404040"
+        Colors.input_hover = "#4f4f4f"
+        Colors.input_press = "#5f5f5f"
+        Colors.accent = winaccent.accent_light
+        Colors.accent_hover = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 80)
+        Colors.accent_press = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 60)
+        Colors.accent_link = winaccent.accent_light_3
 
 update_colors()
 
 
 def update_icons():
-    global ic_volume, ic_icon, ic_image, ic_arrow_down, ic_arrow_up, ic_app_about
-
-    ic_app_about = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_about.ico", None, 63)
-    ic_volume = icon.extract_and_tint_icon(preferences.internal + "icons\\volume.ico", accent, 32)
-    ic_icon = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_custom.ico", accent, 32)
-    ic_image = icon.extract_and_tint_icon(preferences.internal + "icons\\image.ico", accent, 32)
-    ic_arrow_up = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_up.ico", fg, 9)
-    ic_arrow_down = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_down.ico", fg, 9)
+    Icons.app_about = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_about.ico", None, 63)
+    Icons.volume = icon.extract_and_tint_icon(preferences.internal + "icons\\volume.ico", Colors.accent, 32)
+    Icons.icon = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_custom.ico", Colors.accent, 32)
+    Icons.image = icon.extract_and_tint_icon(preferences.internal + "icons\\image.ico", Colors.accent, 32)
+    Icons.arrow_up = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_up.ico", Colors.fg, 9)
+    Icons.arrow_down = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_down.ico", Colors.fg, 9)
 
 
 class CommandLink(tk.Frame):
     def __init__(self, master, text: str = "", command: callable = None, *args, **kwargs):
-        super().__init__(master, padx = 8, pady = 8, background = bg, *args, **kwargs)
+        super().__init__(master, padx = 8, pady = 8, background = Colors.bg, *args, **kwargs)
 
-        ver = sys.getwindowsversion()
-
-        if ver.major == 10 and ver.build >= 22000:
-            self.arrow = ttk.Label(self, text = "\ue651  ", font = ("Segoe Fluent Icons", 11), padding = (0, 4, 0, 0), foreground = accent_link)
+        if sys.getwindowsversion().major == 10 and sys.getwindowsversion().build >= 22000:
+            self.arrow = ttk.Label(self, text = "\ue651  ", font = ("Segoe Fluent Icons", 11), padding = (0, 4, 0, 0), foreground = Colors.accent_link)
         else:
-            self.arrow = ttk.Label(self, text = "\ue0ad  ", font = ("Segoe MDL2 Assets", 11), padding = (0, 4, 0, 0), foreground = accent_link)
+            self.arrow = ttk.Label(self, text = "\ue0ad  ", font = ("Segoe MDL2 Assets", 11), padding = (0, 4, 0, 0), foreground = Colors.accent_link)
         
         self.arrow.pack(side = "left", anchor = "w")
 
-        self.text = ttk.Label(self, text = text, font = ("Segoe UI Semibold", 11), foreground = accent_link)
+        self.text = ttk.Label(self, text = text, font = ("Segoe UI Semibold", 11), foreground = Colors.accent_link)
         self.text.pack(side = "left", anchor = "w")
 
         is_touched = False
@@ -99,32 +97,32 @@ class CommandLink(tk.Frame):
             global is_touched
             is_touched = True
 
-            self.configure(background = bg_hover)
-            self.arrow.configure(background = bg_hover, foreground = accent_link)
-            self.text.configure(background = bg_hover, foreground = accent_link)
+            self.configure(background = Colors.bg_hover)
+            self.arrow.configure(background = Colors.bg_hover, foreground = Colors.accent_link)
+            self.text.configure(background = Colors.bg_hover, foreground = Colors.accent_link)
 
         def on_leave(event):
             global is_touched
             is_touched = False
 
-            self.configure(background = bg)
-            self.arrow.configure(background = bg, foreground = accent_link)
-            self.text.configure(background = bg, foreground = accent_link)
+            self.configure(background = Colors.bg)
+            self.arrow.configure(background = Colors.bg, foreground = Colors.accent_link)
+            self.text.configure(background = Colors.bg, foreground = Colors.accent_link)
 
         def on_click(event):
             global is_touched
             is_touched = True
 
-            self.configure(background = bg_press)
-            self.arrow.configure(background = bg_press, foreground = accent)
-            self.text.configure(background = bg_press, foreground = accent)
+            self.configure(background = Colors.bg_press)
+            self.arrow.configure(background = Colors.bg_press, foreground = Colors.accent)
+            self.text.configure(background = Colors.bg_press, foreground = Colors.accent)
 
         def on_click_release(event):
             global is_touched
 
-            self.configure(background = bg_hover)
-            self.arrow.configure(background = bg_hover, foreground = accent_link)
-            self.text.configure(background = bg_hover, foreground = accent_link)
+            self.configure(background = Colors.bg_hover)
+            self.arrow.configure(background = Colors.bg_hover, foreground = Colors.accent_link)
+            self.text.configure(background = Colors.bg_hover, foreground = Colors.accent_link)
 
             if not command is None and is_touched: command(); is_touched = False
 
@@ -144,58 +142,58 @@ class CommandLink(tk.Frame):
         self.text.bind("<ButtonRelease-1>", on_click_release)
 
     def update_colors(self):
-        self["background"] = bg
-        self.arrow["background"] = bg
-        self.text["background"] = bg
+        self["background"] = Colors.bg
+        self.arrow["background"] = Colors.bg
+        self.text["background"] = Colors.bg
 
-        self.arrow["foreground"] = accent_link
-        self.text["foreground"] = accent_link
+        self.arrow["foreground"] = Colors.accent_link
+        self.text["foreground"] = Colors.accent_link
 
 
 class Toolbutton(tk.Button):
     def __init__(self, master, text: str = "", command: callable = None, link: bool = False, icononly: bool = False, *args, **kwargs):
         super().__init__(
-            master, text = text, command = command, padx = preferences.get_scaled_value(2) if icononly else 4, pady = 2, background = bg, 
-            foreground = accent_link if link else fg, border = 0, relief = "solid", 
-            activebackground = bg_press, activeforeground = accent if link else fg,
-            cursor = "hand2" if link else "", highlightbackground = selection_bd, 
-            highlightcolor = selection_bd, *args, **kwargs
+            master, text = text, command = command, padx = preferences.get_scaled_value(2) if icononly else 4, pady = 2, background = Colors.bg, 
+            foreground = Colors.accent_link if link else Colors.fg, border = 0, relief = "solid", 
+            activebackground = Colors.bg_press, activeforeground = Colors.accent if link else Colors.fg,
+            cursor = "hand2" if link else "", highlightbackground = Colors.selection_bd, 
+            highlightcolor = Colors.selection_bd, *args, **kwargs
         )
 
         self.link = link
 
         if icononly: self.configure(width = 2)
 
-        if self["default"] == "active" and (self["background"] != selection and self["background"] != bg_hover and self["background"] != bg_press):
-            self.configure(background = selection)
+        if self["default"] == "active" and (self["background"] != Colors.selection and self["background"] != Colors.bg_hover and self["background"] != Colors.bg_press):
+            self.configure(background = Colors.selection)
 
-        self.bind("<Enter>", lambda event: self.configure(background = bg_hover))
-        self.bind("<Leave>", lambda event: self.configure(background = bg))
+        self.bind("<Enter>", lambda event: self.configure(background = Colors.bg_hover))
+        self.bind("<Leave>", lambda event: self.configure(background = Colors.bg))
 
     def configure(self, *args, **kwargs):
         super().configure(*args, **kwargs)
 
-        if self["default"] == "active" and (self["background"] != selection and self["background"] != bg_hover and self["background"] != bg_press):
-            self.configure(background = selection)
+        if self["default"] == "active" and (self["background"] != Colors.selection and self["background"] != Colors.bg_hover and self["background"] != Colors.bg_press):
+            self.configure(background = Colors.selection)
 
     def update_colors(self):
         self.configure(
-            background = bg, foreground = accent_link if self.link else fg, activebackground = bg_press, 
-            activeforeground = accent if self.link else fg, highlightbackground = selection_bd, 
-            highlightcolor = selection_bd
+            background = Colors.bg, foreground = Colors.accent_link if self.link else Colors.fg, activebackground = Colors.bg_press, 
+            activeforeground = Colors.accent if self.link else Colors.fg, highlightbackground = Colors.selection_bd, 
+            highlightcolor = Colors.selection_bd
         )
         
-        if self["default"] == "active" and (self["background"] != selection and self["background"] != bg_hover and self["background"] != bg_press):
-            self.configure(background = selection)
+        if self["default"] == "active" and (self["background"] != Colors.selection and self["background"] != Colors.bg_hover and self["background"] != Colors.bg_press):
+            self.configure(background = Colors.selection)
 
 
 class Button(tk.Button):
     def __init__(self, master, text: str = "", command: callable = None, *args, **kwargs):
         super().__init__(
-            master, text = text, command = command, padx = 4, pady = 3, background = button_bg, 
-            foreground = fg, border = 0, relief = "solid", activebackground = button_press, 
-            activeforeground = fg, highlightthickness = 1, highlightbackground = button_bd,
-            highlightcolor = button_bd, *args, **kwargs
+            master, text = text, command = command, padx = 4, pady = 3, background = Colors.button_bg, 
+            foreground = Colors.fg, border = 0, relief = "solid", activebackground = Colors.button_press, 
+            activeforeground = Colors.fg, highlightthickness = 1, highlightbackground = Colors.button_bd,
+            highlightcolor = Colors.button_bd, *args, **kwargs
         )
 
         if self["width"] == 0:
@@ -203,23 +201,21 @@ class Button(tk.Button):
             else: self.configure(width = 10)
 
         if self["default"] == "active": 
-            self.configure(highlightbackground = button_bd_active, highlightcolor = button_bd_active)
+            self.configure(highlightbackground = Colors.button_bd_active, highlightcolor = Colors.button_bd_active)
             self.is_active = True
         else: 
             self.configure(default = "active")
             self.is_active = False
 
-        self.bind("<Enter>", lambda event: self.configure(background = button_hover))
-        self.bind("<Leave>", lambda event: self.configure(background = button_bg))
+        self.bind("<Enter>", lambda event: self.configure(background = Colors.button_hover))
+        self.bind("<Leave>", lambda event: self.configure(background = Colors.button_bg))
     
     def update_colors(self):
         self.configure(
-            background = button_bg, foreground = fg, activebackground = button_press, 
-            activeforeground = fg, highlightbackground = button_bd_active if self.is_active else button_bd,
-            highlightcolor = button_bd_active if self.is_active else button_bd
+            background = Colors.button_bg, foreground = Colors.fg, activebackground = Colors.button_press, 
+            activeforeground = Colors.fg, highlightbackground = Colors.button_bd_active if self.is_active else Colors.button_bd,
+            highlightcolor = Colors.button_bd_active if self.is_active else Colors.button_bd
         )
-
-ttk.Button = Button
 
 
 class OptionMenu(tk.OptionMenu):
@@ -227,9 +223,9 @@ class OptionMenu(tk.OptionMenu):
         super().__init__(master, variable, value, *values)
 
         self.configure(
-            background = button_bg, foreground = fg, activebackground = button_hover, 
-            activeforeground = fg, highlightbackground = button_bd, highlightcolor = fg, 
-            image = ic_arrow_down, compound = "right", indicatoron = False, border = 0, relief = "solid", 
+            background = Colors.button_bg, foreground = Colors.fg, activebackground = Colors.button_hover, 
+            activeforeground = Colors.fg, highlightbackground = Colors.button_bd, highlightcolor = Colors.fg, 
+            image = Icons.arrow_down, compound = "right", indicatoron = False, border = 0, relief = "solid", 
             highlightthickness = 1, pady = preferences.get_scaled_value(5), padx = preferences.get_scaled_value(7), 
             takefocus = True
         )
@@ -244,9 +240,9 @@ class OptionMenu(tk.OptionMenu):
 
     def update_colors(self):
         self.configure(
-            background = button_bg, foreground = fg, activebackground = button_hover, 
-            activeforeground = fg, highlightbackground = button_bd, highlightcolor = fg, 
-            image = ic_arrow_down
+            background = Colors.button_bg, foreground = Colors.fg, activebackground = Colors.button_hover, 
+            activeforeground = Colors.fg, highlightbackground = Colors.button_bd, highlightcolor = Colors.fg, 
+            image = Icons.arrow_down
         )
 
         self["menu"].configure(activebackground = winaccent.accent_normal)
@@ -256,7 +252,7 @@ class Checkbutton(tk.Frame):
     touching = False
 
     def __init__(self, master, text: str = "", variable: tk.BooleanVar = None, command: callable = None):
-        super().__init__(master, takefocus = True, background = bg, highlightthickness = 1, highlightbackground = bg, highlightcolor = fg)
+        super().__init__(master, takefocus = True, background = Colors.bg, highlightthickness = 1, highlightbackground = Colors.bg, highlightcolor = Colors.fg)
 
         self.variable = variable
         self.command = command
@@ -267,7 +263,7 @@ class Checkbutton(tk.Frame):
 
         self.checkbox_glyph = tk.Label(
             self.checkbox, text = "\ue73d" if variable.get() else "\ue739", font = ("Segoe UI", 10), 
-            background = bg, foreground = accent if variable.get() else input_unchecked, 
+            background = Colors.bg, foreground = Colors.accent if variable.get() else Colors.input_unchecked, 
             padx = 0, pady = 0
         )
 
@@ -278,10 +274,10 @@ class Checkbutton(tk.Frame):
         self.text = ttk.Label(self, text = text, padding = (preferences.get_scaled_value(2), 0, 0, 0))
         self.text.pack(side = "left")
 
-        self.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = accent_press if self.variable.get() else input_press))
-        self.checkbox.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = accent_press if self.variable.get() else input_press))
-        self.checkbox_glyph.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = accent_press if self.variable.get() else input_press))
-        self.text.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = accent_press if self.variable.get() else input_press))
+        self.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = Colors.accent_press if self.variable.get() else Colors.input_press))
+        self.checkbox.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = Colors.accent_press if self.variable.get() else Colors.input_press))
+        self.checkbox_glyph.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = Colors.accent_press if self.variable.get() else Colors.input_press))
+        self.text.bind("<Button-1>", lambda event: self.checkbox_glyph.configure(foreground = Colors.accent_press if self.variable.get() else Colors.input_press))
 
         self.bind("<ButtonRelease-1>", self.invoke)
         self.checkbox.bind("<ButtonRelease-1>", self.invoke)
@@ -290,11 +286,11 @@ class Checkbutton(tk.Frame):
 
         def on_enter(event): 
             self.touching = True
-            self.checkbox_glyph.configure(foreground = accent_hover if self.variable.get() else input_hover)
+            self.checkbox_glyph.configure(foreground = Colors.accent_hover if self.variable.get() else Colors.input_hover)
 
         def on_leave(event): 
             self.touching = False
-            self.checkbox_glyph.configure(foreground = accent if self.variable.get() else input_unchecked)
+            self.checkbox_glyph.configure(foreground = Colors.accent if self.variable.get() else Colors.input_unchecked)
 
         self.bind("<Enter>", on_enter)
         self.checkbox.bind("<Enter>", on_enter)
@@ -329,7 +325,7 @@ class Checkbutton(tk.Frame):
 
         self.checkbox_glyph.configure(
             text = "\ue73d" if self.variable.get() else "\ue739", 
-            foreground = accent if self.variable.get() else input_unchecked
+            foreground = Colors.accent if self.variable.get() else Colors.input_unchecked
         )
 
         if self.command != None: self.command()
@@ -337,19 +333,19 @@ class Checkbutton(tk.Frame):
     def on_value_change(self, var = None, index = None, mode = None):
         self.checkbox_glyph.configure(
             text = "\ue73d" if self.variable.get() else "\ue739", 
-            foreground = accent if self.variable.get() else input_unchecked
+            foreground = Colors.accent if self.variable.get() else Colors.input_unchecked
         )
 
     def update_colors(self):
-        self.configure(background = bg, highlightbackground = bg, highlightcolor = fg)
-        self.checkbox_glyph.configure(background = bg, foreground = accent if self.variable.get() else input_unchecked)
+        self.configure(background = Colors.bg, highlightbackground = Colors.bg, highlightcolor = Colors.fg)
+        self.checkbox_glyph.configure(background = Colors.bg, foreground = Colors.accent if self.variable.get() else Colors.input_unchecked)
 
 
 class Radiobutton(tk.Frame):
     touching = False
 
     def __init__(self, master, text: str = "", variable = None, value = "", command: callable = None):
-        super().__init__(master, takefocus = True, background = bg, highlightthickness = 1, highlightbackground = bg, highlightcolor = fg)
+        super().__init__(master, takefocus = True, background = Colors.bg, highlightthickness = 1, highlightbackground = Colors.bg, highlightcolor = Colors.fg)
 
         self.variable = variable
         self.value = value
@@ -361,7 +357,7 @@ class Radiobutton(tk.Frame):
 
         self.radiobutton_glyph = tk.Label(
             self.radiobutton, text = "\ueccb" if variable.get() == self.value else "\uecca", font = ("Segoe UI", 10), 
-            background = bg, foreground = accent if variable.get() == self.value else input_unchecked, 
+            background = Colors.bg, foreground = Colors.accent if variable.get() == self.value else Colors.input_unchecked, 
             padx = 0, pady = 0
         )
 
@@ -372,10 +368,10 @@ class Radiobutton(tk.Frame):
         self.text = ttk.Label(self, text = text, padding = (preferences.get_scaled_value(2), 0, 0, 0))
         self.text.pack(side = "left")
 
-        self.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = accent_press if self.variable.get() == self.value else input_press))
-        self.radiobutton.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = accent_press if self.variable.get() == self.value else input_press))
-        self.radiobutton_glyph.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = accent_press if self.variable.get() == self.value else input_press))
-        self.text.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = accent_press if self.variable.get() == self.value else input_press))
+        self.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = Colors.accent_press if self.variable.get() == self.value else Colors.input_press))
+        self.radiobutton.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = Colors.accent_press if self.variable.get() == self.value else Colors.input_press))
+        self.radiobutton_glyph.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = Colors.accent_press if self.variable.get() == self.value else Colors.input_press))
+        self.text.bind("<Button-1>", lambda event: self.radiobutton_glyph.configure(foreground = Colors.accent_press if self.variable.get() == self.value else Colors.input_press))
 
         self.bind("<ButtonRelease-1>", self.invoke)
         self.radiobutton.bind("<ButtonRelease-1>", self.invoke)
@@ -384,11 +380,11 @@ class Radiobutton(tk.Frame):
 
         def on_enter(event): 
             self.touching = True
-            self.radiobutton_glyph.configure(foreground = accent_hover if self.variable.get() == self.value else input_hover)
+            self.radiobutton_glyph.configure(foreground = Colors.accent_hover if self.variable.get() == self.value else Colors.input_hover)
 
         def on_leave(event): 
             self.touching = False
-            self.radiobutton_glyph.configure(foreground = accent if self.variable.get() == self.value else input_unchecked)
+            self.radiobutton_glyph.configure(foreground = Colors.accent if self.variable.get() == self.value else Colors.input_unchecked)
 
         self.bind("<Enter>", on_enter)
         self.radiobutton.bind("<Enter>", on_enter)
@@ -423,7 +419,7 @@ class Radiobutton(tk.Frame):
 
         self.radiobutton_glyph.configure(
             text = "\ueccb" if self.variable.get() == self.value else "\uecca", 
-            foreground = accent if self.variable.get() == self.value else input_unchecked
+            foreground = Colors.accent if self.variable.get() == self.value else Colors.input_unchecked
         )
 
         if self.command != None: self.command()
@@ -431,40 +427,39 @@ class Radiobutton(tk.Frame):
     def on_value_change(self, var = None, index = None, mode = None):
         self.radiobutton_glyph.configure(
             text = "\ueccb" if self.variable.get() == self.value else "\uecca", 
-            foreground = accent if self.variable.get() == self.value else input_unchecked
+            foreground = Colors.accent if self.variable.get() == self.value else Colors.input_unchecked
         )
 
     def update_colors(self):
-        self.configure(background = bg, highlightbackground = bg, highlightcolor = fg)
-        self.radiobutton_glyph.configure(background = bg, foreground = accent if self.variable.get() == self.value else input_unchecked)
+        self.configure(background = Colors.bg, highlightbackground = Colors.bg, highlightcolor = Colors.fg)
+        self.radiobutton_glyph.configure(background = Colors.bg, foreground = Colors.accent if self.variable.get() == self.value else Colors.input_unchecked)
 
 
 class Radiobutton2(tk.Frame):
     def __init__(self, master, variable: tk.StringVar, value: str, *args, **kwargs):
         self.variable = variable
         self.value = value
-        self.onetime = False
 
-        super().__init__(master, highlightthickness = 1, highlightcolor = fg, takefocus = True)
+        super().__init__(master, highlightthickness = 1, highlightcolor = Colors.fg, takefocus = True)
         self.bind("<space>", lambda event: self.radio.invoke())
 
         self.radio = tk.Radiobutton(
-            self, variable = variable, value = value, background = bg, foreground = fg, 
-            activebackground = bg_press, activeforeground = fg, indicatoron = False, 
-            border = 0, relief = "solid", selectcolor = selection, anchor = "w",
+            self, variable = variable, value = value, background = Colors.bg, foreground = Colors.fg, 
+            activebackground = Colors.bg_press, activeforeground = Colors.fg, indicatoron = False, 
+            border = 0, relief = "solid", selectcolor = Colors.selection, anchor = "w",
             takefocus = False, *args, **kwargs
         )
 
         self.radio.pack(anchor = "w", fill = "x")
 
-        self.radio.bind("<Enter>", lambda event: self.configure(background = bg_hover, selectcolor = selection_hover if variable.get() == value else bg_hover))
-        self.radio.bind("<Leave>", lambda event: self.configure(background = bg, selectcolor = selection))
+        self.radio.bind("<Enter>", lambda event: self.configure(background = Colors.bg_hover, selectcolor = Colors.selection_hover if variable.get() == value else Colors.bg_hover))
+        self.radio.bind("<Leave>", lambda event: self.configure(background = Colors.bg, selectcolor = Colors.selection))
 
         def on_value_change(var = None, index = None, mode = None):
             try: 
-                self.configure(background = bg, selectcolor = selection)
-                self.config(highlightbackground = selection_bd if self.variable.get() == self.value else bg)
-                self.radio.config(activebackground = selection_press if self.variable.get() == self.value else bg_press)
+                self.configure(background = Colors.bg, selectcolor = Colors.selection)
+                self.config(highlightbackground = Colors.selection_bd if self.variable.get() == self.value else Colors.bg)
+                self.radio.config(activebackground = Colors.selection_press if self.variable.get() == self.value else Colors.bg_press)
             except: 
                 pass
 
@@ -482,25 +477,25 @@ class Radiobutton2(tk.Frame):
 
     def update_colors(self):
         self.radio.configure(
-            background = bg, foreground = fg, activeforeground = fg, relief = "solid", selectcolor = selection,
-            activebackground = selection_press if self.variable.get() == self.value else bg_press
+            background = Colors.bg, foreground = Colors.fg, activeforeground = Colors.fg, relief = "solid", selectcolor = Colors.selection,
+            activebackground = Colors.selection_press if self.variable.get() == self.value else Colors.bg_press
         )
         
-        self.config(highlightcolor = fg, highlightbackground = selection_bd if self.variable.get() == self.value else bg)
+        self.config(highlightcolor = Colors.fg, highlightbackground = Colors.selection_bd if self.variable.get() == self.value else Colors.bg)
         self.radio.config()
 
 
 class App(tk.Tk):
     def set_theme(self):
-        pywinstyles.apply_style(self, "light" if light_theme else "dark")
-        pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored and self.focus_get() else bg)
+        pywinstyles.apply_style(self, "light" if Colors.light_theme else "dark")
+        pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored and self.focus_get() else Colors.bg)
 
-        self.bind("<FocusIn>", lambda event: pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored else bg))
-        self.bind("<FocusOut>", lambda event: pywinstyles.change_header_color(self, bg))
+        self.bind("<FocusIn>", lambda event: pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored else Colors.bg))
+        self.bind("<FocusOut>", lambda event: pywinstyles.change_header_color(self, Colors.bg))
 
         style = ttk.Style()
-        style.configure(".", background = bg, foreground = fg)
-        self.configure(background = bg)
+        style.configure(".", background = Colors.bg, foreground = Colors.fg)
+        self.configure(background = Colors.bg)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -525,13 +520,13 @@ class App(tk.Tk):
 class Toplevel(tk.Toplevel):
     def set_titlebar_theme(self):
         self.update()
-        self.configure(background = bg)
+        self.configure(background = Colors.bg)
 
-        pywinstyles.apply_style(self, "light" if light_theme else "dark")
-        pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored and self.focus_get() else bg)
+        pywinstyles.apply_style(self, "light" if Colors.light_theme else "dark")
+        pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored and self.focus_get() else Colors.bg)
 
-        self.bind("<FocusIn>", lambda event: pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored else bg))
-        self.bind("<FocusOut>", lambda event: pywinstyles.change_header_color(self, bg))
+        self.bind("<FocusIn>", lambda event: pywinstyles.change_header_color(self, winaccent.titlebar_active if winaccent.is_titlebar_colored else Colors.bg))
+        self.bind("<FocusOut>", lambda event: pywinstyles.change_header_color(self, Colors.bg))
 
         hPyT.maximize_minimize_button.hide(self)
 
@@ -545,7 +540,7 @@ class Toplevel(tk.Toplevel):
         self.geometry(f"+{self.master.winfo_x() + preferences.get_scaled_value(50)}+{self.master.winfo_y()+ preferences.get_scaled_value(50)}")
         
         self.after(100, lambda: self.master.wm_attributes("-disabled", True))
-        self.after(100, lambda: self.master.bind("<FocusIn>", lambda event: pywinstyles.change_header_color(self.master, winaccent.titlebar_active if winaccent.is_titlebar_colored else bg)))
+        self.after(100, lambda: self.master.bind("<FocusIn>", lambda event: pywinstyles.change_header_color(self.master, winaccent.titlebar_active if winaccent.is_titlebar_colored else Colors.bg)))
 
         self.bind("<Escape>", lambda event: self.destroy())
         self.set_titlebar_theme()
@@ -576,10 +571,10 @@ def sync_colors(window, callback):
         if isinstance(widget, (CommandLink, Toolbutton, Button, OptionMenu, Checkbutton, Radiobutton, Radiobutton2)):
             widget.update_colors()
         elif isinstance(widget, tk.Entry):
-            widget.configure(background = entry_bg, foreground = fg, highlightcolor = entry_bg, highlightbackground = entry_bg, insertbackground = fg, selectbackground = entry_select)
-            widget.master.configure(highlightbackground = entry_bd, highlightcolor = entry_focus)
+            widget.configure(background = Colors.entry_bg, foreground = Colors.fg, highlightcolor = Colors.entry_bg, highlightbackground = Colors.entry_bg, insertbackground = Colors.fg, selectbackground = Colors.entry_select)
+            widget.master.configure(highlightbackground = Colors.entry_bd, highlightcolor = Colors.entry_focus)
         elif isinstance(widget, tk.Canvas):
-            widget.configure(background = bg)
+            widget.configure(background = Colors.bg)
         elif isinstance(widget, (Toplevel, ttk.Frame, tk.Frame)):
             sync_colors(widget, None)
 

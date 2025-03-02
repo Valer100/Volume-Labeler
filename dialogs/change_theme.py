@@ -34,8 +34,8 @@ def show():
 
     buttons.grid_columnconfigure(index = [0, 1], weight = 1)
 
-    ttk.Button(buttons, text = strings.lang.cancel, command = window.destroy).grid(row = 0, column = 0, padx = (0, preferences.get_scaled_value(4)), sticky = "ew")
-    ttk.Button(buttons, text = strings.lang.ok, default = "active", command = apply_theme).grid(row = 0, column = 1, padx = (preferences.get_scaled_value(4), 0), sticky = "ew")
+    custom_ui.Button(buttons, text = strings.lang.cancel, command = window.destroy).grid(row = 0, column = 0, padx = (0, preferences.get_scaled_value(4)), sticky = "ew")
+    custom_ui.Button(buttons, text = strings.lang.ok, default = "active", command = apply_theme).grid(row = 0, column = 1, padx = (preferences.get_scaled_value(4), 0), sticky = "ew")
 
     window.resizable(False, False)
     window.focus_set()

@@ -30,8 +30,8 @@ def show(error: str):
     buttons = ttk.Frame(window)
     buttons.pack(pady = preferences.get_scaled_value(16), anchor = "e")
 
-    ttk.Button(buttons, text = strings.lang.ok, default = "active", command = window.destroy).pack(side = "right", padx = (preferences.get_scaled_value(8), 0))
-    ttk.Button(buttons, text = strings.lang.copy_traceback, command = copy_traceback).pack(side = "right")
+    custom_ui.Button(buttons, text = strings.lang.ok, default = "active", command = window.destroy).pack(side = "right", padx = (preferences.get_scaled_value(8), 0))
+    custom_ui.Button(buttons, text = strings.lang.copy_traceback, command = copy_traceback).pack(side = "right")
 
     window.resizable(False, False)
     window.focus_set()
