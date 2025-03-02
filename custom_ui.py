@@ -462,7 +462,7 @@ class Radiobutton2(tk.Frame):
 
         def on_value_change(var = None, index = None, mode = None):
             try: 
-                self.radio.event_generate("<Leave>")
+                self.configure(background = bg, selectcolor = selection)
                 self.config(highlightbackground = selection_bd if self.variable.get() == self.value else bg)
                 self.radio.config(activebackground = selection_press if self.variable.get() == self.value else bg_press)
             except: 
