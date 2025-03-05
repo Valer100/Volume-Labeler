@@ -216,6 +216,9 @@ def choose_icon_():
 
 def change_app_language():
     def update_strings(widget):
+        if not preferences.is_portable:
+            context_menu_entry.update_context_menu_entry_string()
+
         for child in widget.winfo_children():
             if isinstance(child, (custom_ui.App, custom_ui.Toplevel, tk.Frame, ttk.Frame, tktooltip.ToolTip)):
                 update_strings(child)
