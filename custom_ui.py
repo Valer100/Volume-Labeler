@@ -151,6 +151,8 @@ class CommandLink(tk.Frame):
 
 
 class Toolbutton(tk.Button):
+    color_exceptions = (Colors.selection, Colors.selection_hover, Colors.selection_press, Colors.bg_hover, Colors.bg_press)
+
     def __init__(self, master, text: str = "", command: callable = None, link: bool = False, icononly: bool = False, *args, **kwargs):
         super().__init__(
             master, text = text, command = command, padx = preferences.get_scaled_value(2) if icononly else 4, pady = 2, background = Colors.bg, 
@@ -164,27 +166,34 @@ class Toolbutton(tk.Button):
 
         if icononly: self.configure(width = 2)
 
-        if self["default"] == "active" and (self["background"] != Colors.selection and self["background"] != Colors.bg_hover and self["background"] != Colors.bg_press):
-            self.configure(background = Colors.selection)
+        if self["default"] == "active" and self["background"] not in self.color_exceptions:
+            self.configure(background = Colors.selection, activebackground = Colors.selection_press)
 
-        self.bind("<Enter>", lambda event: self.configure(background = Colors.bg_hover))
-        self.bind("<Leave>", lambda event: self.configure(background = Colors.bg))
+        self.bind("<Enter>", lambda event: self.configure(background = Colors.selection_hover if self["default"] == "active" else Colors.bg_hover, activebackground = Colors.selection_press if self["default"] == "active" else Colors.bg_press))
+        self.bind("<Leave>", lambda event: self.configure(background = Colors.selection if self["default"] == "active" else Colors.bg))
 
     def configure(self, *args, **kwargs):
+        default_old = self["default"]
         super().configure(*args, **kwargs)
 
-        if self["default"] == "active" and (self["background"] != Colors.selection and self["background"] != Colors.bg_hover and self["background"] != Colors.bg_press):
-            self.configure(background = Colors.selection)
+        if self["default"] == "active" and self["background"] not in self.color_exceptions:
+            self.configure(background = Colors.selection, activebackground = Colors.selection_press)
+        
+        if self["default"] != default_old and self["default"] == "normal":
+            self.configure(background = Colors.bg, activebackground = Colors.bg_press)
+
 
     def update_colors(self):
+        self.color_exceptions = (Colors.selection, Colors.selection_hover, Colors.selection_press, Colors.bg_hover, Colors.bg_press)
+        
         self.configure(
             background = Colors.bg, foreground = Colors.accent_link if self.link else Colors.fg, activebackground = Colors.bg_press, 
             activeforeground = Colors.accent if self.link else Colors.fg, highlightbackground = Colors.selection_bd, 
             highlightcolor = Colors.selection_bd
         )
         
-        if self["default"] == "active" and (self["background"] != Colors.selection and self["background"] != Colors.bg_hover and self["background"] != Colors.bg_press):
-            self.configure(background = Colors.selection)
+        if self["default"] == "active" and self["background"] not in self.color_exceptions:
+            self.configure(background = Colors.selection, activebackground = Colors.selection_press)
 
 
 class Button(tk.Button):
