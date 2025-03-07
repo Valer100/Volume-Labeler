@@ -187,7 +187,7 @@ def choose_icon_():
             if not icon_old == icon_type.get() == "default": enable_undo_button()
         case "icon":
             try:
-                pywinstyles.change_header_color(window, custom_ui.bg)
+                pywinstyles.change_header_color(window, custom_ui.Colors.bg)
                 icon_path, icon_index = icon.pick_icon(window, icon_pack)
                 window.set_theme()
                 process_icon(icon_path, icon_index)
