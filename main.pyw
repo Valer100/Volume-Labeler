@@ -98,9 +98,8 @@ def disable_undo_button():
     reset_button_enabled = False
 
     reset_changes.unbind("<Enter>")
-    reset_changes.configure(command = lambda: None)
     reset_changes.unbind("<Leave>")
-    reset_changes.configure(background = custom_ui.Colors.button_bg, activebackground = custom_ui.Colors.button_bg)
+    reset_changes.configure(command = lambda: None, background = custom_ui.Colors.button_bg, activebackground = custom_ui.Colors.button_bg)
     pywinstyles.set_opacity(reset_changes, 0.5)
 
 
@@ -108,10 +107,9 @@ def enable_undo_button():
     global reset_button_enabled
     reset_button_enabled = True
 
-    reset_changes.configure(command = reset_changes_)
     reset_changes.bind("<Enter>", lambda event: reset_changes.configure(background = custom_ui.Colors.button_hover))
     reset_changes.bind("<Leave>", lambda event: reset_changes.configure(background = custom_ui.Colors.button_bg))
-    reset_changes.configure(background = custom_ui.Colors.button_bg, activebackground = custom_ui.Colors.button_press)
+    reset_changes.configure(command = reset_changes_, background = custom_ui.Colors.button_bg, activebackground = custom_ui.Colors.button_press)
     pywinstyles.set_opacity(reset_changes, 1)
 
 
