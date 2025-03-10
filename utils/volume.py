@@ -54,13 +54,13 @@ def modify_volume_info(
                 add_hidden_attribute(f"{volume}vl_icon")
 
         if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun:
-            if not os.path.exists(f"{volume}autorun_backups"): 
-                os.mkdir(f"{volume}autorun_backups")
+            if not os.path.exists(f"{volume}Autorun.inf Backups"): 
+                os.mkdir(f"{volume}Autorun.inf Backups")
 
             remove_hidden_attribute(f"{volume}autorun.inf")
-            shutil.copyfile(f"{volume}autorun.inf", f"{volume}autorun_backups\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
+            shutil.copyfile(f"{volume}autorun.inf", f"{volume}Autorun.inf Backups\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
 
-            readme_file = open(f"{volume}autorun_backups\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
+            readme_file = open(f"{volume}Autorun.inf Backups\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
             readme_file.write(strings.lang.autorun_backup)
             readme_file.close()
 
@@ -144,13 +144,13 @@ def modify_volume_info(
 def remove_volume_customizations(volume: str, backup_existing_autorun: bool = True) -> None:
     if os.path.exists(volume):
         if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun:
-            if not os.path.exists(f"{volume}autorun_backups"):
-                os.mkdir(f"{volume}autorun_backups")
+            if not os.path.exists(f"{volume}Autorun.inf Backups"):
+                os.mkdir(f"{volume}Autorun.inf Backups")
 
             remove_hidden_attribute(f"{volume}autorun.inf")
-            shutil.copyfile(f"{volume}autorun.inf", f"{volume}autorun_backups\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
+            shutil.copyfile(f"{volume}autorun.inf", f"{volume}Autorun.inf Backups\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
 
-            readme_file = open(f"{volume}autorun_backups\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
+            readme_file = open(f"{volume}Autorun.inf Backups\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
             readme_file.write(strings.lang.autorun_backup)
             readme_file.close()
 
