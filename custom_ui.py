@@ -1,4 +1,4 @@
-import tkinter as tk, pywinstyles, winaccent, sys, hPyT, threading, strings
+import tkinter as tk, pywinstyles, winaccent, sys, hPyT, threading, strings, warnings
 from tkinter import ttk
 from utils import preferences, icon
 
@@ -69,12 +69,15 @@ update_colors()
 
 
 def update_icons():
-    Icons.app_about = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_about.ico", None, 63)
-    Icons.volume = icon.extract_and_tint_icon(preferences.internal + "icons\\volume.ico", Colors.accent, 32)
-    Icons.icon = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_custom.ico", Colors.accent, 32)
-    Icons.image = icon.extract_and_tint_icon(preferences.internal + "icons\\image.ico", Colors.accent, 32)
-    Icons.arrow_up = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_up.ico", Colors.fg, 9)
-    Icons.arrow_down = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_down.ico", Colors.fg, 9)
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message = "Image was not the expected size", category = UserWarning, module = "PIL")
+        
+        Icons.app_about = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_about.ico", None, 63)
+        Icons.volume = icon.extract_and_tint_icon(preferences.internal + "icons\\volume.ico", Colors.accent, 32)
+        Icons.icon = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_custom.ico", Colors.accent, 32)
+        Icons.image = icon.extract_and_tint_icon(preferences.internal + "icons\\image.ico", Colors.accent, 32)
+        Icons.arrow_up = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_up.ico", Colors.fg, 9)
+        Icons.arrow_down = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_down.ico", Colors.fg, 9)
 
 
 class CommandLink(tk.Frame):
