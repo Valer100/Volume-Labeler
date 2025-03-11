@@ -607,8 +607,7 @@ def show_entry_context_menu(entry: tk.Entry):
         enable_select_all = "disabled"
     else:
         try:
-            entry.get("sel.first", "sel.last") == entry.get("1.0", tk.END)
-            enable_select_all = "disabled"
+            enable_select_all = "disabled" if entry.selection_get() == entry.get() else "active"
         except:
             enable_select_all = "active"
 
