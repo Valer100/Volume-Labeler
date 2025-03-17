@@ -2,89 +2,98 @@ import tkinter as tk, pywinstyles, winaccent, sys, hPyT, threading, strings, war
 from tkinter import ttk
 from utils import preferences, icon
 
-class Colors(): pass
-class Icons(): pass
-
-
-def update_colors():
-    Colors.light_theme = winaccent.apps_use_light_theme if preferences.theme == "default" else True if preferences.theme == "light" else False
-    Colors.entry_select = winaccent.accent_normal
-    
-    if Colors.light_theme:
-        Colors.bg = "#f0f0f0"
-        Colors.bg_hover = "#e0e0e0"
-        Colors.bg_press = "#cecece"
-        Colors.fg = "#000000"
-        Colors.entry_focus = winaccent.accent_dark
-        Colors.entry_bd = "#8d8d8d"
-        Colors.entry_bg = "#ffffff"
-        Colors.button_bg = "#ffffff"
-        Colors.button_hover = "#ebebeb"
-        Colors.button_press = "#dbdbdb"
-        Colors.button_bd = "#d0d0d0"
-        Colors.button_bd_active = winaccent.accent_dark
-        Colors.tooltip_bg = "#ffffff"
-        Colors.tooltip_bd = "#767676"
-        Colors.tooltip_fg = "#575757"
-        Colors.selection_bd = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 70)
-        Colors.selection = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 20)
-        Colors.selection_hover = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 30)
-        Colors.selection_press = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 40)
-        Colors.input_unchecked = "#404040"
-        Colors.input_hover = "#808080"
-        Colors.input_press = "#afafaf"
-        Colors.accent = winaccent.accent_dark
-        Colors.accent_hover = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 90)
-        Colors.accent_press = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 80)
-        Colors.accent_link = winaccent.accent_dark_2
-    else:
-        Colors.bg = "#202020"
-        Colors.bg_hover = "#333333"
-        Colors.bg_press = "#292929"
-        Colors.fg = "#ffffff"
-        Colors.entry_focus = winaccent.accent_light_3
-        Colors.entry_bd = "#6e6e6e"
-        Colors.entry_bg = "#404040"
-        Colors.button_bg = "#333333"
-        Colors.button_hover = "#454545"
-        Colors.button_press = "#676767"
-        Colors.button_bd = "#9b9b9b"
-        Colors.button_bd_active = winaccent.accent_light_3
-        Colors.tooltip_bg = "#2b2b2b"
-        Colors.tooltip_bd = "#747474"
-        Colors.tooltip_fg = "#ffffff"
-        Colors.selection_bd = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 40)
-        Colors.selection = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 10)
-        Colors.selection_hover = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 15)
-        Colors.selection_press = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 20)
-        Colors.input_unchecked = "#404040"
-        Colors.input_hover = "#4f4f4f"
-        Colors.input_press = "#5f5f5f"
-        Colors.accent = winaccent.accent_light
-        Colors.accent_hover = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 80)
-        Colors.accent_press = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 60)
-        Colors.accent_link = winaccent.accent_light_3
-
-update_colors()
-
-
-def update_icons():
-    with warnings.catch_warnings():
-        warnings.filterwarnings("ignore", message = "Image was not the expected size", category = UserWarning, module = "PIL")
+class Colors():
+    def update():
+        Colors.light_theme = winaccent.apps_use_light_theme if preferences.theme == "default" else True if preferences.theme == "light" else False
+        Colors.entry_select = winaccent.accent_normal
         
-        Icons.app_about = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_about.ico", None, 63)
-        Icons.volume = icon.extract_and_tint_icon(preferences.internal + "icons\\volume.ico", Colors.accent, 32)
-        Icons.icon = icon.extract_and_tint_icon(preferences.internal + "icons\\icon_custom.ico", Colors.accent, 32)
-        Icons.image = icon.extract_and_tint_icon(preferences.internal + "icons\\image.ico", Colors.accent, 32)
-        Icons.arrow_up = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_up.ico", Colors.fg, 9)
-        Icons.arrow_down = icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_down.ico", Colors.fg, 9)
+        if Colors.light_theme:
+            Colors.bg = "#f0f0f0"
+            Colors.bg_hover = "#e0e0e0"
+            Colors.bg_press = "#cecece"
+            Colors.fg = "#000000"
+            Colors.entry_focus = winaccent.accent_dark
+            Colors.entry_bd = "#8d8d8d"
+            Colors.entry_bg = "#ffffff"
+            Colors.button_bg = "#ffffff"
+            Colors.button_hover = "#ebebeb"
+            Colors.button_press = "#dbdbdb"
+            Colors.button_bd = "#d0d0d0"
+            Colors.button_bd_active = winaccent.accent_dark
+            Colors.tooltip_bg = "#ffffff"
+            Colors.tooltip_bd = "#767676"
+            Colors.tooltip_fg = "#575757"
+            Colors.selection_bd = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 70)
+            Colors.selection = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 20)
+            Colors.selection_hover = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 30)
+            Colors.selection_press = winaccent._utils.blend_colors(winaccent.accent_dark, Colors.bg, 40)
+            Colors.input_unchecked = "#404040"
+            Colors.input_hover = "#808080"
+            Colors.input_press = "#afafaf"
+            Colors.accent = winaccent.accent_dark
+            Colors.accent_hover = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 90)
+            Colors.accent_press = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 80)
+            Colors.accent_link = winaccent.accent_dark_2
+        else:
+            Colors.bg = "#202020"
+            Colors.bg_hover = "#333333"
+            Colors.bg_press = "#292929"
+            Colors.fg = "#ffffff"
+            Colors.entry_focus = winaccent.accent_light_3
+            Colors.entry_bd = "#6e6e6e"
+            Colors.entry_bg = "#404040"
+            Colors.button_bg = "#333333"
+            Colors.button_hover = "#454545"
+            Colors.button_press = "#676767"
+            Colors.button_bd = "#9b9b9b"
+            Colors.button_bd_active = winaccent.accent_light_3
+            Colors.tooltip_bg = "#2b2b2b"
+            Colors.tooltip_bd = "#747474"
+            Colors.tooltip_fg = "#ffffff"
+            Colors.selection_bd = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 40)
+            Colors.selection = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 10)
+            Colors.selection_hover = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 15)
+            Colors.selection_press = winaccent._utils.blend_colors(winaccent.accent_light, Colors.bg, 20)
+            Colors.input_unchecked = "#404040"
+            Colors.input_hover = "#4f4f4f"
+            Colors.input_press = "#5f5f5f"
+            Colors.accent = winaccent.accent_light
+            Colors.accent_hover = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 80)
+            Colors.accent_press = winaccent._utils.blend_colors(Colors.accent, Colors.bg, 60)
+            Colors.accent_link = winaccent.accent_light_3
+            
+
+class Icons():
+    def initialize():
+        Icons.app_about = tk.PhotoImage()
+        Icons.volume = tk.PhotoImage()
+        Icons.icon = tk.PhotoImage()
+        Icons.image = tk.PhotoImage()
+        Icons.arrow_up = tk.PhotoImage()
+        Icons.arrow_down = tk.PhotoImage()
+
+    def update():
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message = "Image was not the expected size", category = UserWarning, module = "PIL")
+
+            icon.extract_and_tint_icon(preferences.internal + "icons\\icon_about.ico", None, 63, Icons.app_about)
+            icon.extract_and_tint_icon(preferences.internal + "icons\\volume.ico", Colors.accent, 32, Icons.volume)
+            icon.extract_and_tint_icon(preferences.internal + "icons\\icon_custom.ico", Colors.accent, 32, Icons.icon)
+            icon.extract_and_tint_icon(preferences.internal + "icons\\image.ico", Colors.accent, 32, Icons.image)
+            icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_up.ico", Colors.fg, 9, Icons.arrow_up)
+            icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_down.ico", Colors.fg, 9, Icons.arrow_down)
+
+
+Colors.update()
 
 
 class CommandLink(tk.Frame):
     def __init__(self, master, text: str = "", command: callable = None, *args, **kwargs):
         super().__init__(master, padx = 8, pady = 8, background = Colors.bg, *args, **kwargs)
 
-        if sys.getwindowsversion().major == 10 and sys.getwindowsversion().build >= 22000:
+        windows_version = sys.getwindowsversion()
+
+        if windows_version.major == 10 and windows_version.build >= 22000:
             self.arrow = ttk.Label(self, text = "\ue651  ", font = ("Segoe Fluent Icons", 11), padding = (0, 4, 0, 0), foreground = Colors.accent_link)
         else:
             self.arrow = ttk.Label(self, text = "\ue0ad  ", font = ("Segoe MDL2 Assets", 11), padding = (0, 4, 0, 0), foreground = Colors.accent_link)
@@ -516,7 +525,9 @@ class App(tk.Tk):
         self.iconbitmap(default = preferences.internal + "icons\\icon.ico")
         self.update()
         self.set_theme()
-        update_icons()
+
+        Icons.initialize()
+        Icons.update()
 
     def resizable(self, width: bool = None, height: bool = None):
         value = super().resizable(width, height)
@@ -569,29 +580,41 @@ class Toplevel(tk.Toplevel):
         super().destroy()
 
 
-def sync_colors(window, callback):
-    update_colors()
+def sync_colors(window):
+    Colors.update()
+    Icons.update()
 
-    if not callback is None: 
-        update_icons()
-        callback()
+    def change_colors_recursively(parent):
+        if isinstance(parent, App): parent.set_theme()
+        elif isinstance(parent, Toplevel): parent.set_titlebar_theme()
 
-    if isinstance(window, App): window.set_theme()
-    elif isinstance(window, Toplevel): window.set_titlebar_theme()
+        windows_version = sys.getwindowsversion()
 
-    for widget in window.winfo_children():
-        if isinstance(widget, (CommandLink, Toolbutton, Button, OptionMenu, Checkbutton, Radiobutton, Radiobutton2)):
-            widget.update_colors()
-        elif isinstance(widget, tk.Entry):
-            widget.configure(background = Colors.entry_bg, foreground = Colors.fg, highlightcolor = Colors.entry_bg, highlightbackground = Colors.entry_bg, insertbackground = Colors.fg, selectbackground = Colors.entry_select)
-            widget.master.configure(highlightbackground = Colors.entry_bd, highlightcolor = Colors.entry_focus)
-        elif isinstance(widget, tk.Canvas):
-            widget.configure(background = Colors.bg)
-        elif isinstance(widget, (Toplevel, ttk.Frame, tk.Frame)):
-            sync_colors(widget, None)
+        # A small hack for updating the title bar on Windows 10 (it doesn't update instantly like on Windows 11)
+        if isinstance(parent, (App, Toplevel)) and windows_version.major == 10 and windows_version.build <= 22000:
+            dummy_frame = tk.Frame(parent)
+            dummy_frame.pack()
+            parent.update_idletasks()
+            dummy_frame.destroy()
 
-def sync_colors_with_system(window, callback = None): 
-    threading.Thread(target = lambda: winaccent.on_appearance_changed(lambda: sync_colors(window, callback)), daemon = True).start()
+        for widget in parent.winfo_children():
+            if isinstance(widget, (CommandLink, Toolbutton, Button, OptionMenu, Checkbutton, Radiobutton, Radiobutton2)):
+                widget.update_colors()
+            elif isinstance(widget, tk.Entry):
+                widget.configure(background = Colors.entry_bg, foreground = Colors.fg, highlightcolor = Colors.entry_bg, highlightbackground = Colors.entry_bg, insertbackground = Colors.fg, selectbackground = Colors.entry_select)
+                widget.master.configure(highlightbackground = Colors.entry_bd, highlightcolor = Colors.entry_focus)
+            elif isinstance(widget, tk.Text):
+                widget.configure(background = Colors.entry_bg, foreground = Colors.fg, selectbackground = Colors.entry_select, highlightbackground = Colors.entry_bd, highlightcolor = Colors.entry_bd)
+            elif isinstance(widget, tk.Canvas):
+                widget.configure(background = Colors.bg)
+            elif isinstance(widget, (Toplevel, ttk.Frame, tk.Frame)):
+                change_colors_recursively(widget)
+
+    change_colors_recursively(window)
+
+
+def sync_colors_with_system(window): 
+    threading.Thread(target = lambda: winaccent.on_appearance_changed(lambda: sync_colors(window)), daemon = True).start()
 
 
 def show_entry_context_menu(entry: tk.Entry):

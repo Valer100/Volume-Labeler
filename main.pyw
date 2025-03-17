@@ -252,10 +252,7 @@ def change_app_theme():
     window.wait_window(change_theme.window)
 
     if old_theme != preferences.theme:
-        custom_ui.update_colors()
-        window.set_theme()
-        custom_ui.update_icons()
-        custom_ui.sync_colors(window, update_icons)
+        custom_ui.sync_colors(window)
 
 
 def add_remove_context_menu_entry():
@@ -430,27 +427,6 @@ def draw_ui():
     window.update()
 
 
-def update_icons():
-    if show_additional_options: additional_options.configure(image = custom_ui.Icons.arrow_up)
-    else: additional_options.configure(image = custom_ui.Icons.arrow_down)
-
-    default_icon.configure(image = custom_ui.Icons.volume)
-
-    if choose_icon["text"] == "  " + strings.lang.choose_icon:
-        choose_icon.configure(image = custom_ui.Icons.icon)
-
-    if icon_from_image["text"] == "  " + strings.lang.create_icon_from_image:
-        icon_from_image.configure(image = custom_ui.Icons.image)
-
-
-    # A hacky way to force the title bar to redraw on Windows 10
-    if sys.getwindowsversion().major == 10 and sys.getwindowsversion().build < 22000:
-        dummy_widget = tk.Frame(window)
-        dummy_widget.pack()
-        window.update_idletasks()
-        dummy_widget.destroy()
-
-
 def enable_new_icon_pack(event):
     global icon_pack
     icon_pack = os.path.abspath("icons\\storage_types.icl")
@@ -495,7 +471,7 @@ else:
 
 app_started = True
 
-custom_ui.sync_colors_with_system(window, update_icons)
+custom_ui.sync_colors_with_system(window)
 
 window.bind("<Shift_L>", enable_new_icon_pack)
 window.protocol("WM_DELETE_WINDOW", on_app_close)
