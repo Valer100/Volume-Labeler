@@ -63,6 +63,7 @@ def show():
 
     licenses.insert("1.0", open(preferences.internal + "OPEN_SOURCE_LICENSES.txt", "r", encoding = "utf8").read())
     licenses.configure(state = "disabled")
+    licenses.bind("<Button-3>", lambda event: custom_ui.show_readonly_text_context_menu(licenses))
 
     window.resizable(False, False)
     window.focus_set()

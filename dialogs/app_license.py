@@ -23,6 +23,7 @@ def show(window):
     license_text.pack()
     license_text.insert("1.0", open(preferences.internal + "LICENSE").read())
     license_text.configure(state = "disabled")
+    license_text.bind("<Button-3>", lambda event: custom_ui.show_readonly_text_context_menu(license_text))
 
     buttons = ttk.Frame(window)
     buttons.pack(pady = preferences.get_scaled_value(16), anchor = "e")

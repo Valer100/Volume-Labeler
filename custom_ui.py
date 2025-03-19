@@ -1,5 +1,6 @@
 import tkinter as tk, pywinstyles, winaccent, sys, hPyT, threading, strings, warnings
 from tkinter import ttk
+from tkinter.scrolledtext import ScrolledText
 from utils import preferences, icon
 
 
@@ -624,12 +625,6 @@ def sync_colors_with_system(window):
 def show_entry_context_menu(entry: tk.Entry):
     entry.focus_set()
 
-    def cut(): entry.event_generate("<<Cut>>")
-    def copy(): entry.event_generate("<<Copy>>")
-    def paste(): entry.event_generate("<<Paste>>")
-    def delete(): entry.delete("sel.first", "sel.last")
-    def select_all(): entry.select_range(0, tk.END)
-
     try: entry.selection_get(); some_text_selected = "active"
     except: some_text_selected = "disabled"
 
@@ -645,11 +640,33 @@ def show_entry_context_menu(entry: tk.Entry):
     except: enable_paste = "disabled"
 
     entry_menu = tk.Menu(tearoff = 0, activebackground = winaccent.accent_normal)
-    entry_menu.add_command(label = strings.lang.cut, command = cut, state = some_text_selected)
-    entry_menu.add_command(label = strings.lang.copy, command = copy, state = some_text_selected)
-    entry_menu.add_command(label = strings.lang.paste, command = paste, state = enable_paste)
-    entry_menu.add_command(label = strings.lang.delete, command = delete, state = some_text_selected)
+    entry_menu.add_command(label = strings.lang.cut, state = some_text_selected, command = lambda: entry.event_generate("<<Cut>>"))
+    entry_menu.add_command(label = strings.lang.copy, state = some_text_selected, command = lambda: entry.event_generate("<<Copy>>"))
+    entry_menu.add_command(label = strings.lang.paste, state = enable_paste, command = lambda: entry.event_generate("<<Paste>>"))
+    entry_menu.add_command(label = strings.lang.delete, state = some_text_selected, command = lambda: entry.delete("sel.first", "sel.last"))
     entry_menu.add_separator()
-    entry_menu.add_command(label = strings.lang.select_all, command = select_all, state = enable_select_all)
+    entry_menu.add_command(label = strings.lang.select_all, state = enable_select_all, command = lambda: entry.select_range(0, tk.END))
 
     entry_menu.tk_popup(entry.winfo_pointerx(), entry.winfo_pointery())
+
+
+def show_readonly_text_context_menu(text: tk.Text | ScrolledText):
+    text.focus_set()
+
+    try: text.selection_get(); some_text_selected = "active"
+    except: some_text_selected = "disabled"
+
+    if text.get("1.0", "end") == "\n": 
+        enable_select_all = "disabled"
+    else:
+        try:
+            enable_select_all = "disabled" if text.selection_get() == text.get("1.0", "end") else "active"
+        except:
+            enable_select_all = "active"
+
+    text_menu = tk.Menu(tearoff = 0, activebackground = winaccent.accent_normal)
+    text_menu.add_command(label = strings.lang.copy, state = some_text_selected, command = lambda: text.event_generate("<<Copy>>"))
+    text_menu.add_separator()
+    text_menu.add_command(label = strings.lang.select_all, state = enable_select_all, command = lambda: text.tag_add("sel", "1.0", "end"))
+
+    text_menu.tk_popup(text.winfo_pointerx(), text.winfo_pointery())

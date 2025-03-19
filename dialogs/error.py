@@ -22,6 +22,7 @@ def show(error: str):
     error_text.pack()
     error_text.insert("1.0", error)
     error_text.configure(state = "disabled")
+    error_text.bind("<Button-3>", lambda event: custom_ui.show_readonly_text_context_menu(error_text))
 
     def copy_traceback():
         window.clipboard_append(error)
