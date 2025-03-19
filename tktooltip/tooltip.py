@@ -170,8 +170,8 @@ class ToolTip(tk.Toplevel):
 
         Recursively queues `_show` in the scheduler every `self.refresh` seconds
         """
-        self.configure(bg = custom_ui.Colors.tooltip_bd)
-        self.message_widget.configure(bg = custom_ui.Colors.tooltip_bg, fg = custom_ui.Colors.tooltip_fg)
+        self.configure(bg = custom_ui.colors.tooltip_bd)
+        self.message_widget.configure(bg = custom_ui.colors.tooltip_bg, fg = custom_ui.colors.tooltip_fg)
 
         if (
             self.status == ToolTipStatus.INSIDE

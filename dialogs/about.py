@@ -20,14 +20,14 @@ def show():
         if show_os_licenses: licenses.pack(pady = preferences.get_scaled_value(16))
         else: licenses.forget()
 
-        show_licenses.configure(image = custom_ui.Icons.arrow_up if show_os_licenses else custom_ui.Icons.arrow_down)
+        show_licenses.configure(image = custom_ui.icons.arrow_up if show_os_licenses else custom_ui.icons.arrow_down)
 
     app_info = ttk.Frame(window)
     app_info.pack(fill = "x")
 
-    app_icon = tk.Canvas(app_info, width = preferences.get_scaled_value(63), height = preferences.get_scaled_value(40), highlightthickness = 0, background = custom_ui.Colors.bg)
+    app_icon = tk.Canvas(app_info, width = preferences.get_scaled_value(63), height = preferences.get_scaled_value(40), highlightthickness = 0, background = custom_ui.colors.bg)
     app_icon.pack(side = "left", padx = (0, preferences.get_scaled_value(16)), pady = (preferences.get_scaled_value(16), 0))
-    app_icon.create_image(preferences.get_scaled_value(63) // 2, preferences.get_scaled_value(40) // 2, image = custom_ui.Icons.app_about, anchor = "center")
+    app_icon.create_image(preferences.get_scaled_value(63) // 2, preferences.get_scaled_value(40) // 2, image = custom_ui.icons.app_about, anchor = "center")
 
     app_name_and_version = ttk.Frame(app_info)
     app_name_and_version.pack(side = "left")
@@ -49,17 +49,17 @@ def show():
     buttons = ttk.Frame(window)
     buttons.pack(fill = "x", pady = preferences.get_scaled_value(16))
 
-    show_licenses = custom_ui.Button(buttons, text = strings.lang.open_source_licenses, command = show_hide_licenses, compound = "left", image = custom_ui.Icons.arrow_down)
+    show_licenses = custom_ui.Button(buttons, text = strings.lang.open_source_licenses, command = show_hide_licenses, compound = "left", image = custom_ui.icons.arrow_down)
     show_licenses.pack(anchor = "w", side = "left")
     show_licenses.configure(width = 0, padx = preferences.get_scaled_value(5))
 
     custom_ui.Button(buttons, text = strings.lang.ok, command = window.destroy, default = "active").pack(side = "right")
 
-    licenses = ScrolledText(window, width = 80, height = 20, wrap = "word", background = custom_ui.Colors.entry_bg,
-                                 foreground = custom_ui.Colors.fg, selectbackground = custom_ui.Colors.entry_select,
+    licenses = ScrolledText(window, width = 80, height = 20, wrap = "word", background = custom_ui.colors.entry_bg,
+                                 foreground = custom_ui.colors.fg, selectbackground = custom_ui.colors.entry_select,
                                  selectforeground = "#ffffff", highlightthickness = 1, relief = "solid",
-                                 highlightbackground = custom_ui.Colors.entry_bd, 
-                                 highlightcolor = custom_ui.Colors.entry_bd, border = 0, font = ("Consolas", 10))
+                                 highlightbackground = custom_ui.colors.entry_bd, 
+                                 highlightcolor = custom_ui.colors.entry_bd, border = 0, font = ("Consolas", 10))
 
     licenses.insert("1.0", open(preferences.internal + "OPEN_SOURCE_LICENSES.txt", "r", encoding = "utf8").read())
     licenses.configure(state = "disabled")

@@ -14,11 +14,11 @@ def show(window):
     ttk.Label(header, text = "\ue8a5 ", font = ("Segoe UI", 17), padding = (0, 5, 0, 0)).pack(side = "left")
     ttk.Label(header, width = 25, text = strings.lang.license, font = ("Segoe UI Semibold", 17)).pack(side = "left")
 
-    license_text = ScrolledText(window, width = 80, height = 22, wrap = "word", background = custom_ui.Colors.entry_bg,
-                                foreground = custom_ui.Colors.fg, selectbackground = custom_ui.Colors.entry_select,
+    license_text = ScrolledText(window, width = 80, height = 22, wrap = "word", background = custom_ui.colors.entry_bg,
+                                foreground = custom_ui.colors.fg, selectbackground = custom_ui.colors.entry_select,
                                 selectforeground = "#ffffff", highlightthickness = 1, relief = "solid",
-                                highlightbackground = custom_ui.Colors.entry_bd, border = 0,
-                                highlightcolor = custom_ui.Colors.entry_bd, font = ("Consolas", 10))
+                                highlightbackground = custom_ui.colors.entry_bd, border = 0,
+                                highlightcolor = custom_ui.colors.entry_bd, font = ("Consolas", 10))
     
     license_text.pack()
     license_text.insert("1.0", open(preferences.internal + "LICENSE").read())
