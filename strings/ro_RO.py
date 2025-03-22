@@ -27,6 +27,7 @@ context_menu_integration_enabled = "Integrare în meniul contextual: Activată"
 context_menu_integration_not_available_portable = "Integrare în meniul contextual: Indisponibilă în modul portabil"
 refresh_volumes_list = "Reîmprospătează lista volumelor"
 reset_changes = "Resetează modificările"
+open_autorun = "Deschide autorun.inf"
 
 # Messages
 done = "Gata"
@@ -36,6 +37,7 @@ permission_denied_message = "Volumul poate fi doar citit sau nu ai drepturi ca s
 volume_not_accessible = "Volum inaccesibil"
 volume_not_accessible_message = "Volumul selectat este inaccesibil."
 error = "A intervenit o eroare"
+file_not_found = "Fișier negăsit"
 failure_message = "Nu s-au putut modifica informațiile volumului.\n\n"
 missing_icon_file = "Fișierul pictogramei copiate lipsește."
 context_menu_integration = "Integrare în meniul contextual"
@@ -45,6 +47,7 @@ copy_traceback_success = "Traceback-ul a fost copiat cu succes în clipboard."
 reset_changes_confirmation = "Ești sigur(ă)? Această acțiune va reseta toate modificările neaplicate pe care le-ai făcut."
 apply_changes_exit = "Ai vrea să aplici modificările făcute acestui volum înainte de a ieși?"
 apply_changes_change_volume = "Ai vrea să aplici modificările făcute acestui volum înainte de a trece la altul?"
+autorun_file_missing = "Fișierul autorun.inf lipsește."
 
 # Files
 readme = "CITEȘTE-MĂ!"

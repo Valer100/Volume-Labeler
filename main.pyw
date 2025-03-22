@@ -25,7 +25,7 @@ icon_old = "default"
 selected_volume_old = ""
 volumes = [""]
 app_started = False
-reset_button_enabled = False
+changes_made = False
 selected_volume = tk.StringVar(value = "")
 hide_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[0]))
 hide_vl_icon = tk.BooleanVar(value = int(preferences.additional_prefs[1]))
@@ -59,12 +59,12 @@ def update_volume_info(vol, forced = False):
     global icon_old, selected_volume_old
     selected_volume.set(selected_volume_old)
 
-    if reset_button_enabled and not forced:
+    if changes_made and not forced:
         confirmation = messagebox.askyesnocancel("Volume Labeler", strings.lang.apply_changes_change_volume, icon = "warning", default = "yes")
         
         if confirmation: 
             modify_volume_info()
-            if reset_button_enabled: return
+            if changes_made: return
         elif confirmation == None:
             return
 
@@ -85,7 +85,8 @@ def update_volume_info(vol, forced = False):
 
         label.delete(0, "end")
         label.insert(0, volume_info["label"])
-        disable_undo_button()
+        disable_changes_actions()
+        enable_disable_autorun_actions()
 
         selected_volume_old = selected_volume.get()
     else:
@@ -93,9 +94,15 @@ def update_volume_info(vol, forced = False):
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
 
 
-def disable_undo_button():
-    global reset_button_enabled
-    reset_button_enabled = False
+def disable_changes_actions():
+    global changes_made
+    changes_made = False
+
+    apply_changes.unbind("<Enter>")
+    apply_changes.unbind("<Leave>")
+    apply_changes.configure(command = lambda: None, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_bg, highlightbackground = custom_ui.colors.button_bd, highlightcolor = custom_ui.colors.button_bd)
+    apply_changes.is_active = False
+    pywinstyles.set_opacity(apply_changes, 0.5)
 
     reset_changes.unbind("<Enter>")
     reset_changes.unbind("<Leave>")
@@ -103,14 +110,43 @@ def disable_undo_button():
     pywinstyles.set_opacity(reset_changes, 0.5)
 
 
-def enable_undo_button():
-    global reset_button_enabled
-    reset_button_enabled = True
+def enable_changes_actions():
+    global changes_made
+    changes_made = True
+
+    apply_changes.bind("<Enter>", lambda event: apply_changes.configure(background = custom_ui.colors.button_hover))
+    apply_changes.bind("<Leave>", lambda event: apply_changes.configure(background = custom_ui.colors.button_bg))
+    apply_changes.configure(command = apply_changes, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press, highlightbackground = custom_ui.colors.button_bd_active, highlightcolor = custom_ui.colors.button_bd_active)
+    apply_changes.is_active = True
+    pywinstyles.set_opacity(apply_changes, 1)
 
     reset_changes.bind("<Enter>", lambda event: reset_changes.configure(background = custom_ui.colors.button_hover))
     reset_changes.bind("<Leave>", lambda event: reset_changes.configure(background = custom_ui.colors.button_bg))
     reset_changes.configure(command = reset_changes_, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press)
     pywinstyles.set_opacity(reset_changes, 1)
+
+
+def enable_disable_autorun_actions():
+    if os.path.exists(f"{selected_volume.get()}autorun.inf"):
+        remove_customizations.bind("<Enter>", lambda event: remove_customizations.configure(background = custom_ui.colors.button_hover))
+        remove_customizations.bind("<Leave>", lambda event: remove_customizations.configure(background = custom_ui.colors.button_bg))
+        remove_customizations.configure(command = remove_volume_customizations, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press)
+        pywinstyles.set_opacity(remove_customizations, 1)
+
+        open_autorun.bind("<Enter>", lambda event: open_autorun.configure(background = custom_ui.colors.button_hover))
+        open_autorun.bind("<Leave>", lambda event: open_autorun.configure(background = custom_ui.colors.button_bg))
+        open_autorun.configure(command = open_autorun_file, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press)
+        pywinstyles.set_opacity(open_autorun, 1)
+    else:
+        remove_customizations.unbind("<Enter>")
+        remove_customizations.unbind("<Leave>")
+        remove_customizations.configure(command = lambda: None, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_bg)
+        pywinstyles.set_opacity(remove_customizations, 0.5)
+
+        open_autorun.unbind("<Enter>")
+        open_autorun.unbind("<Leave>")
+        open_autorun.configure(command = lambda: None, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_bg)
+        pywinstyles.set_opacity(open_autorun, 0.5)
 
 
 def reset_changes_():
@@ -119,7 +155,7 @@ def reset_changes_():
     if confirmation:
         if os.path.exists(selected_volume.get()):
             update_volume_info(selected_volume.get(), True)
-            disable_undo_button()
+            disable_changes_actions()
         else:
             messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
 
@@ -136,7 +172,7 @@ def modify_volume_info():
             backup_existing_autorun = backup_existing_autorun.get()
         )
 
-        disable_undo_button()
+        disable_changes_actions()
         messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
     except PermissionError:
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
@@ -158,10 +194,23 @@ def remove_volume_customizations():
             messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
     except volume.VolumeNotAccessibleError:
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
+    except FileNotFoundError:
+        messagebox.showerror(strings.lang.file_not_found, strings.lang.autorun_file_missing)
     except PermissionError:
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
     except:
         error.show(traceback.format_exc())
+
+
+def open_autorun_file():
+    try:
+        os.startfile(f"{selected_volume.get()}autorun.inf")
+    except FileNotFoundError:
+        messagebox.showerror(strings.lang.file_not_found, strings.lang.autorun_file_missing)
+    except PermissionError:
+        messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
+    except:
+        error.show(traceback.format_exc())    
 
 
 def process_icon(path, index):
@@ -182,14 +231,14 @@ def choose_icon_():
             choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.icons.icon)
             icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.icons.image)
 
-            if not icon_old == icon_type.get() == "default": enable_undo_button()
+            if not icon_old == icon_type.get() == "default": enable_changes_actions()
         case "icon":
             try:
                 pywinstyles.change_header_color(window, custom_ui.colors.bg)
                 icon_path, icon_index = icon.pick_icon(window, icon_pack)
                 window.set_theme()
                 process_icon(icon_path, icon_index)
-                enable_undo_button()
+                enable_changes_actions()
             except:
                 window.set_theme()
                 icon_type.set(icon_old)
@@ -205,7 +254,7 @@ def choose_icon_():
                 
                 icon_from_image.configure(image = preview, text = "  " + preferences.limit_string(os.path.basename(image.name)))
                 choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.icons.icon, width = 0)
-                enable_undo_button()
+                enable_changes_actions()
             else:
                 icon_type.set(icon_old)
         
@@ -241,8 +290,7 @@ def change_app_language():
         strings.load_language(preferences.language)
         update_strings(window)
         
-        button_width = apply_changes.winfo_reqwidth() if apply_changes.winfo_reqwidth() >= reset_changes.winfo_reqwidth() else reset_changes.winfo_reqwidth()
-        buttons.columnconfigure([0, 1], minsize = button_width)
+        buttons.columnconfigure([0, 1], minsize = max(apply_changes.winfo_reqwidth(), reset_changes.winfo_reqwidth(), remove_customizations.winfo_reqwidth(), open_autorun.winfo_reqwidth()))
 
 
 def change_app_theme():
@@ -276,7 +324,7 @@ def add_remove_context_menu_entry():
 
 
 def draw_ui():
-    global choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options, default_icon, choose_icon, icon_from_image, apply_changes, buttons
+    global choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options, default_icon, choose_icon, icon_from_image, apply_changes, reset_changes, remove_customizations, open_autorun, buttons
     show_additional_options = False
     
     for widget in window.winfo_children(): widget.destroy()
@@ -304,7 +352,7 @@ def draw_ui():
     ttk.Label(window, text = strings.lang.label).pack(pady = preferences.get_scaled_value(10), anchor = "w")
 
     def on_label_change():
-        enable_undo_button()
+        enable_changes_actions()
         return True
 
     label_frame = tk.Frame(window, highlightbackground = custom_ui.colors.entry_bd, highlightcolor = custom_ui.colors.entry_focus,
@@ -377,11 +425,15 @@ def draw_ui():
     reset_changes.update()
     pywinstyles.set_opacity(reset_changes, 0.5)
     
-    button_width = apply_changes.winfo_reqwidth() if apply_changes.winfo_reqwidth() >= reset_changes.winfo_reqwidth() else reset_changes.winfo_reqwidth()
-    buttons.columnconfigure([0, 1], minsize = button_width)
+    remove_customizations = custom_ui.Button(buttons, width = -1, text = strings.lang.remove_customizations, command = remove_volume_customizations)
+    remove_customizations.grid(row = 1, column = 0, padx = (0, preferences.get_scaled_value(4)), pady = (preferences.get_scaled_value(8), 0), sticky = "ew")
+    remove_customizations.update()
 
-    remove_customizations = custom_ui.Button(window, text = strings.lang.remove_customizations, command = remove_volume_customizations)
-    remove_customizations.pack(pady = (preferences.get_scaled_value(8), 0), fill = "x")
+    open_autorun = custom_ui.Button(buttons, width = -1, text = strings.lang.open_autorun, command = open_autorun_file)
+    open_autorun.grid(row = 1, column = 1, padx = (preferences.get_scaled_value(4), 0), pady = (preferences.get_scaled_value(8), 0), sticky = "ew")
+    open_autorun.update()
+
+    buttons.columnconfigure([0, 1], minsize = max(apply_changes.winfo_reqwidth(), reset_changes.winfo_reqwidth(), remove_customizations.winfo_reqwidth(), open_autorun.winfo_reqwidth()))
 
     settings = ttk.Frame(window)
     settings.pack(anchor = "w", pady = (preferences.get_scaled_value(20), preferences.get_scaled_value(2)), fill = "x")
@@ -444,12 +496,12 @@ def disable_new_icon_pack(event):
 
 
 def on_app_close():
-    if reset_button_enabled:
+    if changes_made:
         confirmation = messagebox.askyesnocancel("Volume Labeler", strings.lang.apply_changes_exit, icon = "warning", default = "yes")
         
         if confirmation: 
             modify_volume_info()
-            if not reset_button_enabled: window.destroy()
+            if not changes_made: window.destroy()
         elif confirmation == False:
             window.destroy()
     else:

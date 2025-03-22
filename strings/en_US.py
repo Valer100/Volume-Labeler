@@ -27,6 +27,7 @@ context_menu_integration_enabled = "Context menu integration: Enabled"
 context_menu_integration_not_available_portable = "Context menu integration: Unavailable in portable mode"
 refresh_volumes_list = "Refresh volumes list"
 reset_changes = "Reset changes"
+open_autorun = "Open autorun.inf"
 
 # Messages
 done = "Done"
@@ -36,6 +37,7 @@ permission_denied_message = "The volume is read-only or you don't have rights to
 volume_not_accessible = "Volume not accessible"
 volume_not_accessible_message = "The selected volume is not accessible."
 error = "An error occurred"
+file_not_found = "File not found"
 failure_message = "Failed to change the volume's information.\n\n"
 missing_icon_file = "The copied icon file is missing."
 context_menu_integration = "Context menu integration"
@@ -45,6 +47,7 @@ copy_traceback_success = "The traceback was successfully copied to clipboard."
 reset_changes_confirmation = "Are you sure? This action will reset all your unapplied changes that you made."
 apply_changes_exit = "Would you like to apply the changes made to this volume before exiting?"
 apply_changes_change_volume = "Would you like to apply the changes made to this volume before switching to another one?"
+autorun_file_missing = "autorun.inf file is missing."
 
 # Files
 readme = "READ ME!"

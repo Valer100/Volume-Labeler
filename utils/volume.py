@@ -154,8 +154,7 @@ def remove_volume_customizations(volume: str, backup_existing_autorun: bool = Tr
             readme_file.write(strings.lang.autorun_backup)
             readme_file.close()
 
-        if os.path.exists(f"{volume}autorun.inf"):
-            os.remove(f"{volume}autorun.inf")
+        os.remove(f"{volume}autorun.inf")
 
         if os.path.exists(f"{volume}vl_icon"):
             shutil.rmtree(f"{volume}vl_icon")
