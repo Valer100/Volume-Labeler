@@ -98,55 +98,25 @@ def disable_changes_actions():
     global changes_made
     changes_made = False
 
-    apply_changes.unbind("<Enter>")
-    apply_changes.unbind("<Leave>")
-    apply_changes.configure(command = lambda: None, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_bg, highlightbackground = custom_ui.colors.button_bd, highlightcolor = custom_ui.colors.button_bd)
-    apply_changes.is_active = False
-    pywinstyles.set_opacity(apply_changes, 0.5)
-
-    reset_changes.unbind("<Enter>")
-    reset_changes.unbind("<Leave>")
-    reset_changes.configure(command = lambda: None, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_bg)
-    pywinstyles.set_opacity(reset_changes, 0.5)
+    apply_changes.disable()
+    reset_changes.disable()
 
 
 def enable_changes_actions():
     global changes_made
     changes_made = True
 
-    apply_changes.bind("<Enter>", lambda event: apply_changes.configure(background = custom_ui.colors.button_hover))
-    apply_changes.bind("<Leave>", lambda event: apply_changes.configure(background = custom_ui.colors.button_bg))
-    apply_changes.configure(command = apply_changes, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press, highlightbackground = custom_ui.colors.button_bd_active, highlightcolor = custom_ui.colors.button_bd_active)
-    apply_changes.is_active = True
-    pywinstyles.set_opacity(apply_changes, 1)
-
-    reset_changes.bind("<Enter>", lambda event: reset_changes.configure(background = custom_ui.colors.button_hover))
-    reset_changes.bind("<Leave>", lambda event: reset_changes.configure(background = custom_ui.colors.button_bg))
-    reset_changes.configure(command = reset_changes_, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press)
-    pywinstyles.set_opacity(reset_changes, 1)
+    apply_changes.enable(apply_changes, True)
+    reset_changes.enable(reset_changes_)
 
 
 def enable_disable_autorun_actions():
     if os.path.exists(f"{selected_volume.get()}autorun.inf"):
-        remove_customizations.bind("<Enter>", lambda event: remove_customizations.configure(background = custom_ui.colors.button_hover))
-        remove_customizations.bind("<Leave>", lambda event: remove_customizations.configure(background = custom_ui.colors.button_bg))
-        remove_customizations.configure(command = remove_volume_customizations, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press)
-        pywinstyles.set_opacity(remove_customizations, 1)
-
-        open_autorun.bind("<Enter>", lambda event: open_autorun.configure(background = custom_ui.colors.button_hover))
-        open_autorun.bind("<Leave>", lambda event: open_autorun.configure(background = custom_ui.colors.button_bg))
-        open_autorun.configure(command = open_autorun_file, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_press)
-        pywinstyles.set_opacity(open_autorun, 1)
+        remove_customizations.enable(remove_volume_customizations)
+        open_autorun.enable(open_autorun_file)
     else:
-        remove_customizations.unbind("<Enter>")
-        remove_customizations.unbind("<Leave>")
-        remove_customizations.configure(command = lambda: None, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_bg)
-        pywinstyles.set_opacity(remove_customizations, 0.5)
-
-        open_autorun.unbind("<Enter>")
-        open_autorun.unbind("<Leave>")
-        open_autorun.configure(command = lambda: None, background = custom_ui.colors.button_bg, activebackground = custom_ui.colors.button_bg)
-        pywinstyles.set_opacity(open_autorun, 0.5)
+        remove_customizations.disable()
+        open_autorun.disable()
 
 
 def reset_changes_():

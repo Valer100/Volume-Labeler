@@ -236,6 +236,31 @@ class Button(tk.Button):
         self.bind("<Enter>", lambda event: self.configure(background = colors.button_hover))
         self.bind("<Leave>", lambda event: self.configure(background = colors.button_bg))
     
+    def enable(self, command: callable, active: bool = False):
+        self.bind("<Enter>", lambda event: self.configure(background = colors.button_hover))
+        self.bind("<Leave>", lambda event: self.configure(background = colors.button_bg))
+
+        self.configure(
+            command = command, background = colors.button_bg, activebackground = colors.button_press, 
+            highlightbackground = colors.button_bd_active if active else colors.button_bd, 
+            highlightcolor = colors.button_bd_active if active else colors.button_bd
+        )
+        
+        self.is_active = active
+        pywinstyles.set_opacity(self, 1)
+
+    def disable(self):
+        self.unbind("<Enter>")
+        self.unbind("<Leave>")
+
+        self.configure(
+            command = lambda: None, background = colors.button_bg, activebackground = colors.button_bg, 
+            highlightbackground = colors.button_bd, highlightcolor = colors.button_bd
+        )
+        
+        self.is_active = False
+        pywinstyles.set_opacity(self, 0.5)
+
     def update_colors(self):
         self.configure(
             background = colors.button_bg, foreground = colors.fg, activebackground = colors.button_press, 
