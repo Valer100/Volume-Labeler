@@ -21,7 +21,7 @@ window.configure(padx = preferences.get_scaled_value(14), pady = preferences.get
 
 icon_pack = "C:\\Windows\\System32\\shell32.dll"
 show_additional_options = False
-icon_old = "default"
+icon_type_old = "default"
 selected_volume_old = ""
 volumes = [""]
 app_started = False
@@ -31,6 +31,9 @@ hide_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[0]))
 hide_vl_icon = tk.BooleanVar(value = int(preferences.additional_prefs[1]))
 backup_existing_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[2]))
 icon_type = tk.StringVar(value = "default")
+label_old = ""
+icon_current = (None, 0)
+icon_old = (None, 0)
 
 
 def select_first_accessible_volume():
@@ -56,7 +59,7 @@ def refresh_volumes_list():
 
 
 def update_volume_info(vol, forced = False):
-    global icon_old, selected_volume_old
+    global icon_type_old, selected_volume_old, label_old, icon_old, icon_current
     selected_volume.set(selected_volume_old)
 
     if changes_made and not forced:
@@ -81,10 +84,14 @@ def update_volume_info(vol, forced = False):
             icon_type.set("icon")
             process_icon(volume_info["icon_path"], volume_info["icon_index"])
 
-        icon_old = icon_type.get()
+        icon_type_old = icon_type.get()
+        icon_current = (volume_info["icon_path"], volume_info["icon_index"])
+        icon_old = (volume_info["icon_path"], volume_info["icon_index"])
 
         label.delete(0, "end")
         label.insert(0, volume_info["label"])
+        label_old = volume_info["label"]
+
         disable_changes_actions()
         enable_disable_autorun_actions()
 
@@ -92,6 +99,15 @@ def update_volume_info(vol, forced = False):
     else:
         selected_volume.set(selected_volume_old)
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
+
+
+def check_for_changes(label_new):
+    if label_new != label_old or icon_current != icon_old:
+        enable_changes_actions()
+    else:
+        disable_changes_actions()
+
+    return True
 
 
 def disable_changes_actions():
@@ -194,24 +210,23 @@ def process_icon(path, index):
 
 
 def choose_icon_():
-    global preview, icon_old, icon_pack
-
+    global preview, icon_type_old, icon_pack, icon_old
     match icon_type.get():
         case "default":
             choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.icons.icon)
             icon_from_image.configure(text = "  " + strings.lang.create_icon_from_image, image = custom_ui.icons.image)
-
-            if not icon_old == icon_type.get() == "default": enable_changes_actions()
+            icon_old = (None, 0)
         case "icon":
             try:
                 pywinstyles.change_header_color(window, custom_ui.colors.bg)
                 icon_path, icon_index = icon.pick_icon(window, icon_pack)
                 window.set_theme()
+
                 process_icon(icon_path, icon_index)
-                enable_changes_actions()
-            except:
+                icon_old = (icon_path, icon_index)
+            except Exception as e:
                 window.set_theme()
-                icon_type.set(icon_old)
+                icon_type.set(icon_type_old)
 
             icon_pack = "C:\\Windows\\System32\\shell32.dll"
             window.after(200, lambda: window.bind("<Shift_L>", enable_new_icon_pack))
@@ -224,11 +239,12 @@ def choose_icon_():
                 
                 icon_from_image.configure(image = preview, text = "  " + preferences.limit_string(os.path.basename(image.name)))
                 choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.icons.icon, width = 0)
-                enable_changes_actions()
+                icon_old = (image.name, 0)
             else:
-                icon_type.set(icon_old)
+                icon_type.set(icon_type_old)
         
-    icon_old = icon_type.get()
+    icon_type_old = icon_type.get()
+    check_for_changes(label.get())
 
 
 def change_app_language():
@@ -321,10 +337,6 @@ def draw_ui():
 
     ttk.Label(window, text = strings.lang.label).pack(pady = preferences.get_scaled_value(10), anchor = "w")
 
-    def on_label_change():
-        enable_changes_actions()
-        return True
-
     label_frame = tk.Frame(window, highlightbackground = custom_ui.colors.entry_bd, highlightcolor = custom_ui.colors.entry_focus,
                           highlightthickness = 1)
     label_frame.pack(anchor = "w", fill = "x")
@@ -333,7 +345,7 @@ def draw_ui():
                     foreground = custom_ui.colors.fg, border = 0, highlightthickness = preferences.get_scaled_value(2), 
                     highlightcolor = custom_ui.colors.entry_bg, highlightbackground = custom_ui.colors.entry_bg, 
                     insertbackground = custom_ui.colors.fg, insertwidth = 1, selectbackground = custom_ui.colors.entry_select,
-                    selectforeground = "#FFFFFF", validate = "key", validatecommand = on_label_change)
+                    selectforeground = "#FFFFFF", validate = "key", validatecommand = (window.register(check_for_changes), "%P"))
     label.pack(fill = "x")
     label.bind("<Button-3>", lambda event: custom_ui.show_entry_context_menu(label))
 
