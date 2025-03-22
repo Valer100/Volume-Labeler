@@ -48,14 +48,8 @@ apply_changes_change_volume = "Would you like to apply the changes made to this 
 
 # Files
 readme = "READ ME!"
-autorun_backup = """This folder includes backups of the `autorun.inf` file before Volume Labeler
-made changes to it. If something went wrong or you want to restore the settings before 
-the modification, you can do so by deleting the `autorun.inf` file in the root of this
-volume (you may need to enable the "Show hidden files" option to see it). After that, 
-go back to this folder, copy one of the autorun files (they are of the form `autorun_{date and time}.inf`) 
-to the root of this volume and then rename it to autorun.inf."""
-icon_folder = """This folder contains the icon that's displayed to your volume.
-Do not delete/move/rename this folder or the icon file inside it."""
+autorun_backup = "This folder includes backups of the `autorun.inf` file before Volume Labeler made changes to it. If something went wrong or you want to restore the settings before the modification, you can do so by deleting the `autorun.inf` file in the root of this volume (you may need to enable the \"Show hidden files\" option to see it). After that, go back to this folder, copy one of the autorun files (they are of the form `autorun_{date and time}.inf`) to the root of this volume and then rename it to autorun.inf."
+icon_folder = "This folder contains the icon that's displayed to your volume. Do not delete/move/rename this folder or the icon file inside it."
 
 # Other
 open_source_licenses = "Open source licenses"
