@@ -122,7 +122,7 @@ def enable_changes_actions():
     global changes_made
     changes_made = True
 
-    apply_changes.enable(apply_changes, True)
+    apply_changes.enable(modify_volume_info, True)
     reset_changes.enable(reset_changes_)
 
 
