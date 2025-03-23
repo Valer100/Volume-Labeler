@@ -159,6 +159,7 @@ def modify_volume_info():
         )
 
         disable_changes_actions()
+        enable_disable_autorun_actions()
         messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
     except PermissionError:
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
