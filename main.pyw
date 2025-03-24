@@ -147,6 +147,8 @@ def reset_changes_():
 
 
 def modify_volume_info():
+    global label_old, icon_old
+
     try:
         volume.modify_volume_info(
             volume = selected_volume.get(), 
@@ -157,6 +159,9 @@ def modify_volume_info():
             hide_vl_icon = hide_vl_icon.get(),
             backup_existing_autorun = backup_existing_autorun.get()
         )
+
+        label_old = label.get()
+        icon_old = icon_current
 
         disable_changes_actions()
         enable_disable_autorun_actions()
