@@ -54,8 +54,9 @@ def select_first_accessible_volume():
 
 
 def refresh_volumes_list():
-    global volumes
+    custom_ui.set_window_loading_cursor(window)
 
+    global volumes
     volumes = volume.get_available_volumes()
 
     menu = volume_dropdown["menu"]
@@ -67,10 +68,14 @@ def refresh_volumes_list():
 
         menu.add_checkbutton(label = f"{volume_label} ({string})", command = lambda value = string: update_volume_info(value), variable = selected_volume, onvalue = string)
 
+    custom_ui.set_window_normal_cursor(window)
+
 
 def update_volume_info(vol, forced = False):
     global icon_type_old, selected_volume_old, label_old, icon_old, icon_current
     selected_volume.set(selected_volume_old)
+
+    custom_ui.set_window_loading_cursor(window)
 
     if changes_made and not forced:
         confirmation = messagebox.askyesnocancel("Volume Labeler", strings.lang.apply_changes_change_volume, icon = "warning", default = "yes")
@@ -112,6 +117,8 @@ def update_volume_info(vol, forced = False):
     else:
         selected_volume.set(selected_volume_old)
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
+
+    custom_ui.set_window_normal_cursor(window)
 
 
 def check_for_changes(label_new):
@@ -162,6 +169,8 @@ def reset_changes_():
 def modify_volume_info():
     global label_old, icon_old
 
+    custom_ui.set_window_loading_cursor(window)
+
     try:
         volume.modify_volume_info(
             volume = selected_volume.get(), 
@@ -197,8 +206,12 @@ def modify_volume_info():
     except:
         error.show(traceback.format_exc())
 
+    custom_ui.set_window_normal_cursor(window)
+
 
 def remove_volume_customizations():
+    custom_ui.set_window_loading_cursor(window)
+
     try:
         confirmed = messagebox.askyesno(strings.lang.remove_customizations, strings.lang.remove_customizations_message, icon = "warning", default = "no")
 
@@ -224,8 +237,12 @@ def remove_volume_customizations():
     except:
         error.show(traceback.format_exc())
 
+    custom_ui.set_window_normal_cursor(window)
+
 
 def open_autorun_file():
+    custom_ui.set_window_loading_cursor(window)
+
     try:
         os.startfile(f"{selected_volume.get()}autorun.inf")
     except FileNotFoundError:
@@ -233,7 +250,9 @@ def open_autorun_file():
     except PermissionError:
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
     except:
-        error.show(traceback.format_exc())    
+        error.show(traceback.format_exc())
+
+    custom_ui.set_window_normal_cursor(window)
 
 
 def process_icon(path, index):
@@ -248,7 +267,9 @@ def process_icon(path, index):
 
 def choose_icon_():
     global preview, icon_type_old, icon_pack, icon_old
-    
+
+    custom_ui.set_window_loading_cursor(window)
+
     match icon_type.get():
         case "default":
             choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.icons.icon)
@@ -283,6 +304,8 @@ def choose_icon_():
         
     icon_type_old = icon_type.get()
     check_for_changes(label.get())
+
+    custom_ui.set_window_normal_cursor(window)
 
 
 def change_app_language():

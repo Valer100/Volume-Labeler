@@ -697,3 +697,15 @@ def show_readonly_text_context_menu(text: tk.Text | ScrolledText):
     text_menu.add_command(label = strings.lang.select_all, state = enable_select_all, command = lambda: text.tag_add("sel", "1.0", "end"))
 
     text_menu.tk_popup(text.winfo_pointerx(), text.winfo_pointery())
+
+
+def set_window_loading_cursor(window: App | Toplevel):
+    window.configure(cursor = "watch")
+    window.update()
+    window.update_idletasks()
+
+
+def set_window_normal_cursor(window: App | Toplevel):
+    window.configure(cursor = "arrow")
+    window.update()
+    window.update_idletasks()
