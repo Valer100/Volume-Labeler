@@ -162,6 +162,23 @@ def remove_volume_customizations(volume: str, backup_existing_autorun: bool = Tr
         raise VolumeNotAccessibleError(f"The volume {volume} is not accessible.")
     
 
+def reassign_volume_letter(volume: str) -> int:
+    import subprocess
+
+    cmd_path = "C:\\Windows\\System32\\cmd.exe"
+    diskpart_path = "C:\\Windows\\System32\\diskpart.exe"
+
+    script_path = preferences.diskpart + "\\script.txt"
+    status_path = preferences.diskpart + "\\status.txt"
+    log_path = preferences.diskpart + "\\log.txt"
+
+    open(script_path, "w").write(f"select volume {volume[0]}\nremove\nassign letter {volume[0]}\nexit")
+
+    subprocess.call(f"\"{cmd_path}\" /c \"\"{diskpart_path}\" /s \"{script_path}\" > \"{log_path}\" && echo 1 > \"{status_path}\" || echo 0 > \"{status_path}\"\"")
+    
+    return int(open(status_path, "r").read())  # 1 - success; 0 - failure
+
+
 def get_volume_label(volume: str) -> str:
     buffer = ctypes.create_unicode_buffer(261)    
     result = ctypes.windll.kernel32.GetVolumeInformationW(ctypes.c_wchar_p(volume), buffer, ctypes.sizeof(buffer), None, None, None, None, None)

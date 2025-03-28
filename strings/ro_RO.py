@@ -31,7 +31,8 @@ open_autorun = "Deschide autorun.inf"
 
 # Messages
 done = "Gata"
-operation_complete = "Informațiile volumului au fost modificate.\n\nDacă volumul se află pe o unitate amovibilă, deconectează unitatea și conecteaz-o înapoi la calculator pentru ca modificările să aibă efect. Dacă nu, modificările vor avea efect la următoarea pornire a calculatorului."
+operation_complete = "Informațiile volumului au fost modificate. Poți verifica acest lucru acum în File Explorer."
+operation_complete_reboot_required = "Informațiile volumului au fost modificate. Trebuie să deconectezi și să reconectezi unitatea pe care se află volumul (dacă este amovibilă) sau să-ți repornești calculatorul pentru ca modificările să aibă efect."
 permission_denied = "Permisiune refuzată"
 permission_denied_message = "Volumul poate fi doar citit sau nu ai drepturi ca să creezi/modifici fișiere pe el."
 volume_not_accessible = "Volum inaccesibil"

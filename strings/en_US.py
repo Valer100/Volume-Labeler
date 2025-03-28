@@ -31,7 +31,8 @@ open_autorun = "Open autorun.inf"
 
 # Messages
 done = "Done"
-operation_complete = "The volume's information were changed.\n\nIf the volume is on a removable drive, unplug the drive and plug it back into your computer for the changes to take effect. If it isn't, the changes will take effect the next time your computer starts."
+operation_complete = "The volume's information were changed. You can now check that in the File Explorer."
+operation_complete_reboot_required = "The volume's information were changed. You must disconnect and reconnect the drive that the volume is on (if it is removable) or reboot your computer for the changes to take effect."
 permission_denied = "Permission denied"
 permission_denied_message = "The volume is read-only or you don't have rights to create/modify files on it."
 volume_not_accessible = "Volume not accessible"

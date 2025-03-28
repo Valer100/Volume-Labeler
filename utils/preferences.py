@@ -9,9 +9,11 @@ else:
     is_portable = False
 
 temp = user_preferences + "\\temp"
+diskpart = user_preferences + "\\temp\\diskpart"
 
 if not os.path.exists(user_preferences): os.mkdir(user_preferences)
 if not os.path.exists(temp): os.mkdir(temp)
+if not os.path.exists(diskpart): os.mkdir(diskpart)
 
 
 theme, language, additional_prefs = "default", "default", "111"

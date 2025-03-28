@@ -1,10 +1,15 @@
-import tkinter as tk, strings, custom_ui, os, traceback, tktooltip, argparse, pywinstyles, sys
+import ctypes, os, sys
+
+if not ctypes.windll.shell32.IsUserAnAdmin():
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"\"{os.path.abspath(sys.argv[0])}\"", " ".join(sys.argv[1:]), 0)
+    exit(0)
+
+import tkinter as tk, strings, custom_ui, traceback, tktooltip, argparse, pywinstyles
 from tkinter import ttk, filedialog, messagebox
 from utils import volume, icon, preferences, context_menu_entry
 from dialogs import change_language, change_theme, about, error
-from ctypes import windll
 
-windll.shcore.SetProcessDpiAwareness(1)
+ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 os.chdir(os.path.dirname(__file__))
 if os.path.exists("icons\\icon.ico"): preferences.internal = ""
@@ -163,9 +168,15 @@ def modify_volume_info():
         label_old = label.get()
         icon_old = icon_current
 
+        volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+
+        if volume_letter_reassigned:
+            messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+        else:
+            messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
+
         disable_changes_actions()
         enable_disable_autorun_actions()
-        messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
     except PermissionError:
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
     except volume.VolumeNotAccessibleError:
@@ -182,8 +193,14 @@ def remove_volume_customizations():
 
         if confirmed:
             volume.remove_volume_customizations(volume = selected_volume.get(), backup_existing_autorun = backup_existing_autorun.get())
+            volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+            
             update_volume_info(selected_volume.get())
-            messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+
+            if volume_letter_reassigned:
+                messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+            else:
+                messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
     except volume.VolumeNotAccessibleError:
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
     except FileNotFoundError:
@@ -329,10 +346,10 @@ def draw_ui():
 
     ttk.Label(volume_section, text = strings.lang.volume).pack(side = "left")
 
-    refresh_volumes_frame = ttk.Frame(volume_section)
-    refresh_volumes_frame.pack(side = "right", padx = (preferences.get_scaled_value(8), 0), fill = "both")
+    volumes_actions = ttk.Frame(volume_section)
+    volumes_actions.pack(side = "right", padx = (preferences.get_scaled_value(8), 0), fill = "both")
 
-    refresh_volumes = custom_ui.Button(refresh_volumes_frame, command = refresh_volumes_list, text = "\ue72c", font = ("Segoe MDL2 Assets", 8))
+    refresh_volumes = custom_ui.Button(volumes_actions, command = refresh_volumes_list, text = "\ue72c", font = ("Segoe MDL2 Assets", 8))
     refresh_volumes.pack(fill = "both", expand = True)
     refresh_volumes.configure(padx = preferences.get_scaled_value(7), width = 0)
 
