@@ -25,7 +25,7 @@ parser.add_argument("--volume", default = None, help = "The letter of the volume
 arguments = parser.parse_args()
 
 window = custom_ui.App()
-window.title("Volume Labeler")
+window.title("Volume Labeler " + ("(Admin)" if ctypes.windll.shell32.IsUserAnAdmin() else ""))
 window.resizable(False, False)
 window.configure(padx = preferences.get_scaled_value(14), pady = preferences.get_scaled_value(8))
 
