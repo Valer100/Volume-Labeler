@@ -1,7 +1,7 @@
 import ctypes, os, sys
 
 if not ctypes.windll.shell32.IsUserAnAdmin():
-    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"\"{os.path.abspath(sys.argv[0])}\"", " ".join(sys.argv[1:]), 0)
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"\"{os.path.abspath(sys.argv[0])}\" {' '.join(sys.argv[1:])}", None, 0)
     exit(0)
 
 import tkinter as tk, strings, custom_ui, traceback, tktooltip, argparse, pywinstyles
@@ -42,16 +42,16 @@ icon_old = (None, 0)
 
 
 def select_first_accessible_volume():
-    for volume in volumes:
-        if os.path.exists(volume):
-            update_volume_info(volume, True)
+    for vol in volumes:
+        if os.path.exists(vol) and not volume.is_network_volume(vol):
+            update_volume_info(vol, True)
             break
 
 
 def refresh_volumes_list():
     global volumes
 
-    volumes = volume.get_available_drives()
+    volumes = volume.get_available_volumes()
 
     menu = volume_dropdown["menu"]
     menu.delete(0, "end")
@@ -76,7 +76,7 @@ def update_volume_info(vol, forced = False):
         elif confirmation == None:
             return
 
-    if os.path.exists(vol):
+    if os.path.exists(vol) and not volume.is_network_volume(vol):
         selected_volume.set(vol)
         icon_type.set("default")
 
@@ -101,6 +101,9 @@ def update_volume_info(vol, forced = False):
         enable_disable_autorun_actions()
 
         selected_volume_old = selected_volume.get()
+    elif volume.is_network_volume(vol):
+        selected_volume.set(selected_volume_old)
+        messagebox.showerror(strings.lang.unsupported_volume, strings.lang.unsupported_volume_network)
     else:
         selected_volume.set(selected_volume_old)
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
@@ -517,8 +520,12 @@ draw_ui()
 refresh_volumes_list()
 
 if not app_started and arguments.volume != None:
-    if os.path.exists(arguments.volume.upper()):
+    if os.path.exists(arguments.volume.upper()) and not volume.is_network_volume(arguments.volume.upper()):
         update_volume_info(arguments.volume.upper())
+    elif volume.is_network_volume(arguments.volume.upper()):
+        messagebox.showerror(strings.lang.unsupported_volume, strings.lang.unsupported_volume_network)
+        window.destroy()
+        sys.exit(1)
     else:
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
         window.destroy()

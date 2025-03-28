@@ -1,4 +1,4 @@
-import strings, os, random, re, shutil, datetime, ctypes, win32com.client
+import strings, os, random, re, shutil, datetime, ctypes, win32com.client, win32file
 from utils import preferences
 
 class VolumeNotAccessibleError(Exception): pass
@@ -223,9 +223,12 @@ def get_volume_label_and_icon(volume: str) -> dict[str, str, int]:
         raise VolumeNotAccessibleError(f"The volume {volume} is not accessible.")
 
 
-def get_available_drives() -> list:
+def get_available_volumes() -> list:
     return [f"{chr(65 + i)}:\\" for i in range(26) if (ctypes.windll.kernel32.GetLogicalDrives() >> i) & 1]
 
+
+def is_network_volume(volume) -> bool:
+    return win32file.GetDriveType(volume) == 4
 
 def add_hidden_attribute(file_path: str) -> None:
     ctypes.windll.kernel32.SetFileAttributesW(file_path, 0x02)

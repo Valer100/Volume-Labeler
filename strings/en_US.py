@@ -49,6 +49,8 @@ reset_changes_confirmation = "Are you sure? This action will reset all your unap
 apply_changes_exit = "Would you like to apply the changes made to this volume before exiting?"
 apply_changes_change_volume = "Would you like to apply the changes made to this volume before switching to another one?"
 autorun_file_missing = "autorun.inf file is missing."
+unsupported_volume = "Unsupported volume"
+unsupported_volume_network = "Network volumes aren't supported."
 
 # Files
 readme = "READ ME!"

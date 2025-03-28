@@ -49,6 +49,8 @@ reset_changes_confirmation = "Ești sigur(ă)? Această acțiune va reseta toate
 apply_changes_exit = "Ai vrea să aplici modificările făcute acestui volum înainte de a ieși?"
 apply_changes_change_volume = "Ai vrea să aplici modificările făcute acestui volum înainte de a trece la altul?"
 autorun_file_missing = "Fișierul autorun.inf lipsește."
+unsupported_volume = "Volum nesuportat"
+unsupported_volume_network = "Volumele de rețea nu sunt suportate."
 
 # Files
 readme = "CITEȘTE-MĂ!"
