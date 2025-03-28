@@ -1,8 +1,13 @@
 import ctypes, os, sys
+from tkinter import messagebox
 
 if not ctypes.windll.shell32.IsUserAnAdmin():
-    result = ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"\"{os.path.abspath(sys.argv[0])}\" {' '.join(sys.argv[1:])}", None, 0)
-    if result == 42: exit(0)
+    if getattr(sys, "frozen", False):
+        result = ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv[1:]), None, 0)
+    else:
+        result = ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"\"{os.path.abspath(sys.argv[0])}\" {' '.join(sys.argv[1:])}", None, 1)
+    
+    if result == 42: sys.exit(0)
 
 import tkinter as tk, strings, custom_ui, traceback, tktooltip, argparse, pywinstyles
 from tkinter import ttk, filedialog, messagebox
@@ -545,8 +550,10 @@ custom_ui.sync_colors_with_system(window)
 
 if not ctypes.windll.shell32.IsUserAnAdmin():
     window.deiconify()
+    window.focus_set()
     messagebox.showerror(strings.lang.admin_rights_not_granted, strings.lang.admin_rights_not_granted_message)
 
 window.bind("<Shift_L>", enable_new_icon_pack)
 window.protocol("WM_DELETE_WINDOW", on_app_close)
+window.focus_set()
 window.mainloop()

@@ -1,4 +1,4 @@
-import winreg, strings, sys, subprocess
+import winreg, strings, sys, os, subprocess
 
 
 def is_context_menu_entry_added() -> bool:
@@ -14,11 +14,21 @@ def is_context_menu_entry_added() -> bool:
 def add_context_menu_entry() -> None:
     entry = winreg.CreateKey(winreg.HKEY_CURRENT_USER, "Software\\Classes\\Drive\\shell\\Volume Labeler")
     winreg.SetValueEx(entry, "", 0, winreg.REG_SZ, strings.lang.customize_with_volume_labeler)
-    winreg.SetValueEx(entry, "Icon", 0, winreg.REG_SZ, sys.executable)
+    
+    if getattr(sys, "frozen", False): 
+        winreg.SetValueEx(entry, "Icon", 0, winreg.REG_SZ, sys.executable)
+    else:
+        winreg.SetValueEx(entry, "Icon", 0, winreg.REG_SZ, os.path.abspath("icons\\icon.ico"))
+    
     entry.Close()
 
     entry_command = winreg.CreateKey(winreg.HKEY_CURRENT_USER, "Software\\Classes\\Drive\\shell\\Volume Labeler\\command")
-    winreg.SetValueEx(entry_command, "", 0, winreg.REG_SZ, f"\"{sys.executable}\" --volume %1")
+    
+    if getattr(sys, "frozen", False):
+        winreg.SetValueEx(entry_command, "", 0, winreg.REG_SZ, f"\"{sys.executable}\" --volume %1")
+    else:
+        winreg.SetValueEx(entry_command, "", 0, winreg.REG_SZ, f"\"{sys.executable}\" \"{sys.argv[0]}\" --volume %1")
+    
     entry_command.Close()
 
 
