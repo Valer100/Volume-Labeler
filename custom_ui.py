@@ -13,8 +13,7 @@ class Colors():
             self.bg = "#f0f0f0"
             self.bg_hover = "#e0e0e0"
             self.bg_press = "#cecece"
-            self.bg_warning = "#ffffaa"
-            self.bd_warning = "#e0e08a"
+            self.bg_warning = "#fff4ce"
             self.fg = "#000000"
             self.entry_focus = winaccent.accent_dark
             self.entry_bd = "#8d8d8d"
@@ -42,8 +41,7 @@ class Colors():
             self.bg = "#202020"
             self.bg_hover = "#333333"
             self.bg_press = "#292929"
-            self.bg_warning = "#363600"
-            self.bd_warning = "#4b4b07"
+            self.bg_warning = "#433519"
             self.fg = "#ffffff"
             self.entry_focus = winaccent.accent_light_3
             self.entry_bd = "#6e6e6e"

@@ -1,4 +1,4 @@
-import strings, os, random, re, shutil, datetime, ctypes, win32com.client, win32file
+import strings, os, random, re, shutil, datetime, subprocess, ctypes, win32com.client, win32file
 from utils import preferences
 
 class VolumeNotAccessibleError(Exception): pass
@@ -163,8 +163,6 @@ def remove_volume_customizations(volume: str, backup_existing_autorun: bool = Tr
     
 
 def reassign_volume_letter(volume: str) -> int:
-    import subprocess
-
     cmd_path = "C:\\Windows\\System32\\cmd.exe"
     diskpart_path = "C:\\Windows\\System32\\diskpart.exe"
 
@@ -174,7 +172,7 @@ def reassign_volume_letter(volume: str) -> int:
 
     open(script_path, "w").write(f"select volume {volume[0]}\nremove\nassign letter {volume[0]}\nexit")
 
-    subprocess.call(f"\"{cmd_path}\" /c \"\"{diskpart_path}\" /s \"{script_path}\" > \"{log_path}\" && echo 1 > \"{status_path}\" || echo 0 > \"{status_path}\"\"")
+    subprocess.call(f"\"{cmd_path}\" /c \"\"{diskpart_path}\" /s \"{script_path}\" > \"{log_path}\" && echo 1 > \"{status_path}\" || echo 0 > \"{status_path}\"\"", shell = True)
     
     return int(open(status_path, "r").read())  # 1 - success; 0 - failure
 
@@ -229,6 +227,7 @@ def get_available_volumes() -> list:
 
 def is_network_volume(volume) -> bool:
     return win32file.GetDriveType(volume) == 4
+
 
 def add_hidden_attribute(file_path: str) -> None:
     ctypes.windll.kernel32.SetFileAttributesW(file_path, 0x02)

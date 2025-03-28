@@ -248,6 +248,7 @@ def process_icon(path, index):
 
 def choose_icon_():
     global preview, icon_type_old, icon_pack, icon_old
+    
     match icon_type.get():
         case "default":
             choose_icon.configure(text = "  " + strings.lang.choose_icon, image = custom_ui.icons.icon)
@@ -477,7 +478,6 @@ def draw_ui():
     
     language.update()
     settings.configure(height = language.winfo_reqwidth())
-
 
     tktooltip.ToolTip(language, strings.lang.change_language, follow = False, delay = 1)
     tktooltip.ToolTip(theme, strings.lang.change_theme, follow = False, delay = 1)
