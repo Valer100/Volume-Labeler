@@ -32,7 +32,7 @@ open_autorun = "Open autorun.inf"
 # Messages
 done = "Done"
 operation_complete = "The volume's information were changed. You can now check that in the File Explorer."
-operation_complete_reboot_required = "The volume's information were changed. You must disconnect and reconnect the drive that the volume is on (if it is removable) or reboot your computer for the changes to take effect."
+operation_complete_reboot_required = "The volume's information were changed. You must disconnect and reconnect the drive the volume is on (if it is removable) or reboot your computer for the changes to take effect."
 permission_denied = "Permission denied"
 permission_denied_message = "The volume is read-only or you don't have rights to create/modify files on it."
 volume_not_accessible = "Volume not accessible"
@@ -51,6 +51,8 @@ apply_changes_change_volume = "Would you like to apply the changes made to this 
 autorun_file_missing = "autorun.inf file is missing."
 unsupported_volume = "Unsupported volume"
 unsupported_volume_network = "Network volumes aren't supported."
+admin_rights_not_granted = "Administrator rights not granted"
+admin_rights_not_granted_message = "You didn't grant Volume Labeler administrator rights. Volume Labeler can also work without administrator rights, but the changes you will make to a volume will only take effect after disconnecting and reconnecting the drive the volume is on (if it is removable) or rebooting your computer."
 
 # Files
 readme = "READ ME!"

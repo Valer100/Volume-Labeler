@@ -1,8 +1,8 @@
 import ctypes, os, sys
 
 if not ctypes.windll.shell32.IsUserAnAdmin():
-    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"\"{os.path.abspath(sys.argv[0])}\" {' '.join(sys.argv[1:])}", None, 0)
-    exit(0)
+    result = ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, f"\"{os.path.abspath(sys.argv[0])}\" {' '.join(sys.argv[1:])}", None, 0)
+    if result == 42: exit(0)
 
 import tkinter as tk, strings, custom_ui, traceback, tktooltip, argparse, pywinstyles
 from tkinter import ttk, filedialog, messagebox
@@ -171,15 +171,18 @@ def modify_volume_info():
         label_old = label.get()
         icon_old = icon_current
 
-        volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
-
-        if volume_letter_reassigned:
-            messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
-        else:
-            messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
-
         disable_changes_actions()
         enable_disable_autorun_actions()
+
+        if ctypes.windll.shell32.IsUserAnAdmin():
+            volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+
+            if volume_letter_reassigned:
+                messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+            else:
+                messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
+        else:
+            messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
     except PermissionError:
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
     except volume.VolumeNotAccessibleError:
@@ -196,12 +199,15 @@ def remove_volume_customizations():
 
         if confirmed:
             volume.remove_volume_customizations(volume = selected_volume.get(), backup_existing_autorun = backup_existing_autorun.get())
-            volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
-            
             update_volume_info(selected_volume.get())
 
-            if volume_letter_reassigned:
-                messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+            if ctypes.windll.shell32.IsUserAnAdmin():
+                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+
+                if volume_letter_reassigned:
+                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+                else:
+                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
             else:
                 messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
     except volume.VolumeNotAccessibleError:
@@ -536,6 +542,10 @@ else:
 app_started = True
 
 custom_ui.sync_colors_with_system(window)
+
+if not ctypes.windll.shell32.IsUserAnAdmin():
+    window.deiconify()
+    messagebox.showerror(strings.lang.admin_rights_not_granted, strings.lang.admin_rights_not_granted_message)
 
 window.bind("<Shift_L>", enable_new_icon_pack)
 window.protocol("WM_DELETE_WINDOW", on_app_close)

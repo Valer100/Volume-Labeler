@@ -51,6 +51,8 @@ apply_changes_change_volume = "Ai vrea să aplici modificările făcute acestui 
 autorun_file_missing = "Fișierul autorun.inf lipsește."
 unsupported_volume = "Volum nesuportat"
 unsupported_volume_network = "Volumele de rețea nu sunt suportate."
+admin_rights_not_granted = "Drepturi de administrator neacordate"
+admin_rights_not_granted_message = "Nu ai acordat drepturi de administrator pentru Volume Labeler. Volume Labeler poate funcționa și fără drepturi de administrator, dar modificările pe care le vei face unui volum vor avea efect doar după deconectarea și reconectarea unității pe care se află acesta (dacă este amovibilă) sau repornirea calculatorului."
 
 # Files
 readme = "CITEȘTE-MĂ!"
