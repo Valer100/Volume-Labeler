@@ -14,6 +14,8 @@ class Colors():
             self.bg_hover = "#e0e0e0"
             self.bg_press = "#cecece"
             self.bg_warning = "#fff4ce"
+            self.bg_status_bar = "#e0e0e0"
+            self.bd_status_bar = "#cacaca"
             self.fg = "#000000"
             self.entry_focus = winaccent.accent_dark
             self.entry_bd = "#8d8d8d"
@@ -42,6 +44,8 @@ class Colors():
             self.bg_hover = "#333333"
             self.bg_press = "#292929"
             self.bg_warning = "#433519"
+            self.bg_status_bar = "#1a1a1a"
+            self.bd_status_bar = "#303030"
             self.fg = "#ffffff"
             self.entry_focus = winaccent.accent_light_3
             self.entry_bd = "#6e6e6e"
@@ -548,6 +552,9 @@ class App(tk.Tk):
 
         style = ttk.Style()
         style.configure(".", background = colors.bg, foreground = colors.fg)
+        style.configure("StatusBarBd.TFrame", background = colors.bd_status_bar)
+        style.configure("StatusBar.TFrame", background = colors.bg_status_bar)
+        style.configure("StatusBar.TLabel", background = colors.bg_status_bar, foreground = colors.fg)
         self.configure(background = colors.bg)
 
     def __init__(self, *args, **kwargs):

@@ -27,7 +27,6 @@ arguments = parser.parse_args()
 window = custom_ui.App()
 window.title("Volume Labeler " + ("(Admin)" if ctypes.windll.shell32.IsUserAnAdmin() else ""))
 window.resizable(False, False)
-window.configure(padx = preferences.get_scaled_value(14), pady = preferences.get_scaled_value(8))
 
 icon_pack = "C:\\Windows\\System32\\shell32.dll"
 show_additional_options = False
@@ -155,6 +154,11 @@ def enable_disable_autorun_actions():
         open_autorun.disable()
 
 
+def show_ready_status():
+    status_bar["text"] = strings.lang.ready
+    custom_ui.set_window_normal_cursor(window)
+
+
 def reset_changes_():
     confirmation = messagebox.askyesno(strings.lang.reset_changes, strings.lang.reset_changes_confirmation, icon = "warning", default = "no")
 
@@ -169,6 +173,7 @@ def reset_changes_():
 def modify_volume_info():
     global label_old, icon_old
 
+    status_bar["text"] = strings.lang.creating_autorun
     custom_ui.set_window_loading_cursor(window)
 
     try:
@@ -189,16 +194,25 @@ def modify_volume_info():
         enable_disable_autorun_actions()
 
         if ctypes.windll.shell32.IsUserAnAdmin():
+            status_bar["text"] = strings.lang.checking_for_open_files
+            window.update_idletasks()
+
             if not volume.is_volume_being_accessed(selected_volume.get()):
+                status_bar["text"] = strings.lang.reassigning_letter
+                window.update_idletasks()
+
                 volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+                show_ready_status()
 
                 if volume_letter_reassigned:
                     messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
                 else:
                     messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
             else:
+                show_ready_status()
                 messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
         else:
+            show_ready_status()
             messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
     except PermissionError:
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
@@ -209,7 +223,7 @@ def modify_volume_info():
     except:
         error.show(traceback.format_exc())
 
-    custom_ui.set_window_normal_cursor(window)
+    show_ready_status()
 
 
 def remove_volume_customizations():
@@ -219,20 +233,33 @@ def remove_volume_customizations():
         confirmed = messagebox.askyesno(strings.lang.remove_customizations, strings.lang.remove_customizations_message, icon = "warning", default = "no")
 
         if confirmed:
+            status_bar["text"] = strings.lang.deleting_autorun
+            window.update_idletasks()
+
             volume.remove_volume_customizations(volume = selected_volume.get(), backup_existing_autorun = backup_existing_autorun.get())
             update_volume_info(selected_volume.get())
 
             if ctypes.windll.shell32.IsUserAnAdmin():
+                status_bar["text"] = strings.lang.checking_for_open_files
+                window.update_idletasks()
+
                 if not volume.is_volume_being_accessed(selected_volume.get()):
+                    status_bar["text"] = strings.lang.reassigning_letter
+                    window.update_idletasks()
+
                     volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+
+                    show_ready_status()
 
                     if volume_letter_reassigned:
                         messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
                     else:
                         messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
                 else:
+                    show_ready_status()
                     messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
             else:
+                show_ready_status()
                 messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
     except volume.VolumeNotAccessibleError:
         messagebox.showerror(strings.lang.volume_not_accessible, strings.lang.volume_not_accessible_message)
@@ -242,8 +269,6 @@ def remove_volume_customizations():
         messagebox.showerror(strings.lang.permission_denied, strings.lang.permission_denied_message)
     except:
         error.show(traceback.format_exc())
-
-    custom_ui.set_window_normal_cursor(window)
 
 
 def open_autorun_file():
@@ -274,6 +299,7 @@ def process_icon(path, index):
 def choose_icon_():
     global preview, icon_type_old, icon_pack, icon_old
 
+    status_bar["text"] = strings.lang.preparing_icon
     custom_ui.set_window_loading_cursor(window)
 
     match icon_type.get():
@@ -311,6 +337,7 @@ def choose_icon_():
     icon_type_old = icon_type.get()
     check_for_changes(label.get())
 
+    status_bar["text"] = strings.lang.ready
     custom_ui.set_window_normal_cursor(window)
 
 
@@ -344,6 +371,11 @@ def change_app_language():
         update_strings(window)
         
         buttons.columnconfigure([0, 1], minsize = max(apply_changes.winfo_reqwidth(), reset_changes.winfo_reqwidth(), remove_customizations.winfo_reqwidth(), open_autorun.winfo_reqwidth()))
+        
+        status_bar["text"] = ""
+        window.update()
+        status_bar.configure(wraplength = window.winfo_reqwidth() - preferences.get_scaled_value(28))
+        status_bar["text"] = strings.lang.ready
 
 
 def change_app_theme():
@@ -377,15 +409,18 @@ def add_remove_context_menu_entry():
 
 
 def draw_ui():
-    global choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options, default_icon, choose_icon, icon_from_image, apply_changes, reset_changes, remove_customizations, open_autorun, buttons
+    global status_bar, choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options, default_icon, choose_icon, icon_from_image, apply_changes, reset_changes, remove_customizations, open_autorun, buttons
     show_additional_options = False
     
     for widget in window.winfo_children(): widget.destroy()
     strings.load_language(preferences.language)
 
-    ttk.Label(window, text = "Volume Labeler", font = ("Segoe UI Semibold", 17)).pack(anchor = "w")
+    root = ttk.Frame(window, padding = (preferences.get_scaled_value(14), preferences.get_scaled_value(8), preferences.get_scaled_value(14), 0))
+    root.pack(fill = "both")
 
-    volume_section = ttk.Frame(window)
+    ttk.Label(root, text = "Volume Labeler", font = ("Segoe UI Semibold", 17)).pack(anchor = "w")
+
+    volume_section = ttk.Frame(root)
     volume_section.pack(fill = "x", anchor = "w", pady = (preferences.get_scaled_value(16), preferences.get_scaled_value(8)))
 
     ttk.Label(volume_section, text = strings.lang.volume).pack(side = "left")
@@ -402,9 +437,9 @@ def draw_ui():
     volume_dropdown = custom_ui.OptionMenu(volume_section, selected_volume, *volumes)
     volume_dropdown.pack(side = "right")
 
-    ttk.Label(window, text = strings.lang.label).pack(pady = preferences.get_scaled_value(10), anchor = "w")
+    ttk.Label(root, text = strings.lang.label).pack(pady = preferences.get_scaled_value(10), anchor = "w")
 
-    label_frame = tk.Frame(window, highlightbackground = custom_ui.colors.entry_bd, highlightcolor = custom_ui.colors.entry_focus,
+    label_frame = tk.Frame(root, highlightbackground = custom_ui.colors.entry_bd, highlightcolor = custom_ui.colors.entry_focus,
                           highlightthickness = 1)
     label_frame.pack(anchor = "w", fill = "x")
 
@@ -412,26 +447,26 @@ def draw_ui():
                     foreground = custom_ui.colors.fg, border = 0, highlightthickness = preferences.get_scaled_value(2), 
                     highlightcolor = custom_ui.colors.entry_bg, highlightbackground = custom_ui.colors.entry_bg, 
                     insertbackground = custom_ui.colors.fg, insertwidth = 1, selectbackground = custom_ui.colors.entry_select,
-                    selectforeground = "#FFFFFF", validate = "key", validatecommand = (window.register(check_for_changes), "%P"))
+                    selectforeground = "#FFFFFF", validate = "key", validatecommand = (root.register(check_for_changes), "%P"))
     label.pack(fill = "x")
     label.bind("<Button-3>", lambda event: custom_ui.show_entry_context_menu(label))
 
-    ttk.Label(window, text = strings.lang.icon).pack(pady = (preferences.get_scaled_value(16), preferences.get_scaled_value(8)), anchor = "w")
+    ttk.Label(root, text = strings.lang.icon).pack(pady = (preferences.get_scaled_value(16), preferences.get_scaled_value(8)), anchor = "w")
 
-    default_icon = custom_ui.Radiobutton2(window, text = "  " + strings.lang.default_icon, variable = icon_type, value = "default", command = choose_icon_, image = custom_ui.icons.volume, compound = "left")
+    default_icon = custom_ui.Radiobutton2(root, text = "  " + strings.lang.default_icon, variable = icon_type, value = "default", command = choose_icon_, image = custom_ui.icons.volume, compound = "left")
     default_icon.pack(anchor = "w", fill = "x", pady = preferences.get_scaled_value(2))
 
-    choose_icon = custom_ui.Radiobutton2(window, text = "  " + strings.lang.choose_icon, variable = icon_type, value = "icon", command = choose_icon_, image = custom_ui.icons.icon, compound = "left")
+    choose_icon = custom_ui.Radiobutton2(root, text = "  " + strings.lang.choose_icon, variable = icon_type, value = "icon", command = choose_icon_, image = custom_ui.icons.icon, compound = "left")
     choose_icon.pack(anchor = "w", fill = "x", pady = preferences.get_scaled_value(2))
 
-    icon_from_image = custom_ui.Radiobutton2(window, text = "  " + strings.lang.create_icon_from_image, variable = icon_type, value = "image", image = custom_ui.icons.image, command = choose_icon_, compound = "left")
+    icon_from_image = custom_ui.Radiobutton2(root, text = "  " + strings.lang.create_icon_from_image, variable = icon_type, value = "image", image = custom_ui.icons.image, command = choose_icon_, compound = "left")
     icon_from_image.pack(anchor = "w", fill = "x", pady = preferences.get_scaled_value(2))
 
-    additional_options = custom_ui.Toolbutton(window, text = " " + strings.lang.additional_options, command = lambda: show_hide_additional_options(), anchor = "w", compound = "left", image = custom_ui.icons.arrow_down)
+    additional_options = custom_ui.Toolbutton(root, text = " " + strings.lang.additional_options, command = lambda: show_hide_additional_options(), anchor = "w", compound = "left", image = custom_ui.icons.arrow_down)
     additional_options.pack(pady = (preferences.get_scaled_value(14), 0), anchor = "w")
     additional_options.configure(padx = preferences.get_scaled_value(2))
 
-    additional_options_frame = ttk.Frame(window)
+    additional_options_frame = ttk.Frame(root)
     additional_options_frame.pack(anchor = "w")
     
     def show_hide_additional_options():
@@ -461,7 +496,7 @@ def draw_ui():
     custom_ui.Checkbutton(additional_options_frame, text = strings.lang.hide_vl_icon, command = save_additional_preferences, variable = hide_vl_icon)
     custom_ui.Checkbutton(additional_options_frame, text = strings.lang.backup_existing_autorun, command = save_additional_preferences, variable = backup_existing_autorun)
 
-    buttons = ttk.Frame(window)
+    buttons = ttk.Frame(root)
     buttons.pack(fill = "x", pady = (preferences.get_scaled_value(16), 0))
     buttons.columnconfigure([0, 1], weight = 1)
 
@@ -484,7 +519,7 @@ def draw_ui():
 
     buttons.columnconfigure([0, 1], minsize = max(apply_changes.winfo_reqwidth(), reset_changes.winfo_reqwidth(), remove_customizations.winfo_reqwidth(), open_autorun.winfo_reqwidth()))
 
-    settings = ttk.Frame(window)
+    settings = ttk.Frame(root)
     settings.pack(anchor = "w", pady = (preferences.get_scaled_value(20), preferences.get_scaled_value(2)), fill = "x")
     settings.pack_propagate(False)
     
@@ -507,6 +542,18 @@ def draw_ui():
     
     language.update()
     settings.configure(height = language.winfo_reqwidth())
+
+    ttk.Frame(window, height = 1, style = "StatusBarBd.TFrame").pack(fill = "x", pady = (preferences.get_scaled_value(10), 0))
+
+    status_bar = ttk.Label(
+        window, style = "StatusBar.TLabel", 
+        padding = (preferences.get_scaled_value(14), preferences.get_scaled_value(7), preferences.get_scaled_value(14), preferences.get_scaled_value(7))
+    )
+    status_bar.pack(anchor = "w", fill = "x")
+
+    window.update()
+    status_bar.configure(wraplength = window.winfo_reqwidth() - preferences.get_scaled_value(28))
+    status_bar.configure(text = strings.lang.ready)
 
     tktooltip.ToolTip(language, strings.lang.change_language, follow = False, delay = 1)
     tktooltip.ToolTip(theme, strings.lang.change_theme, follow = False, delay = 1)

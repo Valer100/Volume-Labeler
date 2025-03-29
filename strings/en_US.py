@@ -54,6 +54,14 @@ unsupported_volume_network = "Network volumes aren't supported."
 admin_rights_not_granted = "Administrator rights not granted"
 admin_rights_not_granted_message = "You didn't grant Volume Labeler administrator rights. Volume Labeler can also work without administrator rights, but the changes you will make to a volume will only take effect after disconnecting and reconnecting the drive the volume is on (if it is removable) or rebooting your computer."
 
+# Status bar
+ready = "Ready"
+creating_autorun = "Creating autorun.inf..."
+deleting_autorun = "Deleting autorun.inf..."
+checking_for_open_files = "Checking for open files..."
+reassigning_letter = "Reassigning volume letter..."
+preparing_icon = "Preparing icon..."
+
 # Files
 readme = "READ ME!"
 autorun_backup = "This folder includes backups of the `autorun.inf` file before Volume Labeler made changes to it. If something went wrong or you want to restore the settings before the modification, you can do so by deleting the `autorun.inf` file in the root of this volume (you may need to enable the \"Show hidden files\" option to see it). After that, go back to this folder, copy one of the autorun files (they are of the form `autorun_{date and time}.inf`) to the root of this volume and then rename it to autorun.inf."
