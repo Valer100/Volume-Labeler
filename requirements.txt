@@ -7,4 +7,3 @@ tkinter-tooltip
 pywin32
 appdirs
 pyyaml
-psutil

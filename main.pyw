@@ -194,22 +194,15 @@ def modify_volume_info():
         enable_disable_autorun_actions()
 
         if ctypes.windll.shell32.IsUserAnAdmin():
-            status_bar["text"] = strings.lang.checking_for_open_files
+            status_bar["text"] = strings.lang.reassigning_letter
             window.update_idletasks()
 
-            if not volume.is_volume_being_accessed(selected_volume.get()):
-                status_bar["text"] = strings.lang.reassigning_letter
-                window.update_idletasks()
+            volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+            show_ready_status()
 
-                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
-                show_ready_status()
-
-                if volume_letter_reassigned:
-                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
-                else:
-                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
+            if volume_letter_reassigned:
+                messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
             else:
-                show_ready_status()
                 messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
         else:
             show_ready_status()
@@ -227,36 +220,26 @@ def modify_volume_info():
 
 
 def remove_volume_customizations():
-    custom_ui.set_window_loading_cursor(window)
-
     try:
         confirmed = messagebox.askyesno(strings.lang.remove_customizations, strings.lang.remove_customizations_message, icon = "warning", default = "no")
 
         if confirmed:
             status_bar["text"] = strings.lang.deleting_autorun
-            window.update_idletasks()
+            custom_ui.set_window_loading_cursor(window)
 
             volume.remove_volume_customizations(volume = selected_volume.get(), backup_existing_autorun = backup_existing_autorun.get())
             update_volume_info(selected_volume.get())
 
             if ctypes.windll.shell32.IsUserAnAdmin():
-                status_bar["text"] = strings.lang.checking_for_open_files
+                status_bar["text"] = strings.lang.reassigning_letter
                 window.update_idletasks()
 
-                if not volume.is_volume_being_accessed(selected_volume.get()):
-                    status_bar["text"] = strings.lang.reassigning_letter
-                    window.update_idletasks()
+                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+                show_ready_status()
 
-                    volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
-
-                    show_ready_status()
-
-                    if volume_letter_reassigned:
-                        messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
-                    else:
-                        messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
+                if volume_letter_reassigned:
+                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
                 else:
-                    show_ready_status()
                     messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
             else:
                 show_ready_status()
