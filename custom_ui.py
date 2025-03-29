@@ -45,7 +45,7 @@ class Colors():
             self.bg_press = "#292929"
             self.bg_warning = "#433519"
             self.bg_status_bar = "#1a1a1a"
-            self.bd_status_bar = "#303030"
+            self.bd_status_bar = "#272727"
             self.fg = "#ffffff"
             self.entry_focus = winaccent.accent_light_3
             self.entry_bd = "#6e6e6e"
