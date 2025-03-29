@@ -16,7 +16,7 @@ if not os.path.exists(temp): os.mkdir(temp)
 if not os.path.exists(diskpart): os.mkdir(diskpart)
 
 
-theme, language, additional_prefs = "default", "default", "111"
+theme, language, additional_prefs = "default", "default", "1110"
 
 def save_settings():
     settings = {
@@ -26,7 +26,8 @@ def save_settings():
         "additional_options": {
             "hide_autorun.inf": bool(int(additional_prefs[0])),
             "hide_vl_icon": bool(int(additional_prefs[1])),
-            "backup_autorun.inf": bool(int(additional_prefs[2]))
+            "backup_autorun.inf": bool(int(additional_prefs[2])),
+            "refresh_volume_info_without_asking": bool(int(additional_prefs[3]))
         }
     }
 
@@ -46,7 +47,11 @@ def load_settings():
     theme = settings["theme"]
 
     additional_prefs = ""
-    for option in settings["additional_options"]: additional_prefs += "1" if settings["additional_options"][option] else "0"
+    additional_prefs_list = ["hide_autorun.inf", "hide_vl_icon", "backup_autorun.inf", "refresh_volume_info_without_asking"]
+
+    for preference in additional_prefs_list:
+        try: additional_prefs += str(int(settings["additional_options"][preference]))
+        except: additional_prefs += "0"
 
 try:
     load_settings()

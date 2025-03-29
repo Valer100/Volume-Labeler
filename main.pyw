@@ -39,6 +39,7 @@ selected_volume = tk.StringVar(value = "")
 hide_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[0]))
 hide_vl_icon = tk.BooleanVar(value = int(preferences.additional_prefs[1]))
 backup_existing_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[2]))
+refresh_volume_info_without_asking = tk.BooleanVar(value = int(preferences.additional_prefs[3]))
 icon_type = tk.StringVar(value = "default")
 label_old = ""
 icon_current = (None, 0)
@@ -197,10 +198,13 @@ def modify_volume_info():
             status_bar["text"] = strings.lang.reassigning_letter
             window.update_idletasks()
 
-            if not volume.is_system_volume(selected_volume.get()):
-                reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+            if refresh_volume_info_without_asking.get():
+                reassign_letter = True
             else:
-                reassign_letter = False
+                if not volume.is_system_volume(selected_volume.get()):
+                    reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+                else:
+                    reassign_letter = False
 
             if reassign_letter:
                 volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
@@ -243,10 +247,13 @@ def remove_volume_customizations():
                 status_bar["text"] = strings.lang.reassigning_letter
                 window.update_idletasks()
 
-                if not volume.is_system_volume(selected_volume.get()):
-                    reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+                if refresh_volume_info_without_asking.get():
+                    reassign_letter = True
                 else:
-                    reassign_letter = False
+                    if not volume.is_system_volume(selected_volume.get()):
+                        reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+                    else:
+                        reassign_letter = False
                 
                 if reassign_letter:
                     volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
@@ -490,12 +497,13 @@ def draw_ui():
             additional_options.configure(image = custom_ui.icons.arrow_down)
 
     def save_additional_preferences(): 
-        preferences.additional_prefs = f"{int(hide_autorun.get())}{int(hide_vl_icon.get())}{int(backup_existing_autorun.get())}"
+        preferences.additional_prefs = f"{int(hide_autorun.get())}{int(hide_vl_icon.get())}{int(backup_existing_autorun.get())}{int(refresh_volume_info_without_asking.get())}"
         preferences.save_settings()
 
     custom_ui.Checkbutton(additional_options_frame, text = strings.lang.hide_autorun, command = save_additional_preferences, variable = hide_autorun)
     custom_ui.Checkbutton(additional_options_frame, text = strings.lang.hide_vl_icon, command = save_additional_preferences, variable = hide_vl_icon)
     custom_ui.Checkbutton(additional_options_frame, text = strings.lang.backup_existing_autorun, command = save_additional_preferences, variable = backup_existing_autorun)
+    custom_ui.Checkbutton(additional_options_frame, text = strings.lang.refresh_volume_info_without_asking, command = save_additional_preferences, variable = refresh_volume_info_without_asking)
 
     buttons = ttk.Frame(root)
     buttons.pack(fill = "x", pady = (preferences.get_scaled_value(16), 0))
@@ -544,7 +552,7 @@ def draw_ui():
     language.update()
     settings.configure(height = language.winfo_reqwidth())
 
-    ttk.Frame(window, height = 1, style = "StatusBarBd.TFrame").pack(fill = "x", pady = (preferences.get_scaled_value(10), 0))
+    ttk.Frame(window, height = 1, style = "StatusBarBd.TFrame").pack(fill = "x", pady = (preferences.get_scaled_value(8), 0))
 
     status_bar = ttk.Label(
         window, style = "StatusBar.TLabel", 

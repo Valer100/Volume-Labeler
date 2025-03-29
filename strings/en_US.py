@@ -28,6 +28,7 @@ context_menu_integration_not_available_portable = "Context menu integration: Una
 refresh_volumes_list = "Refresh volumes list"
 reset_changes = "Reset changes"
 open_autorun = "Open autorun.inf"
+refresh_volume_info_without_asking = "Refresh volume information without asking"
 
 # Messages
 done = "Done"
@@ -54,7 +55,7 @@ unsupported_volume_network = "Network volumes aren't supported."
 admin_rights_not_granted = "Administrator rights not granted"
 admin_rights_not_granted_message = "You didn't grant Volume Labeler administrator rights. Volume Labeler can also work without administrator rights, but the changes you will make to a volume will only take effect after disconnecting and reconnecting the drive the volume is on (if it is removable) or rebooting your computer."
 refresh_volume_info = "Refresh volume information"
-refresh_volume_info_message = "Would you like to refresh the volume's information? This action will update the volume information instantly in the File Explorer without requiring disconnecting and reconnecting the drive the volume is on or a reboot, but it might affect processes that already use it. It's recommended to save your files that you didn't save yet and close any apps open from the volume before proceeding.\n\nNOTE: This action is not guaranteed to succeed."
+refresh_volume_info_message = "Would you like to refresh the volume's information? This action will update the volume information instantly in the File Explorer without requiring disconnecting and reconnecting the drive the volume is on or a reboot, but it might affect processes that already use it. It's recommended to save your files that you didn't save yet and close any apps open from the volume before proceeding."
 
 # Status bar
 ready = "Ready"
