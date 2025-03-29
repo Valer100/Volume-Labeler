@@ -53,12 +53,13 @@ unsupported_volume = "Unsupported volume"
 unsupported_volume_network = "Network volumes aren't supported."
 admin_rights_not_granted = "Administrator rights not granted"
 admin_rights_not_granted_message = "You didn't grant Volume Labeler administrator rights. Volume Labeler can also work without administrator rights, but the changes you will make to a volume will only take effect after disconnecting and reconnecting the drive the volume is on (if it is removable) or rebooting your computer."
+refresh_volume_info = "Refresh volume information"
+refresh_volume_info_message = "Would you like to refresh the volume's information? This action will update the volume information instantly in the File Explorer without requiring disconnecting and reconnecting the drive the volume is on or a reboot, but it might affect processes that already use it. It's recommended to save your files that you didn't save yet and close any apps open from the volume before proceeding.\n\nNOTE: This action is not guaranteed to succeed."
 
 # Status bar
 ready = "Ready"
 creating_autorun = "Creating autorun.inf..."
 deleting_autorun = "Deleting autorun.inf..."
-checking_for_open_files = "Checking for open files..."
 reassigning_letter = "Reassigning volume letter..."
 preparing_icon = "Preparing icon..."
 

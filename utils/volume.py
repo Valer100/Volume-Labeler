@@ -1,4 +1,4 @@
-import strings, os, random, re, shutil, datetime, subprocess, ctypes, win32com.client, win32file
+import strings, os, random, re, shutil, datetime, subprocess, ctypes, win32com.client, win32file, win32api
 from utils import preferences
 
 class VolumeNotAccessibleError(Exception): pass
@@ -219,6 +219,10 @@ def get_volume_label_and_icon(volume: str) -> dict[str, str, int]:
         return {"label": volume_label, "icon_path": icon_path, "icon_index": icon_index}
     else:
         raise VolumeNotAccessibleError(f"The volume {volume} is not accessible.")
+
+
+def is_system_volume(volume: str) -> bool:
+    return win32api.GetSystemDirectory().split("\\")[0] + "\\" == volume 
 
 
 def get_available_volumes() -> list:

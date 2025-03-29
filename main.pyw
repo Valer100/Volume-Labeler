@@ -197,7 +197,16 @@ def modify_volume_info():
             status_bar["text"] = strings.lang.reassigning_letter
             window.update_idletasks()
 
-            volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+            if not volume.is_system_volume(selected_volume.get()):
+                reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+            else:
+                reassign_letter = False
+
+            if reassign_letter:
+                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+            else:
+                volume_letter_reassigned = False
+                
             show_ready_status()
 
             if volume_letter_reassigned:
@@ -234,7 +243,16 @@ def remove_volume_customizations():
                 status_bar["text"] = strings.lang.reassigning_letter
                 window.update_idletasks()
 
-                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+                if not volume.is_system_volume(selected_volume.get()):
+                    reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+                else:
+                    reassign_letter = False
+                
+                if reassign_letter:
+                    volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+                else:
+                    volume_letter_reassigned = False
+                
                 show_ready_status()
 
                 if volume_letter_reassigned:

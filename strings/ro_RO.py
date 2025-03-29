@@ -53,12 +53,13 @@ unsupported_volume = "Volum nesuportat"
 unsupported_volume_network = "Volumele de rețea nu sunt suportate."
 admin_rights_not_granted = "Drepturi de administrator neacordate"
 admin_rights_not_granted_message = "Nu ai acordat drepturi de administrator pentru Volume Labeler. Volume Labeler poate funcționa și fără drepturi de administrator, dar modificările pe care le vei face unui volum vor avea efect doar după deconectarea și reconectarea unității pe care se află acesta (dacă este amovibilă) sau repornirea calculatorului."
+refresh_volume_info = "Reîmprospătează informațiile volumului"
+refresh_volume_info_message = "Ai dori să reîmprospătezi informațiile volumului? Această acțiune va actualiza informațiile volumului instantaneu în File Explorer fără nevoia de a deconecta și reconecta unitatea pe care se află volumul sau de o repornire, dar s-ar putea să afecteze procesele care îl folosesc deja. Este recomandat să-ți salvezi fișierele pe care încă nu le-ai salvat încă și să închizi toate aplicațiile deschise de pe volum înainte de a continua.\n\nNOTĂ: Această acțiune nu este garantată să aibă succes."
 
 # Status bar
 ready = "Pregătit"
 creating_autorun = "Se creează autorun.inf..."
 deleting_autorun = "Se șterge autorun.inf..."
-checking_for_open_files = "Se verifică pentru fișiere deschise..."
 reassigning_letter = "Se reatribuie litera volumului..."
 preparing_icon = "Se pregătește pictograma..."
 
