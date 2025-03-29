@@ -189,10 +189,13 @@ def modify_volume_info():
         enable_disable_autorun_actions()
 
         if ctypes.windll.shell32.IsUserAnAdmin():
-            volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+            if not volume.is_volume_being_accessed(selected_volume.get()):
+                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
 
-            if volume_letter_reassigned:
-                messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+                if volume_letter_reassigned:
+                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+                else:
+                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
             else:
                 messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
         else:
@@ -220,10 +223,13 @@ def remove_volume_customizations():
             update_volume_info(selected_volume.get())
 
             if ctypes.windll.shell32.IsUserAnAdmin():
-                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
+                if not volume.is_volume_being_accessed(selected_volume.get()):
+                    volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
 
-                if volume_letter_reassigned:
-                    messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+                    if volume_letter_reassigned:
+                        messagebox.showinfo(strings.lang.done, strings.lang.operation_complete)
+                    else:
+                        messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
                 else:
                     messagebox.showinfo(strings.lang.done, strings.lang.operation_complete_reboot_required)
             else:

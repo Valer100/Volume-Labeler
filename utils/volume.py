@@ -1,4 +1,4 @@
-import strings, os, random, re, shutil, datetime, subprocess, ctypes, win32com.client, win32file
+import strings, os, random, re, shutil, datetime, subprocess, ctypes, psutil, win32com.client, win32file
 from utils import preferences
 
 class VolumeNotAccessibleError(Exception): pass
@@ -219,6 +219,24 @@ def get_volume_label_and_icon(volume: str) -> dict[str, str, int]:
         return {"label": volume_label, "icon_path": icon_path, "icon_index": icon_index}
     else:
         raise VolumeNotAccessibleError(f"The volume {volume} is not accessible.")
+
+
+def is_volume_being_accessed(volume: str) -> bool:
+    for proc in psutil.process_iter(attrs = ["exe", "open_files"]):
+        try:
+            exe_path = proc.info["exe"]
+            if exe_path and exe_path.startswith(volume):
+                return True
+
+            open_files = proc.info["open_files"]
+            if open_files:
+                for file in open_files:
+                    if file.path.startswith(volume):
+                        return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+
+    return False
 
 
 def get_available_volumes() -> list:
