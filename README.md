@@ -65,7 +65,20 @@ Also, you must build the app first before building the installer. After building
 ## 💿 Download
 At the moment, there are no stable realeses published. However, if you want to try unstable versions, you can check out the builds from [GitHub Actions](https://github.com/Valer100/Volume-Labeler/actions).
 
+<a href="https://github.com/Valer100/Volume-Labeler/actions">
+    <img alt="Download from GitHub Actions" src="https://img.shields.io/badge/%F0%9F%A1%87%20Download%20from%20GitHub%20Actions-DE9F00?style=flat&logoColor=000000" height=24>
+</a>
+
 <!-- Click [here](https://github.com/Valer100/Volume-Labeler/releases/latest) to download the latest version. You can download either the portable or the installer version.
+
+<div>
+    <a href="https://github.com/Valer100/Volume-Labeler/releases/latest">
+        <img alt="Download latest version" src="https://img.shields.io/badge/%F0%9F%A1%87%20Download%20latest%20version-DE9F00?style=flat&logoColor=000000" height=24/>
+    </a>
+    <a href="https://github.com/Valer100/Volume-Labeler/actions">
+        <img alt="Download canary versions" src="https://img.shields.io/badge/%F0%9F%A1%87%20Download%20canary%20versions-606060?style=flat&logoColor=000000" height=24/>
+    </a>
+</div>
 
 > [!WARNING]
 > At the moment, the binaries from Releases tab were built only for 64 bit Windows. They will not work on 32 bit Windows. -->
