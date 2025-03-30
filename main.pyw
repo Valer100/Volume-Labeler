@@ -84,6 +84,7 @@ def update_volume_info(vol, forced = False):
             modify_volume_info()
             if changes_made: return
         elif confirmation == None:
+            custom_ui.set_window_normal_cursor(window)
             return
 
     if os.path.exists(vol) and not volume.is_network_volume(vol):
@@ -556,7 +557,7 @@ def draw_ui():
 
     status_bar = ttk.Label(
         window, style = "StatusBar.TLabel", 
-        padding = (preferences.get_scaled_value(14), preferences.get_scaled_value(7), preferences.get_scaled_value(14), preferences.get_scaled_value(7))
+        padding = (preferences.get_scaled_value(14), preferences.get_scaled_value(6), preferences.get_scaled_value(14), preferences.get_scaled_value(6))
     )
     status_bar.pack(anchor = "w", fill = "x")
 
