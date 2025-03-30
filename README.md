@@ -17,10 +17,15 @@
 
 A simple tool for changing the label and the icon of a volume in Windows. It makes these changes by creating an `autorun.inf` file (or edits the existing one) on the volume you want to change its label and icon. 
 
+![From -> To Image](assets//from_to_dark.png#gh-dark-mode-only)
+![From -> To Image](assets//from_to_light.png#gh-light-mode-only)
+
 ## ✨ Features
 - When selecting a volume, it checks if `autorun.inf` is present on it. It then retrieves its actual label and icon, so you don't have to type the same label if you only want to change the volume's icon or select the same icon if you only want to change the volume's label.
 
 - Multiple icon options: default icon, custom icon (`.ico` or from an `.exe`, `.dll` or `.icl` file) or icon from image (converts the selected image to an `.ico` file).
+
+- Refresh volume information in the File Explorer after applying the changes (requires running the app as administrator and not using the volume; doesn't work with the system drive)
 
 - Option to hide the `autorun.inf` file and the `vl_icon` folder (the icon is stored in that folder).
 
@@ -34,8 +39,8 @@ A simple tool for changing the label and the icon of a volume in Windows. It mak
 
 ## 📷 Screenshots
 
-| Light Mode | Dark Mode |
-|:----------:|:---------:|
+| ☀️ Light Mode | 🌛 Dark Mode |
+|:------------:|:------------:|
 | ![Light mode](assets/screenshots/screenshot_light.png) | ![Dark mode](assets/screenshots/screenshot_dark.png) |
 
 ## ▶️ Running from source
@@ -59,6 +64,7 @@ Also, you must build the app first before building the installer. After building
 
 ## 💿 Download
 At the moment, there are no stable realeses published. However, if you want to try unstable versions, you can check out the builds from [GitHub Actions](https://github.com/Valer100/Volume-Labeler/actions).
+
 <!-- Click [here](https://github.com/Valer100/Volume-Labeler/releases/latest) to download the latest version. You can download either the portable or the installer version.
 
 > [!WARNING]
