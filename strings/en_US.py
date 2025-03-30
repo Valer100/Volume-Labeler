@@ -29,6 +29,7 @@ refresh_volumes_list = "Refresh volumes list"
 reset_changes = "Reset changes"
 open_autorun = "Open autorun.inf"
 refresh_volume_info_without_asking = "Refresh volume information without asking"
+open_this_pc_in_explorer = "Open \"This PC\" in File Explorer"
 
 # Messages
 done = "Done"

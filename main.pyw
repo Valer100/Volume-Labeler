@@ -539,13 +539,16 @@ def draw_ui():
     theme = custom_ui.Toolbutton(settings, text = "\ue771", link = True, icononly = True, anchor = "n", command = change_app_theme, font = ("Segoe UI", 12))
     theme.pack(anchor = "nw", side = "left", padx = (preferences.get_scaled_value(4), 0))
 
-    context_menu_integration = custom_ui.Toolbutton(settings, text = "\ue71d", link = True, icononly = True, anchor = "n", command = add_remove_context_menu_entry, font = ("Segoe UI", 12))
+    context_menu_integration = custom_ui.Toolbutton(settings, text = "\ue8bc", link = True, icononly = True, anchor = "n", command = add_remove_context_menu_entry, font = ("Segoe UI", 12))
     context_menu_integration.pack(anchor = "nw", side = "left", padx = (preferences.get_scaled_value(4), 0))
 
     if preferences.is_portable: 
         context_menu_integration.configure(state = "disabled", cursor = "")
         context_menu_integration.unbind("<Enter>")
         context_menu_integration.unbind("<Leave>")
+
+    open_this_pc = custom_ui.Toolbutton(settings, text = "\uec4e", link = True, icononly = True, anchor = "n", command = lambda: os.startfile("shell:MyComputerFolder"), font = ("Segoe UI", 12))
+    open_this_pc.pack(anchor = "nw", side = "left", padx = (preferences.get_scaled_value(4), 0))
 
     about_app = custom_ui.Toolbutton(settings, text = "\ue946", link = True, icononly = True, anchor = "n", command = about.show, font = ("Segoe UI", 13))
     about_app.pack(anchor = "nw", side = "left", padx = (preferences.get_scaled_value(4), 0))
@@ -567,6 +570,7 @@ def draw_ui():
 
     tktooltip.ToolTip(language, strings.lang.change_language, follow = False, delay = 1)
     tktooltip.ToolTip(theme, strings.lang.change_theme, follow = False, delay = 1)
+    tktooltip.ToolTip(open_this_pc, strings.lang.open_this_pc_in_explorer, follow = False, delay = 1)
     tktooltip.ToolTip(about_app, strings.lang.about_this_app, follow = False, delay = 1)
 
     if not preferences.is_portable:

@@ -29,6 +29,7 @@ refresh_volumes_list = "Reîmprospătează lista volumelor"
 reset_changes = "Resetează modificările"
 open_autorun = "Deschide autorun.inf"
 refresh_volume_info_without_asking = "Reîmprospătează informațiile volumului fără a întreba"
+open_this_pc_in_explorer = "Deschide \"Acest PC\" în File Explorer"
 
 # Messages
 done = "Gata"

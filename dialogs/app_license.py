@@ -11,7 +11,7 @@ def show(window):
     header = ttk.Frame(window)
     header.pack(anchor = "w", pady = (preferences.get_scaled_value(8), preferences.get_scaled_value(16)))
 
-    ttk.Label(header, text = "\ue8a5 ", font = ("Segoe UI", 17), padding = (0, 5, 0, 0)).pack(side = "left")
+    ttk.Label(header, text = "\ueb95 ", font = ("Segoe UI", 17), padding = (0, 5, 0, 0)).pack(side = "left")
     ttk.Label(header, width = 25, text = strings.lang.license, font = ("Segoe UI Semibold", 17)).pack(side = "left")
 
     license_text = ScrolledText(window, width = 80, height = 22, wrap = "word", background = custom_ui.colors.entry_bg,
