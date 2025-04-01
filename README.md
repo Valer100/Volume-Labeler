@@ -60,7 +60,7 @@ Just run `build_app.bat`. It will do everything needed to build the app. After t
 ### Building the installer
 Before building the installer, you must install Inno Setup Compiler on your computer. You can download it [here](https://jrsoftware.org/isdl.php/).
 
-Also, you must build the app first before building the installer. After building the app, make sure a `build` folder appears. If it doesn't and appears a `dist` folder intstead, rename that folder to `build`. After that, right-click `build_installer.iss` and choose `Compile`. After the installer was built, you can find it in the same `build` folder.
+Also, you must build the app first before building the installer. After building the app, make sure a `build` folder appears. If it doesn't and  a `dist` folder appears intstead, rename that folder to `build`. After that, right-click `build_installer.iss` and choose `Compile`. After the installer was built, you can find it in the same `build` folder.
 
 ## 💿 Download
 At the moment, there are no stable realeses published. However, if you want to try unstable versions, you can check out the builds from [GitHub Actions](https://github.com/Valer100/Volume-Labeler/actions).
@@ -69,19 +69,20 @@ At the moment, there are no stable realeses published. However, if you want to t
     <img alt="Download from GitHub Actions" src="https://img.shields.io/badge/%F0%9F%A1%87%20Download%20from%20GitHub%20Actions-DE9F00?style=flat&logoColor=000000" height=24>
 </a>
 
-<!-- Click [here](https://github.com/Valer100/Volume-Labeler/releases/latest) to download the latest version. You can download either the portable or the installer version.
+<!-- Click [here](https://github.com/Valer100/Volume-Labeler/releases/latest) to download the latest version. You can download either the portable or the installer version. 
+
+**Note that the available builds were only built for 64 bit processors and they won't work on 32 bit ones**.
 
 <div>
     <a href="https://github.com/Valer100/Volume-Labeler/releases/latest">
         <img alt="Download latest version" src="https://img.shields.io/badge/%F0%9F%A1%87%20Download%20latest%20version-DE9F00?style=flat&logoColor=000000" height=24/>
     </a>
+    &nbsp;
     <a href="https://github.com/Valer100/Volume-Labeler/actions">
         <img alt="Download canary versions" src="https://img.shields.io/badge/%F0%9F%A1%87%20Download%20canary%20versions-606060?style=flat&logoColor=000000" height=24/>
     </a>
-</div>
+</div> -->
 
-> [!WARNING]
-> At the moment, the binaries from Releases tab were built only for 64 bit Windows. They will not work on 32 bit Windows. -->
 
 ## 📜 License
 Volume Labeler is MIT-licensed. You can read the license text [here](https://github.com/Valer100/Volume-Labeler/blob/main/LICENSE).
