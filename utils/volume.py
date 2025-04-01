@@ -84,7 +84,7 @@ def modify_volume_info(
                             autorun_new += f"\nicon=vl_icon\\icon{id}.ico,0"
                             icon_changed = True
                     elif entry == "label": 
-                        autorun_new += f"\nlabel={label}"
+                        autorun_new += f"\nlabel=\"{label}\""
                         label_changed = True
                     else: autorun_new += "\n" + line
                 else:
@@ -96,11 +96,11 @@ def modify_volume_info(
                 if replacements > 0: icon_changed = True
             
             if not label_changed: 
-                autorun_new, replacements = re.subn(r"(?i)^\[autorun(?:\.[a-zA-Z0-9_]+)?\]", lambda match: f"{match.group(0)}\nlabel={label}", autorun_new, flags = re.MULTILINE)
+                autorun_new, replacements = re.subn(r"(?i)^\[autorun(?:\.[a-zA-Z0-9_]+)?\]", lambda match: f"{match.group(0)}\nlabel=\"{label}\"", autorun_new, flags = re.MULTILINE)
                 if replacements > 0: label_changed = True
 
             if not (icon_changed or label_changed):
-                autorun_new += f"\n\n[autorun]\nlabel={label}"
+                autorun_new += f"\n\n[autorun]\nlabel=\"{label}\""
                 if not default_icon == "default": autorun_new += f"\nicon=vl_icon\\icon{id}.ico,0"
 
             autorun_new = autorun_new.strip()
@@ -115,7 +115,7 @@ def modify_volume_info(
         
 
         def create_new_autorun_file():
-            autorun = f"[autorun]\nlabel={label}"
+            autorun = f"[autorun]\nlabel=\"{label}\""
             if not default_icon: autorun += f"\nicon=vl_icon\\icon{id}.ico,0"
 
             remove_hidden_attribute(f"{volume}autorun.inf")
@@ -204,7 +204,7 @@ def get_volume_label_and_icon(volume: str) -> dict[str, str, int]:
                     param = entry_and_param[1].strip()
 
                     if entry == "icon":
-                        path_and_index = param.rsplit(",", 1)
+                        path_and_index = preferences.remove_string_quotes(param).rsplit(",", 1)
                         icon_path = path_and_index[0]
 
                         if len(path_and_index) == 2: icon_index = int(path_and_index[1].strip())
@@ -214,7 +214,7 @@ def get_volume_label_and_icon(volume: str) -> dict[str, str, int]:
 
                         if not os.path.exists(icon_path): icon_path = None 
                     elif entry == "label":
-                        volume_label = param
+                        volume_label = preferences.remove_string_quotes(param)
 
         return {"label": volume_label, "icon_path": icon_path, "icon_index": icon_index}
     else:

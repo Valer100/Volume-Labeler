@@ -66,6 +66,18 @@ def limit_string(string: str) -> str:
     return string
 
 
+def remove_string_quotes(string: str) -> str:
+    if string.startswith("\"") and string.endswith("\""):
+        quote_type = "\""
+    elif string.startswith("'") and string.endswith("'"):
+        quote_type = "'"
+    else: 
+        return string
+
+    return string.removeprefix(quote_type).removesuffix(quote_type)
+
+
+
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 dpi = ctypes.c_uint()
