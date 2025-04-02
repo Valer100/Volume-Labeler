@@ -12,7 +12,7 @@ if not ctypes.windll.shell32.IsUserAnAdmin():
 import tkinter as tk, strings, custom_ui, traceback, tktooltip, argparse, pywinstyles
 from tkinter import ttk, filedialog, messagebox
 from utils import volume, icon, preferences, context_menu_entry
-from dialogs import change_language, change_theme, about, error
+from dialogs import change_language, change_theme, about, error, additional_options
 
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
@@ -36,14 +36,17 @@ volumes = [""]
 app_started = False
 changes_made = False
 selected_volume = tk.StringVar(value = "")
-hide_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[0]))
-hide_vl_icon = tk.BooleanVar(value = int(preferences.additional_prefs[1]))
-backup_existing_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[2]))
-refresh_volume_info_without_asking = tk.BooleanVar(value = int(preferences.additional_prefs[3]))
 icon_type = tk.StringVar(value = "default")
 label_old = ""
 icon_current = (None, 0)
 icon_old = (None, 0)
+
+hide_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[0]))
+hide_vl_icon = tk.BooleanVar(value = int(preferences.additional_prefs[1]))
+backup_existing_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[2]))
+refresh_volume_info_without_asking = tk.BooleanVar(value = int(preferences.additional_prefs[3]))
+
+additional_options_vars = (hide_autorun, hide_vl_icon, backup_existing_autorun, refresh_volume_info_without_asking)
 
 
 def select_first_accessible_volume():
@@ -418,7 +421,7 @@ def add_remove_context_menu_entry():
 
 
 def draw_ui():
-    global status_bar, choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options, default_icon, choose_icon, icon_from_image, apply_changes, reset_changes, remove_customizations, open_autorun, buttons
+    global status_bar, choose_icon, icon_from_image, reset_changes, volume_dropdown, label, show_additional_options, context_menu_integration, context_menu_integration_tooltip, refresh_volumes, additional_options_button, default_icon, choose_icon, icon_from_image, apply_changes, reset_changes, remove_customizations, open_autorun, buttons
     show_additional_options = False
     
     for widget in window.winfo_children(): widget.destroy()
@@ -448,15 +451,19 @@ def draw_ui():
 
     ttk.Label(root, text = strings.lang.label).pack(pady = preferences.get_scaled_value(10), anchor = "w")
 
-    label_frame = tk.Frame(root, highlightbackground = custom_ui.colors.entry_bd, highlightcolor = custom_ui.colors.entry_focus,
-                          highlightthickness = 1)
+    label_frame = tk.Frame(
+        root, highlightbackground = custom_ui.colors.entry_bd, highlightcolor = custom_ui.colors.entry_focus,
+        highlightthickness = 1
+    )
     label_frame.pack(anchor = "w", fill = "x")
 
-    label = tk.Entry(label_frame, width = 40, background = custom_ui.colors.entry_bg, 
-                    foreground = custom_ui.colors.fg, border = 0, highlightthickness = preferences.get_scaled_value(2), 
-                    highlightcolor = custom_ui.colors.entry_bg, highlightbackground = custom_ui.colors.entry_bg, 
-                    insertbackground = custom_ui.colors.fg, insertwidth = 1, selectbackground = custom_ui.colors.entry_select,
-                    selectforeground = "#FFFFFF", validate = "key", validatecommand = (root.register(check_for_changes), "%P"))
+    label = tk.Entry(
+        label_frame, width = 40, background = custom_ui.colors.entry_bg, 
+        foreground = custom_ui.colors.fg, border = 0, highlightthickness = preferences.get_scaled_value(2), 
+        highlightcolor = custom_ui.colors.entry_bg, highlightbackground = custom_ui.colors.entry_bg, 
+        insertbackground = custom_ui.colors.fg, insertwidth = 1, selectbackground = custom_ui.colors.entry_select,
+        selectforeground = "#FFFFFF", validate = "key", validatecommand = (root.register(check_for_changes), "%P")
+    )
     label.pack(fill = "x")
     label.bind("<Button-3>", lambda event: custom_ui.show_entry_context_menu(label))
 
@@ -471,40 +478,9 @@ def draw_ui():
     icon_from_image = custom_ui.Radiobutton2(root, text = "  " + strings.lang.create_icon_from_image, variable = icon_type, value = "image", image = custom_ui.icons.image, command = choose_icon_, compound = "left")
     icon_from_image.pack(anchor = "w", fill = "x", pady = preferences.get_scaled_value(2))
 
-    additional_options = custom_ui.Toolbutton(root, text = " " + strings.lang.additional_options, command = lambda: show_hide_additional_options(), anchor = "w", compound = "left", image = custom_ui.icons.arrow_down)
-    additional_options.pack(pady = (preferences.get_scaled_value(14), 0), anchor = "w")
-    additional_options.configure(padx = preferences.get_scaled_value(2))
-
-    additional_options_frame = ttk.Frame(root)
-    additional_options_frame.pack(anchor = "w")
-    
-    def show_hide_additional_options():
-        global show_additional_options, arrow
-        show_additional_options = not show_additional_options
-
-        for widget in additional_options_frame.winfo_children():
-            if show_additional_options: 
-                if widget["text"] == strings.lang.hide_autorun:
-                    widget.pack(pady = (preferences.get_scaled_value(6), 0), anchor = "w")
-                else:
-                    widget.pack(anchor = "w")
-            else: widget.forget()
-
-        if show_additional_options: 
-            additional_options_frame.configure(height = -1)
-            additional_options.configure(image = custom_ui.icons.arrow_up)
-        else: 
-            additional_options_frame.configure(height = 1)
-            additional_options.configure(image = custom_ui.icons.arrow_down)
-
-    def save_additional_preferences(): 
-        preferences.additional_prefs = f"{int(hide_autorun.get())}{int(hide_vl_icon.get())}{int(backup_existing_autorun.get())}{int(refresh_volume_info_without_asking.get())}"
-        preferences.save_settings()
-
-    custom_ui.Checkbutton(additional_options_frame, text = strings.lang.hide_autorun, command = save_additional_preferences, variable = hide_autorun)
-    custom_ui.Checkbutton(additional_options_frame, text = strings.lang.hide_vl_icon, command = save_additional_preferences, variable = hide_vl_icon)
-    custom_ui.Checkbutton(additional_options_frame, text = strings.lang.backup_existing_autorun, command = save_additional_preferences, variable = backup_existing_autorun)
-    custom_ui.Checkbutton(additional_options_frame, text = strings.lang.refresh_volume_info_without_asking, command = save_additional_preferences, variable = refresh_volume_info_without_asking)
+    additional_options_button = custom_ui.Toolbutton(root, text = " " + strings.lang.additional_options, command = lambda: additional_options.show(additional_options_vars), anchor = "w", compound = "left", image = custom_ui.icons.settings)
+    additional_options_button.pack(pady = (preferences.get_scaled_value(14), 0), anchor = "w")
+    additional_options_button.configure(padx = preferences.get_scaled_value(2))        
 
     buttons = ttk.Frame(root)
     buttons.pack(fill = "x", pady = (preferences.get_scaled_value(16), 0))
@@ -560,7 +536,10 @@ def draw_ui():
 
     status_bar = ttk.Label(
         window, style = "StatusBar.TLabel", 
-        padding = (preferences.get_scaled_value(14), preferences.get_scaled_value(6), preferences.get_scaled_value(14), preferences.get_scaled_value(6))
+        padding = (
+            preferences.get_scaled_value(14), preferences.get_scaled_value(6), 
+            preferences.get_scaled_value(14), preferences.get_scaled_value(6)
+        )
     )
     status_bar.pack(anchor = "w", fill = "x")
 

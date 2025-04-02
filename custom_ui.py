@@ -79,6 +79,7 @@ class Icons():
         self.image = tk.PhotoImage()
         self.arrow_up = tk.PhotoImage()
         self.arrow_down = tk.PhotoImage()
+        self.settings = tk.PhotoImage()
 
     def update(self):
         with warnings.catch_warnings():
@@ -90,6 +91,7 @@ class Icons():
             icon.extract_and_tint_icon(preferences.internal + "icons\\image.ico", colors.accent, 32, icons.image)
             icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_up.ico", colors.fg, 9, icons.arrow_up)
             icon.extract_and_tint_icon(preferences.internal + "icons\\arrow_down.ico", colors.fg, 9, icons.arrow_down)
+            icon.extract_and_tint_icon(preferences.internal + "icons\\settings.ico", colors.fg, 14, icons.settings)
 
 
 colors = Colors()
