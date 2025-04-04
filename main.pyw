@@ -206,7 +206,7 @@ def modify_volume_info():
                 reassign_letter = True
             else:
                 if not volume.is_system_volume(selected_volume.get()):
-                    reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+                    reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning", default = "no")
                 else:
                     reassign_letter = False
 
@@ -255,7 +255,7 @@ def remove_volume_customizations():
                     reassign_letter = True
                 else:
                     if not volume.is_system_volume(selected_volume.get()):
-                        reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning")
+                        reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning", default = "no")
                     else:
                         reassign_letter = False
                 
