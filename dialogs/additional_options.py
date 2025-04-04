@@ -31,10 +31,26 @@ def show(additional_options_vars):
 
         window.destroy()
 
-    custom_ui.Checkbutton(window, text = strings.lang.hide_autorun, command = save_additional_preferences, variable = additional_options_vars[0]).pack(anchor = "w")
-    custom_ui.Checkbutton(window, text = strings.lang.hide_vl_icon, command = save_additional_preferences, variable = additional_options_vars[1]).pack(anchor = "w")
-    custom_ui.Checkbutton(window, text = strings.lang.backup_existing_autorun, command = save_additional_preferences, variable = additional_options_vars[2]).pack(anchor = "w")
-    custom_ui.Checkbutton(window, text = strings.lang.refresh_volume_info_without_asking, command = save_additional_preferences, variable = additional_options_vars[3]).pack(anchor = "w")
+    hide_autorun = custom_ui.Checkbutton(window, text = strings.lang.hide_autorun, command = save_additional_preferences, variable = additional_options_vars[0])
+    hide_autorun.pack(anchor = "w")
+
+    hide_vl_icon = custom_ui.Checkbutton(window, text = strings.lang.hide_vl_icon, command = save_additional_preferences, variable = additional_options_vars[1])
+    hide_vl_icon.pack(anchor = "w")
+    
+    backup_existing_autorun = custom_ui.Checkbutton(window, text = strings.lang.backup_existing_autorun, command = save_additional_preferences, variable = additional_options_vars[2])
+    backup_existing_autorun.pack(anchor = "w")
+    
+    refresh_volume_info_without_asking = custom_ui.Checkbutton(window, text = strings.lang.refresh_volume_info_without_asking, command = save_additional_preferences, variable = additional_options_vars[3])
+    refresh_volume_info_without_asking.pack(anchor = "w")
+
+    window.update()
+    style = ttk.Style()
+    style.configure("Description.TLabel", wraplength = int(window.winfo_reqwidth() * 1.5))
+
+    ttk.Label(window, text = strings.lang.hide_autorun_description, style = "Description.TLabel").pack(after = hide_autorun, anchor = "w", pady = (0, preferences.get_scaled_value(8)))
+    ttk.Label(window, text = strings.lang.hide_vl_icon_description, style = "Description.TLabel").pack(after = hide_vl_icon, anchor = "w", pady = (0, preferences.get_scaled_value(8)))
+    ttk.Label(window, text = strings.lang.backup_existing_autorun_description, style = "Description.TLabel").pack(after = backup_existing_autorun, anchor = "w", pady = (0, preferences.get_scaled_value(8)))
+    ttk.Label(window, text = strings.lang.refresh_volume_info_without_asking_description, style = "Description.TLabel").pack(after = refresh_volume_info_without_asking, anchor = "w", pady = (0, preferences.get_scaled_value(8)))
 
     custom_ui.Button(window, text = strings.lang.ok, default = "active", command = remove_additional_options_vars_traces).pack(pady = preferences.get_scaled_value(16), anchor = "e")
 
