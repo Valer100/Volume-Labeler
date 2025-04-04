@@ -33,7 +33,7 @@ hide_autorun_description = "Ascunde fișierul \"autorun.inf\" care este creat pe
 hide_vl_icon = "Ascunde folderul \"vl_icon\""
 hide_vl_icon_description = "Ascunde folderul \"vl_icon\". Acest folder conține pictograma afișată pentru volum. Este recomandat să-l ascunzi pentru a preveni ștergerea accidentală."
 backup_existing_autorun = "Fă backup fișierului \"autorun.inf\" (dacă există deja)"
-backup_existing_autorun_description = "Creează un backup al fișierului \"autorun.inf\" (dacă există deja). Backup-ul va fi salvat într-un folder pe volum, numit \"Autorun.inf Backups\". Util atunci când ceva nu merge cum trebuie în timpul schimbării informațiilor unui volum care are deja acest fișier (de ex. suportul media pentru instalarea unui OS) și nu mai funcționează cum trebuie sau vrei să restaurezi modificările de la un punct anterior."
+backup_existing_autorun_description = "Creează un backup al fișierului \"autorun.inf\" (dacă există deja). Backup-ul va fi salvat într-un folder pe volum, numit \"Autorun.inf Backups\". Util atunci când ceva nu merge cum trebuie în timpul schimbării informațiilor unui volum care are deja acest fișier (de ex. suportul media pentru instalarea unui OS) și nu mai funcționează cum trebuie sau dacă vrei să restaurezi modificările de la un punct anterior."
 refresh_volume_info_without_asking = "Reîmprospătează informațiile volumului fără a întreba"
 refresh_volume_info_without_asking_description = "Reîmprospătează informațiile volumului în File Explorer fără a întreba. Procesul de reîmprospătare implică reatribuirea literei volumului, ceea ce ar putea întrerupe temporar accesul la el. Activează această opțiune doar dacă ești sigur(ă) că nu vei avea vreodată fișiere deschise de pe volum atunci când schimbi informațiile acestuia folosind această unealtă."
 
@@ -63,6 +63,8 @@ admin_rights_not_granted = "Drepturi de administrator neacordate"
 admin_rights_not_granted_message = "Nu ai acordat drepturi de administrator pentru Volume Labeler. Volume Labeler poate funcționa și fără drepturi de administrator, dar modificările pe care le vei face unui volum vor avea efect doar după deconectarea și reconectarea unității pe care se află acesta (dacă este amovibilă) sau repornirea calculatorului."
 refresh_volume_info = "Reîmprospătează informațiile volumului"
 refresh_volume_info_message = "Ai dori să reîmprospătezi informațiile volumului? Această acțiune va actualiza informațiile volumului instantaneu în File Explorer fără nevoia de a deconecta și reconecta unitatea pe care se află volumul sau de o repornire, dar s-ar putea să afecteze procesele care îl folosesc deja. Este recomandat să-ți salvezi fișierele pe care încă nu le-ai salvat încă și să închizi toate aplicațiile deschise de pe volum înainte de a continua."
+reset_to_default = "Resetează la valorile prestabilite"
+reset_to_default_confirmation = "Ești sigur(ă) că vrei să resetezi toate opțiunile la valorile lor prestabilite?"
 
 # Status bar
 ready = "Pregătit"
