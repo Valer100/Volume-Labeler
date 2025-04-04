@@ -233,7 +233,7 @@ class Button(tk.Button):
         )
 
         if self["width"] == 0:
-            if len(self["text"]) >= 10: self.configure(width = len(self["text"]))
+            if len(self["text"]) >= 10: self.configure(padx = 10)
             else: self.configure(width = 10)
 
         if self["default"] == "active": 

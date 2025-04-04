@@ -51,7 +51,7 @@ def show():
 
     show_licenses = custom_ui.Button(buttons, text = strings.lang.open_source_licenses, command = show_hide_licenses, compound = "left", image = custom_ui.icons.arrow_down)
     show_licenses.pack(anchor = "w", side = "left")
-    show_licenses.configure(width = 0, padx = preferences.get_scaled_value(5))
+    show_licenses.configure(padx = preferences.get_scaled_value(5))
 
     custom_ui.Button(buttons, text = strings.lang.ok, command = window.destroy, default = "active").pack(side = "right")
 
