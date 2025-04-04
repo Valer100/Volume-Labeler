@@ -36,8 +36,10 @@ def show(additional_options_vars):
     custom_ui.Checkbutton(window, text = strings.lang.backup_existing_autorun, command = save_additional_preferences, variable = additional_options_vars[2]).pack(anchor = "w")
     custom_ui.Checkbutton(window, text = strings.lang.refresh_volume_info_without_asking, command = save_additional_preferences, variable = additional_options_vars[3]).pack(anchor = "w")
 
-    custom_ui.Button(window, text = strings.lang.ok, default = "active", command = remove_additional_options_vars_traces).pack(pady = preferences.get_scaled_value(16), fill = "x")
+    custom_ui.Button(window, text = strings.lang.ok, default = "active", command = remove_additional_options_vars_traces).pack(pady = preferences.get_scaled_value(16), anchor = "e")
 
     window.protocol("WM_DELETE_WINDOW", remove_additional_options_vars_traces)
+    window.unbind("<Escape>")
+    window.bind("<Escape>", lambda event: remove_additional_options_vars_traces())
     window.resizable(False, False)
     window.focus_set()

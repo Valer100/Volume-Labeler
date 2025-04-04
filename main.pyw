@@ -480,7 +480,7 @@ def draw_ui():
 
     additional_options_button = custom_ui.Toolbutton(root, text = " " + strings.lang.additional_options, command = lambda: additional_options.show(additional_options_vars), anchor = "w", compound = "left", image = custom_ui.icons.settings)
     additional_options_button.pack(pady = (preferences.get_scaled_value(14), 0), anchor = "w")
-    additional_options_button.configure(padx = preferences.get_scaled_value(2))        
+    additional_options_button.configure(padx = preferences.get_scaled_value(3), pady = preferences.get_scaled_value(3))
 
     buttons = ttk.Frame(root)
     buttons.pack(fill = "x", pady = (preferences.get_scaled_value(16), 0))
