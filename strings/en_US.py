@@ -33,7 +33,7 @@ hide_autorun_description = "Hides the \"autorun.inf\" file that's created on the
 hide_vl_icon = "Hide \"vl_icon\" folder"
 hide_vl_icon_description = "Hides the \"vl_icon\" folder. This folder contains the icon displayed for the volume. It's recommended to hide it to prevent accidental deletion."
 backup_existing_autorun = "Backup \"autorun.inf\" file (if it already exists)"
-backup_existing_autorun_description = "Creates a backup of the \"autorun.inf\" file (if it already exists). The backup will be saved in an \"Autorun.inf Backups\" folder on the volume. This is useful when something goes wrong while changing the information of a volume that already has this file (e.g., OS installation media) and no longer works as expected, or if you want to restore the changes from a previous point."
+backup_existing_autorun_description = "Creates a backup of the \"autorun.inf\" file (if it already exists). The backup will be saved in a \"Autorun.inf Backups\" folder on the volume. This is useful when something goes wrong while changing the information of a volume that already has this file (e.g. OS installation media) and it no longer works as expected, or if you want to restore the changes from a previous point."
 refresh_volume_info_without_asking = "Refresh volume information without asking"
 refresh_volume_info_without_asking_description = "Refreshes the volume's information in File Explorer without asking. The refreshing process involves reassigning the volume's letter, which might temporarily interrupt access to it. Enable this option only if you are sure you'll never have files open from the volume when changing its information using this tool."
 
