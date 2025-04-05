@@ -62,7 +62,7 @@ unsupported_volume_network = "Network volumes aren't supported."
 admin_rights_not_granted = "Administrator rights not granted"
 admin_rights_not_granted_message = "You didn't grant Volume Labeler administrator rights. Volume Labeler can also work without administrator rights, but the changes you will make to a volume will only take effect after disconnecting and reconnecting the drive the volume is on (if it is removable) or rebooting your computer."
 refresh_volume_info = "Refresh volume information"
-refresh_volume_info_message = "Would you like to refresh the volume's information? This action will update the volume information instantly in the File Explorer without requiring disconnecting and reconnecting the drive the volume is on or a reboot, but it might affect processes that already use it. It's recommended to save your files that you didn't save yet and close any apps open from the volume before proceeding."
+refresh_volume_info_message = "Would you like to refresh the volume's information? This action will instantly update the volume information in the File Explorer without requiring disconnecting and reconnecting the drive the volume is on or a reboot, but it might affect processes that are already using it. It's recommended that you save any files you haven't already saved and close any apps that are open from the volume before proceeding."
 reset_to_default = "Reset to default"
 reset_to_default_confirmation = "Are you sure you want to reset all the options to their default values?"
 

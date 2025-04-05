@@ -62,7 +62,7 @@ unsupported_volume_network = "Volumele de rețea nu sunt suportate."
 admin_rights_not_granted = "Drepturi de administrator neacordate"
 admin_rights_not_granted_message = "Nu ai acordat drepturi de administrator pentru Volume Labeler. Volume Labeler poate funcționa și fără drepturi de administrator, dar modificările pe care le vei face unui volum vor avea efect doar după deconectarea și reconectarea unității pe care se află acesta (dacă este amovibilă) sau repornirea calculatorului."
 refresh_volume_info = "Reîmprospătează informațiile volumului"
-refresh_volume_info_message = "Ai dori să reîmprospătezi informațiile volumului? Această acțiune va actualiza informațiile volumului instantaneu în File Explorer fără nevoia de a deconecta și reconecta unitatea pe care se află volumul sau de o repornire, dar s-ar putea să afecteze procesele care îl folosesc deja. Este recomandat să-ți salvezi fișierele pe care încă nu le-ai salvat încă și să închizi toate aplicațiile deschise de pe volum înainte de a continua."
+refresh_volume_info_message = "Ai dori să reîmprospătezi informațiile volumului? Această acțiune va actualiza informațiile volumului instantaneu în File Explorer fără nevoia de a deconecta și reconecta unitatea pe care se află volumul sau de o repornire, dar s-ar putea să afecteze procesele care îl folosesc deja. Este recomandat să-ți salvezi fișierele pe care nu le-ai salvat deja și să închizi toate aplicațiile deschise de pe volum înainte de a continua."
 reset_to_default = "Resetează la valorile prestabilite"
 reset_to_default_confirmation = "Ești sigur(ă) că vrei să resetezi toate opțiunile la valorile lor prestabilite?"
 
