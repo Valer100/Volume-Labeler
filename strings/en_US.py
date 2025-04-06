@@ -65,6 +65,7 @@ refresh_volume_info = "Refresh volume information"
 refresh_volume_info_message = "Would you like to refresh the volume's information? This action will instantly update the volume information in the File Explorer without requiring disconnecting and reconnecting the drive the volume is on or a reboot, but it might affect processes that are already using it. It's recommended that you save any files you haven't already saved and close any apps that are open from the volume before proceeding."
 reset_to_default = "Reset to default"
 reset_to_default_confirmation = "Are you sure you want to reset all the options to their default values?"
+second_instance_detected = "The app is already running. Only one instance is allowed."
 
 # Status bar
 ready = "Ready"

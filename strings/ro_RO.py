@@ -65,6 +65,7 @@ refresh_volume_info = "Reîmprospătează informațiile volumului"
 refresh_volume_info_message = "Ai dori să reîmprospătezi informațiile volumului? Această acțiune va actualiza informațiile volumului instantaneu în File Explorer fără nevoia de a deconecta și reconecta unitatea pe care se află volumul sau de o repornire, dar s-ar putea să afecteze procesele care îl folosesc deja. Este recomandat să-ți salvezi fișierele pe care nu le-ai salvat deja și să închizi toate aplicațiile deschise de pe volum înainte de a continua."
 reset_to_default = "Resetează la valorile prestabilite"
 reset_to_default_confirmation = "Ești sigur(ă) că vrei să resetezi toate opțiunile la valorile lor prestabilite?"
+second_instance_detected = "Aplicația rulează deja. Numai o singură instanță este permisă."
 
 # Status bar
 ready = "Pregătit"

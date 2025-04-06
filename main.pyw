@@ -1,5 +1,14 @@
-import ctypes, os, sys
+import ctypes, os, sys, strings, win32event, win32api, winerror
 from tkinter import messagebox
+from utils import preferences
+
+strings.load_language(preferences.language)
+
+mutex = win32event.CreateMutex(None, False, "Valer100.VolumeLabeler")
+
+if win32api.GetLastError() == winerror.ERROR_ALREADY_EXISTS:
+    messagebox.showerror("Volume Labeler", strings.lang.second_instance_detected)
+    sys.exit(1)
 
 if not ctypes.windll.shell32.IsUserAnAdmin():
     if getattr(sys, "frozen", False):
@@ -10,9 +19,9 @@ if not ctypes.windll.shell32.IsUserAnAdmin():
     if result == 42: sys.exit(0)
 
 import tkinter as tk, strings, custom_ui, traceback, tktooltip, argparse, pywinstyles
-from tkinter import ttk, filedialog, messagebox
-from utils import volume, icon, preferences, context_menu_entry
+from tkinter import ttk, filedialog
 from dialogs import change_language, change_theme, about, error, additional_options
+from utils import volume, icon, context_menu_entry
 
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
@@ -425,7 +434,6 @@ def draw_ui():
     show_additional_options = False
     
     for widget in window.winfo_children(): widget.destroy()
-    strings.load_language(preferences.language)
 
     root = ttk.Frame(window, padding = (preferences.get_scaled_value(14), preferences.get_scaled_value(8), preferences.get_scaled_value(14), 0))
     root.pack(fill = "both")
@@ -624,5 +632,5 @@ if not ctypes.windll.shell32.IsUserAnAdmin():
 
 window.bind("<Shift_L>", enable_new_icon_pack)
 window.protocol("WM_DELETE_WINDOW", on_app_close)
-window.focus_set()
+window.focus_force()
 window.mainloop()
