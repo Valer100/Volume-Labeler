@@ -170,7 +170,7 @@ def reassign_volume_letter(volume: str) -> int:
     status_path = preferences.diskpart + "\\status.txt"
     log_path = preferences.diskpart + "\\log.txt"
 
-    open(script_path, "w").write(f"select volume {volume[0]}\nassign letter {volume[0]}\nexit")
+    open(script_path, "w").write(f"select volume {volume[0]}\nassign letter {volume[0]}")
 
     subprocess.call(f"\"{cmd_path}\" /c \"\"{diskpart_path}\" /s \"{script_path}\" > \"{log_path}\" && echo 1 > \"{status_path}\" || echo 0 > \"{status_path}\"\"", shell = True)
     
