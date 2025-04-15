@@ -4,6 +4,9 @@ from tkinter.scrolledtext import ScrolledText
 from utils import preferences, icon
 
 
+is_windows_10 = sys.getwindowsversion().build < 22000 and sys.getwindowsversion().major == 10
+
+
 class Colors():
     def update(self):
         self.light_theme = winaccent.apps_use_light_theme if preferences.theme == "default" else True if preferences.theme == "light" else False
@@ -40,6 +43,12 @@ class Colors():
             self.accent_hover = winaccent._utils.blend_colors(self.accent, self.bg, 90)
             self.accent_press = winaccent._utils.blend_colors(self.accent, self.bg, 80)
             self.accent_link = winaccent.accent_dark_2
+
+            if is_windows_10:
+                self.button_bg = "#e1e1e1"
+                self.button_hover = "#d0d0d0"
+                self.button_press = "#c0c0c0"
+                self.button_bd = "#adadad"
         else:
             self.bg = "#202020"
             self.bg_hover = "#333333"
@@ -231,6 +240,9 @@ class Button(tk.Button):
             activeforeground = colors.fg, highlightthickness = 1, highlightbackground = colors.button_bd,
             highlightcolor = colors.button_bd, *args, **kwargs
         )
+
+        if is_windows_10 and self["default"] == "active":
+            self.configure(padx = 3, pady = 2, highlightthickness = 2)
 
         if self["width"] == 0:
             if len(self["text"]) >= 10: self.configure(padx = 10)
