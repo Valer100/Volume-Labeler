@@ -14,10 +14,8 @@ Features:
 """
 
 from .tooltip import ToolTip, ToolTipStatus
-from .version import __version__
 
 __all__ = [
     "ToolTip",
     "ToolTipStatus",
-    "__version__",
 ]

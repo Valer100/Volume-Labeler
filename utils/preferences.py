@@ -1,5 +1,11 @@
-import os, appdirs, ctypes, yaml
+import os, appdirs, ctypes, yaml, sys
 
+if getattr(sys, "frozen", False): 
+    internal = "_internal\\"
+    os.chdir(os.path.dirname(sys.executable))
+else: 
+    internal = ""
+    os.chdir(os.path.dirname(sys.argv[0]))
 
 if os.path.exists("preferences") and os.path.isdir("preferences"):
     user_preferences = os.path.abspath("preferences")
@@ -14,7 +20,6 @@ diskpart = user_preferences + "\\temp\\diskpart"
 if not os.path.exists(user_preferences): os.mkdir(user_preferences)
 if not os.path.exists(temp): os.mkdir(temp)
 if not os.path.exists(diskpart): os.mkdir(diskpart)
-
 
 theme, language, additional_prefs = "default", "default", "1110"
 

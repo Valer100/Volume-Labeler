@@ -3,7 +3,6 @@ from tkinter import messagebox
 from utils import preferences
 
 strings.load_language(preferences.language)
-
 mutex = win32event.CreateMutex(None, False, "Valer100.VolumeLabeler")
 
 if win32api.GetLastError() == winerror.ERROR_ALREADY_EXISTS:
@@ -24,10 +23,6 @@ from dialogs import change_language, change_theme, about, error, additional_opti
 from utils import volume, icon, context_menu_entry
 
 ctypes.windll.shcore.SetProcessDpiAwareness(1)
-
-os.chdir(os.path.dirname(__file__))
-if os.path.exists("icons\\icon.ico"): preferences.internal = ""
-else: preferences.internal = "_internal\\"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--volume", default = None, help = "The letter of the volume you want to customize", required = False)
@@ -577,7 +572,7 @@ def draw_ui():
 
 def enable_new_icon_pack(event):
     global icon_pack
-    icon_pack = os.path.abspath("icons\\storage_types.icl")
+    icon_pack = os.path.abspath(preferences.internal + "icons\\storage_types.icl")
 
     window.unbind("<Shift_L>")
     window.bind("<KeyRelease-Shift_L>", disable_new_icon_pack)
