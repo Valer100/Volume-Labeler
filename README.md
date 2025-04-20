@@ -60,7 +60,7 @@ Just run `build_app.bat`. It will do everything needed to build the app. After t
 ### Building the installer
 Before building the installer, you must install Inno Setup Compiler on your computer. You can download it [here](https://jrsoftware.org/isdl.php/).
 
-Also, you must build the app first before building the installer. After building the app, make sure a `build` folder appears. If it doesn't and  a `dist` folder appears intstead, rename that folder to `build`. After that, right-click `build_installer.iss` and choose `Compile`. After the installer was built, you can find it in the same `build` folder.
+Also, you must build the app first before building the installer. After building the app, make sure a `build` folder appears. If it doesn't and  a `dist` folder appears intstead, rename that folder to `build`. After that, right-click `build_installer_x86.iss`, `build_installer_x64.iss` or `build_installer_arm64.iss` (depending on your CPU's architecture) and choose `Compile`. After the installer was built, you can find it in the same `build` folder.
 
 ## 💿 Download
 At the moment, there are no stable realeses published. However, if you want to try unstable versions, you can check out the builds from [GitHub Actions](https://github.com/Valer100/Volume-Labeler/actions).
