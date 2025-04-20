@@ -21,6 +21,7 @@ echo.
 
 python -m PyInstaller main.pyw --onedir --icon "icons/icon.ico" --version-file "version.txt" --name "volume_labeler" --add-data "icons;./icons/" --add-data "OPEN_SOURCE_LICENSES.txt;." --add-data "LICENSE;." --exclude-module "numpy" --exclude-module "setuptools" --exclude-module "wheel" --exclude-module "importlib_metadata" --exclude-module "markupsafe" --exclude-module "ssl" --exclude-module "_ssl"
 del /f /q dist\volume_labeler\_internal\libcrypto-3.dll
+del /f /q dist\volume_labeler\_internal\libcrypto-3-arm64.dll
 del /f /q dist\volume_labeler\_internal\api-ms-win-*.dll
 rmdir /s /q dist\volume_labeler\_internal\_tcl_data\msgs
 rmdir /s /q dist\volume_labeler\_internal\_tcl_data\tzdata
