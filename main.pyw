@@ -582,7 +582,7 @@ def disable_new_icon_pack(event):
     global icon_pack
     icon_pack = "C:\\Windows\\System32\\shell32.dll"
 
-    window.unbind("<KeyRelease-_L>")
+    window.unbind("<KeyRelease-Shift_L>")
     window.bind("<Shift_L>", enable_new_icon_pack)
 
 
