@@ -5,8 +5,8 @@
 # Volume Labeler
 [![Release](https://img.shields.io/github/v/release/Valer100/Volume-Labeler?label=stable)](https://github.com/Valer100/Volume-Labeler/releases/latest)
 [![Pre-release](https://img.shields.io/github/v/release/Valer100/Volume-Labeler?include_prereleases&label=pre-release)](https://github.com/Valer100/Volume-Labeler/releases)
-[![Windows](https://img.shields.io/badge/windows-10+-blue)]()
-[![Architecture](https://img.shields.io/badge/architecture-x64-blue)]()
+[![Windows](https://img.shields.io/badge/windows-10%20|%2011-blue)]()
+[![Architecture](https://img.shields.io/badge/architecture-x86%20|%20x64%20|%20arm64-blue)]()
 [![Build status](https://img.shields.io/github/actions/workflow/status/Valer100/Volume-Labeler/build.yml)](https://github.com/Valer100/Volume-Labeler/actions/workflows/build.yml)
 [![Downloads](https://img.shields.io/github/downloads/Valer100/Volume-Labeler/total)](https://github.com/Valer100/Volume-Labeler/releases)
 [![Stars](https://img.shields.io/github/stars/Valer100/Volume-Labeler?style=flat&color=yellow)](https://github.com/Valer100/Volume-Labeler/stargazers)
