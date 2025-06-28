@@ -78,6 +78,17 @@ def refresh_volumes_list():
     custom_ui.set_window_normal_cursor(window)
 
 
+def update_volume_label_in_list(vol):
+    menu = volume_dropdown["menu"]
+
+    for i in range(menu.index("end") + 1):
+        if menu.entrycget(i, "onvalue") == vol:
+            try: volume_label = volume.get_volume_label_and_icon(vol)["label"]
+            except: volume_label = volume.get_volume_label(vol)
+
+            menu.entryconfigure(i, label = f"{volume_label} ({vol})")
+
+
 def update_volume_info(vol, forced = False):
     global icon_type_old, selected_volume_old, label_old, icon_old, icon_current
     selected_volume.set(selected_volume_old)
@@ -201,6 +212,7 @@ def modify_volume_info():
 
         disable_changes_actions()
         enable_disable_autorun_actions()
+        update_volume_label_in_list(selected_volume.get())
 
         if ctypes.windll.shell32.IsUserAnAdmin():
             status_bar["text"] = strings.lang.reassigning_letter
@@ -250,6 +262,7 @@ def remove_volume_customizations():
 
             volume.remove_volume_customizations(volume = selected_volume.get(), backup_existing_autorun = backup_existing_autorun.get())
             update_volume_info(selected_volume.get())
+            update_volume_label_in_list(selected_volume.get())
 
             if ctypes.windll.shell32.IsUserAnAdmin():
                 status_bar["text"] = strings.lang.reassigning_letter
