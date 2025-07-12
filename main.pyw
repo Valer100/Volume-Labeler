@@ -69,11 +69,12 @@ def refresh_volumes_list():
     menu = volume_dropdown["menu"]
     menu.delete(0, "end")
 
-    for string in volumes:
-        try: volume_label = volume.get_volume_label_and_icon(string)["label"]
-        except: volume_label = volume.get_volume_label(string)
-
-        menu.add_checkbutton(label = f"{volume_label} ({string})", command = lambda value = string: update_volume_info(value), variable = selected_volume, onvalue = string)
+    for vol in volumes:
+        if os.path.exists(vol) and not volume.is_network_volume(vol):
+            try: volume_label = volume.get_volume_label_and_icon(vol)["label"]
+            except: volume_label = volume.get_volume_label(vol)
+    
+            menu.add_checkbutton(label = f"{volume_label} ({vol})", command = lambda value = vol: update_volume_info(value), variable = selected_volume, onvalue = vol)
 
     custom_ui.set_window_normal_cursor(window)
 
