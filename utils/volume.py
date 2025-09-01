@@ -1,4 +1,4 @@
-import strings, os, random, re, shutil, datetime, subprocess, ctypes, win32com.client, win32file, win32api
+import strings, os, random, re, shutil, datetime, subprocess, textwrap, ctypes, win32com.client, win32file, win32api
 from utils import preferences
 
 class VolumeNotAccessibleError(Exception): pass
@@ -8,11 +8,11 @@ class AutorunEncodingError(Exception): pass
 
 def read_autorun_file(volume: str) -> str:
     try: 
-        autorun_file = open(f"{volume}autorun.inf", encoding = "utf-16")
+        autorun_file = open(f"{volume}autorun.inf", encoding = "utf-16-le")
         autorun_contents = autorun_file.read()
     except:
         try: 
-            autorun_file = open(f"{volume}autorun.inf", encoding = "utf-8-sig")
+            autorun_file = open(f"{volume}autorun.inf", encoding = "utf-8")
             autorun_contents = autorun_file.read()
         except:
             try:
@@ -47,21 +47,21 @@ def modify_volume_info(
             shutil.copyfile(icon_path, f"{volume}vl_icon\\icon{id}.ico")
 
             readme_file = open(f"{volume}vl_icon\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
-            readme_file.write(strings.lang.icon_folder)
+            readme_file.write(textwrap.fill(strings.lang.icon_folder, width = 70))
             readme_file.close()
 
             if hide_vl_icon: 
                 add_hidden_attribute(f"{volume}vl_icon")
 
         if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun:
-            if not os.path.exists(f"{volume}Autorun.inf Backups"): 
-                os.mkdir(f"{volume}Autorun.inf Backups")
+            if not os.path.exists(f"{volume}{strings.lang.autorun_backups_folder}"): 
+                os.mkdir(f"{volume}{strings.lang.autorun_backups_folder}")
 
             remove_hidden_attribute(f"{volume}autorun.inf")
-            shutil.copyfile(f"{volume}autorun.inf", f"{volume}Autorun.inf Backups\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
+            shutil.copyfile(f"{volume}autorun.inf", f"{volume}{strings.lang.autorun_backups_folder}\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
 
-            readme_file = open(f"{volume}Autorun.inf Backups\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
-            readme_file.write(strings.lang.autorun_backup)
+            readme_file = open(f"{volume}{strings.lang.autorun_backups_folder}\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
+            readme_file.write(textwrap.fill(strings.lang.autorun_backup, width = 70))
             readme_file.close()
 
 
@@ -139,14 +139,14 @@ def modify_volume_info(
 def remove_volume_customizations(volume: str, backup_existing_autorun: bool = True) -> None:
     if os.path.exists(volume):
         if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun:
-            if not os.path.exists(f"{volume}Autorun.inf Backups"):
-                os.mkdir(f"{volume}Autorun.inf Backups")
+            if not os.path.exists(f"{volume}{strings.lang.autorun_backups_folder}"):
+                os.mkdir(f"{volume}{strings.lang.autorun_backups_folder}")
 
             remove_hidden_attribute(f"{volume}autorun.inf")
-            shutil.copyfile(f"{volume}autorun.inf", f"{volume}Autorun.inf Backups\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
+            shutil.copyfile(f"{volume}autorun.inf", f"{volume}{strings.lang.autorun_backups_folder}\\autorun_{str(datetime.datetime.now()).replace('-', '_').replace(':', '_')}.inf")
 
-            readme_file = open(f"{volume}Autorun.inf Backups\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
-            readme_file.write(strings.lang.autorun_backup)
+            readme_file = open(f"{volume}{strings.lang.autorun_backups_folder}\\! {strings.lang.readme}.txt", "w", encoding = "utf-8")
+            readme_file.write(textwrap.fill(strings.lang.autorun_backup, width = 70))
             readme_file.close()
 
         os.remove(f"{volume}autorun.inf")
