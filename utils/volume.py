@@ -8,11 +8,11 @@ class AutorunEncodingError(Exception): pass
 
 def read_autorun_file(volume: str) -> str:
     try: 
-        autorun_file = open(f"{volume}autorun.inf", encoding = "utf-16-le")
+        autorun_file = open(f"{volume}autorun.inf", encoding = "utf-16")
         autorun_contents = autorun_file.read()
     except:
         try: 
-            autorun_file = open(f"{volume}autorun.inf", encoding = "utf-8")
+            autorun_file = open(f"{volume}autorun.inf", encoding = "utf-8-sig")
             autorun_contents = autorun_file.read()
         except:
             try:
@@ -68,7 +68,7 @@ def modify_volume_info(
         def modify_existing_autorun_file():
             autorun = read_autorun_file(volume)
             autorun_new = ""
-            autorun_lines = autorun.split("\n")
+            autorun_lines = autorun.splitlines()
 
             icon_changed = False
             label_changed = False
@@ -86,11 +86,11 @@ def modify_volume_info(
                     elif entry == "label": 
                         autorun_new += f"\nlabel=\"{label}\""
                         label_changed = True
-                    else: autorun_new += "\n" + line
+                    else: 
+                        autorun_new += "\n" + line
                 else:
                     autorun_new += "\n" + line
 
-            
             if not icon_changed and not default_icon: 
                 autorun_new, replacements = re.subn(r"(?i)^\[autorun(?:\.[a-zA-Z0-9_]+)?\]", lambda match: f"{match.group(0)}\nicon=vl_icon\\icon{id}.ico,0", autorun_new, flags = re.MULTILINE)
                 if replacements > 0: icon_changed = True
@@ -129,12 +129,7 @@ def modify_volume_info(
 
 
         if os.path.exists(f"{volume}autorun.inf"):
-            autorun = read_autorun_file(volume)
-
-            if re.search("(?i)^\\[[^\\]]+\\]", autorun):
-                modify_existing_autorun_file()
-            else:
-                create_new_autorun_file()
+            modify_existing_autorun_file()
         else:
             create_new_autorun_file()
     else:
@@ -194,7 +189,7 @@ def get_volume_label_and_icon(volume: str) -> dict[str, str, int]:
 
         if os.path.exists(f"{volume}autorun.inf"):
             autorun = read_autorun_file(volume)
-            autorun_lines = autorun.split("\n")
+            autorun_lines = autorun.splitlines()
 
             for line in autorun_lines:
                 entry_and_param = line.split("=", 1)
