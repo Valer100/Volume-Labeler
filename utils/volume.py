@@ -9,7 +9,7 @@ class AutorunEncodingError(Exception): pass
 def read_autorun_file(volume: str) -> str:
     try: 
         autorun_file = open(f"{volume}autorun.inf", encoding = "utf-16-le")
-        autorun_contents = autorun_file.read()
+        autorun_contents = autorun_file.read().replace("\ufeff", "", 1)
     except:
         try: 
             autorun_file = open(f"{volume}autorun.inf", encoding = "utf-8")
