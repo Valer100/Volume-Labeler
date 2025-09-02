@@ -6,10 +6,11 @@ language_en = "Romanian"
 author = "Valer100"
 
 # Files
-autorun_backups_folder = "Copii de rezervă autorun.inf"
+autorun_backups_folder = "Backupuri autorun.inf"
 readme = "CITEȘTE-MĂ!"
-autorun_backup = "Acest folder include copii de rezervă ale fișierului `autorun.inf` înainte ca Volume Labeler să facă modificări acestuia. Dacă ceva nu a mers cum trebuie sau vrei să restaurezi setările dinainte de modificare, poți face asta ștergând fișierul `autorun.inf` din rădăcina volumului (s-ar putea să fie nevoie să activezi opțiunea \"Arată fișierele ascunse\" ca să-l vezi). După aceea, revino în acest folder, copiază unul dintre fișierele autorun prezente (sunt de forma `autorun_{data și ora}.inf`) în rădăcina acestui volum și apoi redenumește-l în autorun.inf."
+autorun_backup = "Acest folder include copii de rezervă ale fișierului `autorun.inf` înainte ca Volume Labeler să facă modificări acestuia. Dacă ceva nu a mers cum trebuie sau vrei să restaurezi setările dinainte de modificare, poți face asta ștergând fișierul `autorun.inf` din rădăcina volumului (s-ar putea să fie nevoie să activezi opțiunea \"Afișează fișierele ascunse\" ca să-l vezi). După aceea, revino în acest folder, copiază unul dintre fișierele autorun prezente (`autorun_{data și ora}.inf`) în rădăcina acestui volum și apoi redenumește-l în autorun.inf."
 icon_folder = "Acest folder conține pictograma care este afișată la acest volum. Nu șterge/muta/redenumi acest folder sau fișierul pictogramei din el."
+autorun_creation_notice = "Acest fișier a fost creat de Volume Labeler, o unealtă open source pentru personalizarea volumelor. Șterge acest comentariu multilinie dacă ai făcut modificări acestui fișier pentru a evita ca Volume Labeler să-l modifice fără să facă mai întâi o copie de rezervă."
 
 # Main window
 settings = "Setări"
@@ -38,8 +39,8 @@ hide_autorun = "Ascunde fișierul \"autorun.inf\""
 hide_autorun_description = "Ascunde fișierul \"autorun.inf\" care este creat pe volum. Acest fișier este responsabil pentru afișarea etichetei și pictogramei personalizate pentru volum. Este recomandat să-l ascunzi pentru a preveni ștergerea accidentală."
 hide_vl_icon = "Ascunde folderul \"vl_icon\""
 hide_vl_icon_description = "Ascunde folderul \"vl_icon\". Acest folder conține pictograma afișată pentru volum. Este recomandat să-l ascunzi pentru a preveni ștergerea accidentală."
-backup_existing_autorun = "Fă backup fișierului \"autorun.inf\" (dacă există deja)"
-backup_existing_autorun_description = f"Creează un backup al fișierului \"autorun.inf\" (dacă există deja). Backup-ul va fi salvat într-un folder pe volum, numit \"{autorun_backups_folder}\". Util atunci când ceva nu merge cum trebuie în timpul schimbării informațiilor unui volum care are deja acest fișier (de ex. suportul media pentru instalarea unui OS) și nu mai funcționează cum trebuie sau dacă vrei să restaurezi modificările de la un punct anterior."
+backup_existing_autorun = "Fă backup fișierului \"autorun.inf\""
+backup_existing_autorun_description = f"Creează un backup al fișierului \"autorun.inf\" dacă deja există și nu a fost creat de Volume Labeler. Backupul va fi salvat într-un folder pe volum, numit \"{autorun_backups_folder}\". Util atunci când ceva nu merge cum trebuie în timpul schimbării informațiilor unui volum care are deja acest fișier (de ex. suportul media pentru instalarea unui OS) și nu mai funcționează cum trebuie sau dacă vrei să restaurezi modificările de la un punct anterior."
 refresh_volume_info_without_asking = "Reîmprospătează informațiile volumului fără a întreba"
 refresh_volume_info_without_asking_description = "Reîmprospătează informațiile volumului în File Explorer fără a întreba. Procesul de reîmprospătare implică reatribuirea literei volumului, ceea ce ar putea întrerupe temporar accesul la el. Activează această opțiune doar dacă ești sigur(ă) că nu vei avea vreodată fișiere deschise de pe volum atunci când schimbi informațiile acestuia folosind această unealtă."
 

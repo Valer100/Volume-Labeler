@@ -8,8 +8,9 @@ author = "Valer100"
 # Files
 autorun_backups_folder = "Autorun.inf Backups"
 readme = "READ ME!"
-autorun_backup = "This folder includes backups of the `autorun.inf` file before Volume Labeler made changes to it. If something went wrong or you want to restore the settings before the modification, you can do so by deleting the `autorun.inf` file in the root of this volume (you may need to enable the \"Show hidden files\" option to see it). After that, go back to this folder, copy one of the autorun files (they are of the form `autorun_{date and time}.inf`) to the root of this volume and then rename it to autorun.inf."
+autorun_backup = "This folder includes backups of the `autorun.inf` file before Volume Labeler made changes to it. If something went wrong or you want to restore the settings before the modification, you can do so by deleting the `autorun.inf` file in the root of this volume (you may need to enable the \"Show hidden files\" option to see it). After that, go back to this folder, copy one of the autorun files (`autorun_{date and time}.inf`) to the root of this volume and then rename it to autorun.inf."
 icon_folder = "This folder contains the icon that's displayed to your volume. Do not delete/move/rename this folder or the icon file inside it."
+autorun_creation_notice = "This file was created by Volume Labeler, an open source volume customization tool. Delete this multiline comment if you made changes to this file to prevent Volume Labeler from modifying it without making a backup first."
 
 # Main window
 settings = "Settings"
@@ -38,8 +39,8 @@ hide_autorun = "Hide \"autorun.inf\" file"
 hide_autorun_description = "Hides the \"autorun.inf\" file that's created on the volume. This file is responsible for displaying the custom label and icon for the volume. It's recommended to hide it to prevent accidental deletion."
 hide_vl_icon = "Hide \"vl_icon\" folder"
 hide_vl_icon_description = "Hides the \"vl_icon\" folder. This folder contains the icon displayed for the volume. It's recommended to hide it to prevent accidental deletion."
-backup_existing_autorun = "Backup \"autorun.inf\" file (if it already exists)"
-backup_existing_autorun_description = f"Creates a backup of the \"autorun.inf\" file (if it already exists). The backup will be saved in a \"{autorun_backups_folder}\" folder on the volume. This is useful when something goes wrong while changing the information of a volume that already has this file (e.g. OS installation media) and it no longer works as expected, or if you want to restore the changes from a previous point."
+backup_existing_autorun = "Backup \"autorun.inf\" file"
+backup_existing_autorun_description = f"Creates a backup of the \"autorun.inf\" file if it already exists and was not created by Volume Labeler. The backup will be saved in a \"{autorun_backups_folder}\" folder on the volume. This is useful when something goes wrong while changing the information of a volume that already has this file (e.g. OS installation media) and it no longer works as expected, or if you want to restore the changes from a previous point."
 refresh_volume_info_without_asking = "Refresh volume information without asking"
 refresh_volume_info_without_asking_description = "Refreshes the volume's information in File Explorer without asking. The refreshing process involves reassigning the volume's letter, which might temporarily interrupt access to it. Enable this option only if you are sure you'll never have files open from the volume when changing its information using this tool."
 
