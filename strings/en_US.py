@@ -83,6 +83,8 @@ preparing_icon = "Preparing icon..."
 
 # Other
 open_source_licenses = "Open source licenses"
+show_open_source_licenses = "Show open source licenses"
+hide_open_source_licenses = "Hide open source licenses"
 change_language = "Change language"
 change_theme = "Change theme"
 light_theme = "Light theme"

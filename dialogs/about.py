@@ -17,10 +17,17 @@ def show():
         global arrow, show_os_licenses
         show_os_licenses = not show_os_licenses
 
-        if show_os_licenses: licenses.pack(pady = preferences.get_scaled_value(16))
-        else: licenses.forget()
+        if show_os_licenses: 
+            licenses_header.pack(after = links, pady = (preferences.get_scaled_value(16), preferences.get_scaled_value(8)), anchor = "w")
+            licenses.pack(after = licenses_header, pady = preferences.get_scaled_value(8))
+        else: 
+            licenses_header.forget()
+            licenses.forget()
 
-        show_licenses.configure(image = custom_ui.icons.arrow_up if show_os_licenses else custom_ui.icons.arrow_down)
+        show_licenses.configure(
+            image = custom_ui.icons.arrow_up if show_os_licenses else custom_ui.icons.arrow_down,
+            text = strings.lang.show_open_source_licenses if not show_os_licenses else strings.lang.hide_open_source_licenses
+        )
 
     app_info = ttk.Frame(window)
     app_info.pack(fill = "x")
@@ -49,11 +56,13 @@ def show():
     buttons = ttk.Frame(window)
     buttons.pack(fill = "x", pady = preferences.get_scaled_value(16))
 
-    show_licenses = custom_ui.Button(buttons, text = strings.lang.open_source_licenses, command = show_hide_licenses, compound = "left", image = custom_ui.icons.arrow_down)
+    show_licenses = custom_ui.Button(buttons, text = strings.lang.show_open_source_licenses, command = show_hide_licenses, compound = "left", image = custom_ui.icons.arrow_down)
     show_licenses.pack(anchor = "w", side = "left", fill = "y")
     show_licenses.configure(padx = preferences.get_scaled_value(5))
 
     custom_ui.Button(buttons, text = strings.lang.ok, command = window.destroy, default = "active").pack(side = "right")
+
+    licenses_header = ttk.Label(window, text = strings.lang.open_source_licenses, font = ("Segoe UI Semibold", 14))
 
     licenses = ScrolledText(window, width = 80, height = 20, wrap = "word", background = custom_ui.colors.entry_bg,
                                  foreground = custom_ui.colors.fg, selectbackground = custom_ui.colors.entry_select,

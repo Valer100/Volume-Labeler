@@ -83,6 +83,8 @@ preparing_icon = "Se pregătește pictograma..."
 
 # Other
 open_source_licenses = "Licențe open source"
+show_open_source_licenses = "Afișează licențele open source"
+hide_open_source_licenses = "Ascunde licențele open source"
 change_language = "Schimbă limba"
 change_theme = "Schimbă tema"
 light_theme = "Temă luminoasă"
