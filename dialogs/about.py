@@ -1,6 +1,5 @@
 import tkinter as tk, strings, custom_ui, webbrowser
 from tkinter import ttk
-from tkinter.scrolledtext import ScrolledText
 import strings._info
 from utils import preferences
 from dialogs import app_license
@@ -64,7 +63,7 @@ def show():
 
     licenses_header = ttk.Label(window, text = strings.lang.open_source_licenses, font = ("Segoe UI Semibold", 14))
 
-    licenses = ScrolledText(window, width = 80, height = 20, wrap = "word", background = custom_ui.colors.entry_bg,
+    licenses = custom_ui.ScrolledTextTtkScrollbar(window, width = 80, height = 20, wrap = "word", background = custom_ui.colors.entry_bg,
                                  foreground = custom_ui.colors.fg, selectbackground = custom_ui.colors.entry_select,
                                  selectforeground = "#ffffff", highlightthickness = 1, relief = "solid",
                                  highlightbackground = custom_ui.colors.entry_bd, 
