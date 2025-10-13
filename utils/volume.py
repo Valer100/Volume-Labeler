@@ -53,7 +53,7 @@ def modify_volume_info(
             if hide_vl_icon: 
                 add_hidden_attribute(f"{volume}vl_icon")
 
-        if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun and not read_autorun_file(volume).startswith("; CREATED_BY_VOLUME_LABELER"):
+        if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun and not read_autorun_file(volume).startswith("; CREATED BY VOLUME LABELER"):
             if not os.path.exists(f"{volume}{strings.lang.autorun_backups_folder}"): 
                 os.mkdir(f"{volume}{strings.lang.autorun_backups_folder}")
 
@@ -116,7 +116,7 @@ def modify_volume_info(
 
         def create_new_autorun_file():
             autorun_notice = textwrap.fill(strings.lang.autorun_creation_notice, width = 70).replace("\n", "\n; ")
-            autorun = f"; CREATED_BY_VOLUME_LABELER\n\n; {autorun_notice}\n\n[autorun]\nlabel=\"{label}\""
+            autorun = f"; CREATED BY VOLUME LABELER\n\n; {autorun_notice}\n\n[autorun]\nlabel=\"{label}\""
             if not default_icon: autorun += f"\nicon=vl_icon\\icon{id}.ico,0"
 
             remove_hidden_attribute(f"{volume}autorun.inf")
