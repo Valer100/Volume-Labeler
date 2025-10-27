@@ -142,7 +142,7 @@ def modify_volume_info(
 
 def remove_volume_customizations(volume: str, backup_existing_autorun: bool = True) -> None:
     if os.path.exists(volume):
-        if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun:
+        if os.path.exists(f"{volume}autorun.inf") and backup_existing_autorun and not read_autorun_file(volume).startswith("; CREATED BY VOLUME LABELER"):
             if not os.path.exists(f"{volume}{strings.lang.autorun_backups_folder}"):
                 os.mkdir(f"{volume}{strings.lang.autorun_backups_folder}")
 
