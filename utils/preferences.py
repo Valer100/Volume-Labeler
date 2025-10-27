@@ -15,11 +15,9 @@ else:
     is_portable = False
 
 temp = user_preferences + "\\temp"
-diskpart = user_preferences + "\\temp\\diskpart"
 
 if not os.path.exists(user_preferences): os.mkdir(user_preferences)
 if not os.path.exists(temp): os.mkdir(temp)
-if not os.path.exists(diskpart): os.mkdir(diskpart)
 
 theme, language, additional_prefs = "default", "default", "1110"
 
@@ -31,8 +29,7 @@ def save_settings():
         "additional_options": {
             "hide_autorun.inf": bool(int(additional_prefs[0])),
             "hide_vl_icon": bool(int(additional_prefs[1])),
-            "backup_autorun.inf": bool(int(additional_prefs[2])),
-            "refresh_volume_info_without_asking": bool(int(additional_prefs[3]))
+            "backup_autorun.inf": bool(int(additional_prefs[2]))
         }
     }
 
@@ -52,7 +49,7 @@ def load_settings():
     theme = settings["theme"]
 
     additional_prefs = ""
-    additional_prefs_list = ["hide_autorun.inf", "hide_vl_icon", "backup_autorun.inf", "refresh_volume_info_without_asking"]
+    additional_prefs_list = ["hide_autorun.inf", "hide_vl_icon", "backup_autorun.inf"]
 
     for preference in additional_prefs_list:
         try: additional_prefs += str(int(settings["additional_options"][preference]))

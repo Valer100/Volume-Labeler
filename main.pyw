@@ -48,9 +48,8 @@ icon_old = (None, 0)
 hide_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[0]))
 hide_vl_icon = tk.BooleanVar(value = int(preferences.additional_prefs[1]))
 backup_existing_autorun = tk.BooleanVar(value = int(preferences.additional_prefs[2]))
-refresh_volume_info_without_asking = tk.BooleanVar(value = int(preferences.additional_prefs[3]))
 
-additional_options_vars = (hide_autorun, hide_vl_icon, backup_existing_autorun, refresh_volume_info_without_asking)
+additional_options_vars = (hide_autorun, hide_vl_icon, backup_existing_autorun)
 
 
 def select_first_accessible_volume():
@@ -219,19 +218,7 @@ def modify_volume_info():
             status_bar["text"] = strings.lang.reassigning_letter
             window.update_idletasks()
 
-            if refresh_volume_info_without_asking.get():
-                reassign_letter = not volume.is_system_volume(selected_volume.get())
-            else:
-                if not volume.is_system_volume(selected_volume.get()):
-                    reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning", default = "no")
-                else:
-                    reassign_letter = False
-
-            if reassign_letter:
-                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
-            else:
-                volume_letter_reassigned = False
-                
+            volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())    
             show_ready_status()
 
             if volume_letter_reassigned:
@@ -269,19 +256,7 @@ def remove_volume_customizations():
                 status_bar["text"] = strings.lang.reassigning_letter
                 window.update_idletasks()
 
-                if refresh_volume_info_without_asking.get():
-                    reassign_letter = not volume.is_system_volume(selected_volume.get())
-                else:
-                    if not volume.is_system_volume(selected_volume.get()):
-                        reassign_letter = messagebox.askyesno(strings.lang.refresh_volume_info, strings.lang.refresh_volume_info_message, icon = "warning", default = "no")
-                    else:
-                        reassign_letter = False
-                
-                if reassign_letter:
-                    volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
-                else:
-                    volume_letter_reassigned = False
-                
+                volume_letter_reassigned = volume.reassign_volume_letter(selected_volume.get())
                 show_ready_status()
 
                 if volume_letter_reassigned:

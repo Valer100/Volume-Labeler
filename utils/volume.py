@@ -1,5 +1,8 @@
-import strings, os, random, re, shutil, datetime, subprocess, textwrap, ctypes, win32com.client, win32file, win32api
+import strings, os, random, re, shutil, datetime, textwrap, ctypes, win32com.client, win32file, win32api, wmi
 from utils import preferences
+
+kernel32 = ctypes.WinDLL("kernel32", use_last_error = True)
+wmi_instance = wmi.WMI()
 
 class VolumeNotAccessibleError(Exception): pass
 class IconNotFoundError(Exception): pass
@@ -158,19 +161,26 @@ def remove_volume_customizations(volume: str, backup_existing_autorun: bool = Tr
         raise VolumeNotAccessibleError(f"The volume {volume} is not accessible.")
     
 
-def reassign_volume_letter(volume: str) -> int:
-    cmd_path = "C:\\Windows\\System32\\cmd.exe"
-    diskpart_path = "C:\\Windows\\System32\\diskpart.exe"
+def reassign_volume_letter(volume_letter: str) -> int:
+    volume_letter = volume_letter[0] + ":"
 
-    script_path = preferences.diskpart + "\\script.txt"
-    status_path = preferences.diskpart + "\\status.txt"
-    log_path = preferences.diskpart + "\\log.txt"
+    if not (is_system_volume(volume_letter) or is_volume_in_use(volume_letter)):
+        try:
+            for volume in wmi_instance.Win32_Volume():
+                if volume.DriveLetter == volume_letter:
+                    volume.DriveLetter = None
+                    volume.Put_()
 
-    open(script_path, "w").write(f"select volume {volume[0]}\nassign letter {volume[0]}")
+                    volume.DriveLetter = volume_letter
+                    volume.Put_()
 
-    subprocess.call(f"\"{cmd_path}\" /c \"\"{diskpart_path}\" /s \"{script_path}\" > \"{log_path}\" && echo 1 > \"{status_path}\" || echo 0 > \"{status_path}\"\"", shell = True)
-    
-    return int(open(status_path, "r").read())  # 1 - success; 0 - failure
+                    break
+        except:
+            return 0
+    else:
+        return 0
+
+    return 1
 
 
 def get_volume_label(volume: str) -> str:
@@ -215,6 +225,16 @@ def get_volume_label_and_icon(volume: str) -> dict[str, str, int]:
         return {"label": volume_label, "icon_path": icon_path, "icon_index": icon_index}
     else:
         raise VolumeNotAccessibleError(f"The volume {volume} is not accessible.")
+
+
+def is_volume_in_use(volume: str):
+    volume = volume[0] + ":"
+
+    handle = kernel32.CreateFileW(f"\\\\.\\{volume}", 0x80000000, 0, None, 3, 0, None)
+    if handle == -1: return True
+    
+    kernel32.CloseHandle(handle)
+    return False
 
 
 def is_system_volume(volume: str) -> bool:
