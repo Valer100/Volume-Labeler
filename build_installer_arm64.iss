@@ -32,12 +32,14 @@ OutputBaseFilename=volume_labeler_installer_arm64
 SetupIconFile=assets/installer/icon.ico
 Compression=lzma
 SolidCompression=yes
-WizardStyle=modern
+WizardStyle=modern dynamic
 MinVersion=10.0
 UninstallDisplayName=Volume Labeler (arm64)
 UninstallDisplayIcon={app}\{#MyAppExeName}
-WizardSmallImageFile=assets\installer\icon.bmp
+WizardSmallImageFile=assets\installer\icon_light.bmp
+WizardSmallImageFileDynamicDark=assets\installer\icon_dark.bmp
 WizardImageFile=assets\installer\banner.bmp
+WizardImageFileDynamicDark=assets\installer\banner.bmp
 WizardSizePercent=100
 VersionInfoVersion=1.0.0
 
